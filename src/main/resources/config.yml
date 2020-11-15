@@ -1,0 +1,197 @@
+# --{ =-=-=-=-=-=-=-=-=-= ServerPlus's Configuration Settings, by Momocraft =-=-=-=-=-=-=-=-=-= }--
+# Wiki: https://github.com/momoservertw/ServerPlus/wiki
+Config-Version: 1
+Check-Updates: true
+Debugging: false
+
+Lottery:
+  Enable: false
+  Groups:
+    Mypet-Novice:
+      Enable: true
+      Normal:
+        Enable: true
+        Chance: 1
+        List:
+          - "console: petadmin create -f %player% WOLF"
+          - "console: petadmin create -f %player% OCELOT"
+    Mypet:
+      Enable: true
+      Normal:
+        Enable: true
+        Chance: 0.5
+        List:
+          - "console: petadmin create -f %player% PIG"
+          - "console: petadmin create -f %player% COW"
+          - "console: petadmin create -f %player% ZOMBIE"
+          - "console: petadmin create -f %player% SQUID"
+      Rare:
+        Enable: true
+        Chance: 0.375
+        List:
+          - "console: petadmin create -f %player% SKELETON"
+          - "console: petadmin create -f %player% PIG_ZOMBIE"
+          - "console: petadmin create -f %player% HUSK"
+          - "console: petadmin create -f %player% HORSE"
+          - "console: petadmin create -f %player% DONKEY"
+      Rare2:
+        Enable: true
+        Chance: 0.025
+        List:
+          - "console: petadmin create -f %player% CHICKEN"
+      Super-Rare:
+        Enable: true
+        Chance: 0.06
+        List:
+          - "console: petadmin create -f %player% BLAZE"
+      Ultra-Rare:
+        Enable: true
+        Chance: 0.03
+        List:
+          - "console: petadmin create -f %player% VEX"
+      Mypet-Skill:
+        Enable: true
+        Combat:
+          Enable: true
+          Chance: 1
+          List:
+            - "console: petadmin skilltree %player% c1"
+            - "console: petadmin skilltree %player% c2"
+            - "console: petadmin skilltree %player% c3"
+            - "console: petadmin skilltree %player% c4"
+            - "console: petadmin skilltree %player% c5"
+        Ride:
+          Enable: true
+          Chance: 1
+          List:
+            - "console: petadmin skilltree %player% r1"
+            - "console: petadmin skilltree %player% r2"
+            - "console: petadmin skilltree %player% r3"
+        Work:
+          Enable: true
+          Chance: 1
+          List:
+            - "console: petadmin skilltree %player% w1"
+            - "console: petadmin skilltree %player% w2"
+            - "console: petadmin skilltree %player% w3"
+    Vehicles:
+      Enable: true
+      Bike:
+        Enable: true
+        Chance: 0.25
+        List:
+          - "console: givebike %player% BLACK"
+          - "console: givebike %player% ORANGE"
+          - "console: givebike %player% RED"
+      Car:
+        Enable: true
+        Chance: 0.25
+        List:
+          - "console: givecar %player% BLACK"
+          - "console: givecar %player% YELLOW"
+          - "console: givecar %player% MAGENTA"
+      Tank:
+        Enable: true
+        Chance: 0.1875
+        List:
+          - "console: giveparachute %player% T1"
+          - "console: giveparachute %player% T2"
+          - "console: giveparachute %player% T3"
+      Train:
+        Enable: true
+        Chance: 0.1875
+        List:
+          - "console: givetrain %player% T1"
+          - "console: givetrain %player% T2"
+          - "console: givetrain %player% T3"
+      Racingcar:
+        Enable: true
+        Chance: 0.0425
+        List:
+          - "console: giveracingcar %player% YELLOW"
+          - "console: giveracingcar %player% RED"
+          - "console: giveracingcar %player% PURPLE"
+      Plane:
+        Enable: true
+        Chance: 0.0475
+        List:
+          - "console: giveplane %player% P1"
+          - "console: giveplane %player% P2"
+          - "console: giveplane %player% P3"
+      Drill:
+        Enable: true
+        Chance: 0.015
+        List:
+          - "console: givedrill %player% D1"
+          - "console: givedrill %player% D2"
+          - "console: givedrill %player% D3"
+      Broom:
+        Enable: true
+        Chance: 0.015
+        List:
+          - "console: givebroom %player% B1"
+          - "console: givebroom %player% B2"
+          - "console: givebroom %player% B3"
+    Vehicles2:
+      Enable: true
+      Raft:
+        Enable: true
+        Chance: 0.25
+        List:
+          - "console: givetraft %player% OLD"
+          - "console: givetraft %player% NETHER"
+          - "console: givetraft %player% PIRATE"
+      Tractor:
+        Enable: true
+        Chance: 0.25
+        List:
+          - "console: givetractor %player% YELLOW"
+          - "console: givetractor %player% RED"
+          - "console: givetractor %player% GREEN"
+      Sportbike:
+        Enable: true
+        Chance: 0.1875
+        List:
+          - "console: givesportbike %player% SB1"
+          - "console: givesportbike %player% SB2"
+          - "console: givesportbike %player% SB3"
+      Hoverbike:
+        Enable: true
+        Chance: 0.1875
+        List:
+          - "console: givehoverbike %player% HB1"
+          - "console: givehoverbike %player% HB2"
+          - "console: givehoverbike %player% HB3"
+      Parachute:
+        Enable: true
+        Chance: 0.0475
+        List:
+          - "console: giveparachute %player% PC1"
+          - "console: giveparachute %player% PC2"
+          - "console: giveparachute %player% PC3"
+      Submarine:
+        Enable: true
+        Chance: 0.0475
+        List:
+          - "console: givesubmarine %player% S1"
+          - "console: givesubmarine %player% S2"
+          - "console: givesubmarine %player% S3"
+      Helicopter:
+        Enable: true
+        Chance: 0.03
+        List:
+          - "console: givehelicopter %player% H1"
+          - "console: givehelicopter %player% H2"
+          - "console: givehelicopter %player% H3"
+
+Message:
+  prefix: '&7[&dServerPlus&7]&r '
+  noPermission: '&cYou do not have permission to use that command!'
+  configReload: '&aConfiguration(s) Reloaded!'
+  unknownCommand: '&cUnknown command, See &e/ServerPlus help &cfor a list of commands.'
+  ServerPlus:
+    Commands:
+      title: "&8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩ &d&lServerPlus &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
+      help: "&a/ep help &8- &7This help menu."
+      reload: "&a/ep reload &8- &7Reloads config file."
+      version: '&f/ep version &8- &7Checks the plugin version and updates.'

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>momocraft.tw</groupId>
+    <artifactId>ServerPlus</artifactId>
+    <version>1.0.0</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <!--Maven Repo-->
+        <repository>
+            <id>sk89q-repo</id>
+            <url>https://maven.sk89q.com/repo/</url>
+        </repository>
+        <!--Spigot/CraftBukkit Repo-->
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <!--MythicMobs API-->
+        <repository>
+            <id>nexus</id>
+            <name>Lumine Releases</name>
+            <url>https://mvn.lumine.io/repository/maven-public/</url>
+        </repository>
+        <!--PlaceholderAPI Repo-->
+        <repository>
+            <id>placeholderapi</id>
+            <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <!--MarriageMaster Repo-->
+        <repository>
+            <id>pcgf-repo</id>
+            <url>https://repo.pcgamingfreaks.at/repository/everything</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <!--Google API-->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>18.0</version>
+        </dependency>
+        <!--Spigot API-->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.16.4-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--CraftBukkit API-->
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>bukkit</artifactId>
+            <version>LATEST</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--Vault API-->
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>Vault</artifactId>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/VaultAPI.jar</systemPath>
+            <version>LATEST</version>
+        </dependency>
+        <!--MythicMobs API-->
+        <dependency>
+            <groupId>io.lumine.xikage</groupId>
+            <artifactId>MythicMobs</artifactId>
+            <version>LATEST</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--CMI API-->
+        <dependency>
+            <groupId>me.CMI</groupId>
+            <artifactId>CMI</artifactId>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/CMIAPI7.6.2.0.jar</systemPath>
+            <version>LATEST</version>
+        </dependency>
+        <!--Residence API-->
+        <dependency>
+            <groupId>me.Residence</groupId>
+            <artifactId>Residence</artifactId>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/Residence4.9.0.5.jar</systemPath>
+            <version>LEGACY</version>
+        </dependency>
+        <!--PlaceholderAPI API-->
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>LATEST</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- MarriageMaster API -->
+        <dependency>
+            <groupId>at.pcgamingfreaks</groupId>
+            <artifactId>MarriageMaster-API</artifactId>
+            <version>2.2</version><!-- Check api-version shield for newest version -->
+        </dependency>
+        <!--MyPet API-->
+        <dependency>
+            <groupId>me.MyPet</groupId>
+            <artifactId>MyPet</artifactId>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/MyPet-3.11-SNAPSHOT-B1586.jar</systemPath>
+            <version>LEGACY</version>
+        </dependency>
+    </dependencies>
+
+</project>
