@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import tw.momocraft.serverplus.Commands;
 import tw.momocraft.serverplus.ServerPlus;
+import tw.momocraft.serverplus.listeners.MyPet;
 import tw.momocraft.serverplus.utils.ConfigPath;
 import tw.momocraft.serverplus.utils.DependAPI;
 import org.bukkit.Location;
@@ -38,8 +39,9 @@ public class ConfigHandler {
         ServerPlus.getInstance().getCommand("ServerPlus").setExecutor(new Commands());
         ServerPlus.getInstance().getCommand("ServerPlus").setTabCompleter(new TabComplete());
 
-        //ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new CreatureSpawn(), ServerPlus.getInstance());
-
+        if (ConfigHandler.getDepends().MyPetEnabled()) {
+            ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new MyPet(), ServerPlus.getInstance());
+        }
         /*
         if (ConfigHandler.getDepends().ResidenceEnabled()) {
 

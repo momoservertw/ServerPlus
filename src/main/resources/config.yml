@@ -183,6 +183,18 @@ Lottery:
           - "console: givehelicopter %player% H1"
           - "console: givehelicopter %player% H2"
           - "console: givehelicopter %player% H3"
+MyPet:
+  Enable: false
+  Skilltree-Auto-Select:
+    Enable: false
+    Settings:
+      Create: true
+      Call: true
+    Groups:
+      Normal:
+        Types: []
+        List:
+          - "console: serverplus lottery mypet"
 
 Message:
   prefix: '&7[&dServerPlus&7]&r '
