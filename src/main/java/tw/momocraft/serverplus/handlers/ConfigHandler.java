@@ -41,6 +41,8 @@ public class ConfigHandler {
 
         if (ConfigHandler.getDepends().MyPetEnabled()) {
             ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new MyPet(), ServerPlus.getInstance());
+            ServerHandler.sendFeatureMessage("Register-Event", "MyPet", "MyPet", "continue",
+                    new Throwable().getStackTrace()[0]);
         }
         /*
         if (ConfigHandler.getDepends().ResidenceEnabled()) {

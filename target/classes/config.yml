@@ -12,7 +12,7 @@ Lottery:
       Normal:
         Enable: true
         Chance: 1
-        List:
+        Commands:
           - "console: petadmin create -f %player% WOLF"
           - "console: petadmin create -f %player% OCELOT"
     Mypet:
@@ -20,7 +20,7 @@ Lottery:
       Normal:
         Enable: true
         Chance: 0.5
-        List:
+        Commands:
           - "console: petadmin create -f %player% PIG"
           - "console: petadmin create -f %player% COW"
           - "console: petadmin create -f %player% ZOMBIE"
@@ -28,107 +28,107 @@ Lottery:
       Rare:
         Enable: true
         Chance: 0.375
-        List:
+        Commands:
           - "console: petadmin create -f %player% SKELETON"
           - "console: petadmin create -f %player% PIG_ZOMBIE"
           - "console: petadmin create -f %player% HUSK"
           - "console: petadmin create -f %player% HORSE"
           - "console: petadmin create -f %player% DONKEY"
-      Rare2:
+      Mysterious:
         Enable: true
         Chance: 0.025
-        List:
-          - "console: petadmin create -f %player% CHICKEN"
+        Commands:
+          - "console: petadmin create -f %player% CHICKEN;broadcast: &6Congratulations to &e%player% &6for Capsuling mysterious pet &eCHICKEN"
       Super-Rare:
         Enable: true
         Chance: 0.06
-        List:
-          - "console: petadmin create -f %player% BLAZE"
+        Commands:
+          - "console: petadmin create -f %player% BLAZE;broadcast: &6Congratulations to &e%player% &6for Capsuling mysterious pet &eBLAZE"
       Ultra-Rare:
         Enable: true
         Chance: 0.03
-        List:
-          - "console: petadmin create -f %player% VEX"
-      Mypet-Skill:
+        Commands:
+          - "console: petadmin create -f %player% VEX;broadcast: &6Congratulations to &e%player% &6for Capsuling mysterious pet &eVEX"
+    Mypet-Skill:
+      Enable: true
+      Combat:
         Enable: true
-        Combat:
-          Enable: true
-          Chance: 1
-          List:
-            - "console: petadmin skilltree %player% c1"
-            - "console: petadmin skilltree %player% c2"
-            - "console: petadmin skilltree %player% c3"
-            - "console: petadmin skilltree %player% c4"
-            - "console: petadmin skilltree %player% c5"
-        Ride:
-          Enable: true
-          Chance: 1
-          List:
-            - "console: petadmin skilltree %player% r1"
-            - "console: petadmin skilltree %player% r2"
-            - "console: petadmin skilltree %player% r3"
-        Work:
-          Enable: true
-          Chance: 1
-          List:
-            - "console: petadmin skilltree %player% w1"
-            - "console: petadmin skilltree %player% w2"
-            - "console: petadmin skilltree %player% w3"
+        Chance: 1
+        Commands:
+          - "console: petadmin skilltree %player% c1;message: &6Your pet's skill is change to &fCombat1"
+          - "console: petadmin skilltree %player% c;message: &6Your pet's skill is change to &fCombat2"
+          - "console: petadmin skilltree %player% c3;message: &6Your pet's skill is change to &fCombat3"
+          - "console: petadmin skilltree %player% c4;message: &6Your pet's skill is change to &fCombat4"
+          - "console: petadmin skilltree %player% c5;message: &6Your pet's skill is change to &fCombat5"
+      Ride:
+        Enable: true
+        Chance: 1
+        Commands:
+          - "console: petadmin skilltree %player% r1;message: &6Your pet's skill is change to &fRide1"
+          - "console: petadmin skilltree %player% r2;message: &6Your pet's skill is change to &fRide1"
+          - "console: petadmin skilltree %player% r3;message: &6Your pet's skill is change to &fRide1"
+      Work:
+        Enable: true
+        Chance: 1
+        Commands:
+          - "console: petadmin skilltree %player% w1;message: &6Your pet's skill is change to &fWork1"
+          - "console: petadmin skilltree %player% w2;message: &6Your pet's skill is change to &fWork1"
+          - "console: petadmin skilltree %player% w3;message: &6Your pet's skill is change to &fWork1"
     Vehicles:
       Enable: true
       Bike:
         Enable: true
         Chance: 0.25
-        List:
+        Commands:
           - "console: givebike %player% BLACK"
           - "console: givebike %player% ORANGE"
           - "console: givebike %player% RED"
       Car:
         Enable: true
         Chance: 0.25
-        List:
+        Commands:
           - "console: givecar %player% BLACK"
           - "console: givecar %player% YELLOW"
           - "console: givecar %player% MAGENTA"
       Tank:
         Enable: true
         Chance: 0.1875
-        List:
-          - "console: giveparachute %player% T1"
-          - "console: giveparachute %player% T2"
-          - "console: giveparachute %player% T3"
+        Commands:
+          - "console: givetank %player% T1"
+          - "console: givetank %player% T2"
+          - "console: givetank %player% T3"
       Train:
         Enable: true
         Chance: 0.1875
-        List:
+        Commands:
           - "console: givetrain %player% T1"
           - "console: givetrain %player% T2"
           - "console: givetrain %player% T3"
       Racingcar:
         Enable: true
         Chance: 0.0425
-        List:
+        Commands:
           - "console: giveracingcar %player% YELLOW"
           - "console: giveracingcar %player% RED"
           - "console: giveracingcar %player% PURPLE"
       Plane:
         Enable: true
         Chance: 0.0475
-        List:
+        Commands:
           - "console: giveplane %player% P1"
           - "console: giveplane %player% P2"
           - "console: giveplane %player% P3"
       Drill:
         Enable: true
         Chance: 0.015
-        List:
+        Commands:
           - "console: givedrill %player% D1"
           - "console: givedrill %player% D2"
           - "console: givedrill %player% D3"
       Broom:
         Enable: true
         Chance: 0.015
-        List:
+        Commands:
           - "console: givebroom %player% B1"
           - "console: givebroom %player% B2"
           - "console: givebroom %player% B3"
@@ -137,49 +137,49 @@ Lottery:
       Raft:
         Enable: true
         Chance: 0.25
-        List:
+        Commands:
           - "console: givetraft %player% OLD"
           - "console: givetraft %player% NETHER"
           - "console: givetraft %player% PIRATE"
       Tractor:
         Enable: true
         Chance: 0.25
-        List:
+        Commands:
           - "console: givetractor %player% YELLOW"
           - "console: givetractor %player% RED"
           - "console: givetractor %player% GREEN"
       Sportbike:
         Enable: true
         Chance: 0.1875
-        List:
+        Commands:
           - "console: givesportbike %player% SB1"
           - "console: givesportbike %player% SB2"
           - "console: givesportbike %player% SB3"
       Hoverbike:
         Enable: true
         Chance: 0.1875
-        List:
+        Commands:
           - "console: givehoverbike %player% HB1"
           - "console: givehoverbike %player% HB2"
           - "console: givehoverbike %player% HB3"
       Parachute:
         Enable: true
         Chance: 0.0475
-        List:
+        Commands:
           - "console: giveparachute %player% PC1"
           - "console: giveparachute %player% PC2"
           - "console: giveparachute %player% PC3"
       Submarine:
         Enable: true
         Chance: 0.0475
-        List:
+        Commands:
           - "console: givesubmarine %player% S1"
           - "console: givesubmarine %player% S2"
           - "console: givesubmarine %player% S3"
       Helicopter:
         Enable: true
         Chance: 0.03
-        List:
+        Commands:
           - "console: givehelicopter %player% H1"
           - "console: givehelicopter %player% H2"
           - "console: givehelicopter %player% H3"
@@ -187,14 +187,18 @@ MyPet:
   Enable: false
   Skilltree-Auto-Select:
     Enable: false
-    Settings:
-      Create: true
-      Call: true
     Groups:
-      Normal:
-        Types: []
-        List:
-          - "console: serverplus lottery mypet"
+      # This group is for the pet which no specify skill.
+      Default:
+        Enable: true
+        Commands:
+          - "op: serverplus lottery mypet-skill"
+      Example:
+        Enable: false
+        Types:
+          - BLAZE
+        Commands:
+          - "op: serverplus lottery mypet-skill"
 
 Message:
   prefix: '&7[&dServerPlus&7]&r '

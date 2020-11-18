@@ -4,7 +4,7 @@ author: Momocraft
 api-version: 1.13
 version: 1.0.0
 description: Server utils.
-softdepend: [Vault, MythicMobs, CMI, Residence, PlaceHolderAPI, MarriageMaster]
+softdepend: [Vault, MythicMobs, CMI, Residence, PlaceHolderAPI, MarriageMaster, MyPet]
 
 commands:
   serverplus:
@@ -31,6 +31,8 @@ permissions:
     children:
       ServerPlus.command.reload: true
       ServerPlus.command.version: true
+      ServerPlus.command.returnmarry: true
+      ServerPlus.command.lottery: true
   ServerPlus.command.reload:
     description: Allows use of /ServerPlus command reload.
     default: op
@@ -39,4 +41,7 @@ permissions:
     default: op
   ServerPlus.command.returnmarry:
     description: Allows use of command /ServerPlus returnmarry.
+    default: op
+  ServerPlus.command.lottery:
+    description: Allows use of command /ServerPlus lottery.
     default: op

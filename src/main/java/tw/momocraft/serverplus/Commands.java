@@ -63,7 +63,7 @@ public class Commands implements CommandExecutor {
             }
             return true;
         } else if (args.length == 1 && args[0].equalsIgnoreCase("returnmarry")) {
-            if (PermissionsHandler.hasPermission(sender, "serverplus.admin")) {
+            if (PermissionsHandler.hasPermission(sender, "serverplus.command.returnmarry")) {
                 if (ConfigHandler.getDepends().MarriageMasterEnabled()) {
                     MarriageMasterPlugin marriageMasterPlugin = (MarriageMasterPlugin) MarriageMaster.getMarriageMaster();
                     MarriagePlayer partner;
@@ -99,7 +99,7 @@ public class Commands implements CommandExecutor {
             }
             return true;
         } else if (args.length == 2 && args[0].equalsIgnoreCase("lottery")) {
-            if (PermissionsHandler.hasPermission(sender, "serverplus.admin")) {
+            if (PermissionsHandler.hasPermission(sender, "serverplus.command.lottery")) {
                 if (ConfigHandler.getConfigPath().isLottery()) {
                     Lottery.startLottery(sender, args[1].toLowerCase());
                 } else {

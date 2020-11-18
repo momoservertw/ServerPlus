@@ -1,25 +1,42 @@
 package tw.momocraft.serverplus.utils;
 
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import tw.momocraft.serverplus.handlers.ServerHandler;
 
 public class CustomCommands {
+    public static void executeCustomCmds(CommandSender sender, String input) {
+        String[] cmds;
+        if (input.contains(";")) {
+            cmds = input.split(";");
+            for (String cmd : cmds) {
+                executeCommands(sender, cmd);
+            }
+        } else {
+            executeCommands(sender, input);
+        }
+    }
 
-    public static void executeCommands(Player player, String input) {
-        if (player != null && !(player instanceof ConsoleCommandSender)) {
+    public static void executeCommands(CommandSender sender, String input) {
+        if (sender != null && !(sender instanceof ConsoleCommandSender)) {
+            Player player = (Player) sender;
             if (input.startsWith("log:")) {
                 input = input.replace("log: ", "");
-                ServerHandler.sendConsoleMessage(input);
+                ServerHandler.sendConsoleMessage(Utils.translateLayout(input, player));
                 return;
             } else if (input.startsWith("broadcast:")) {
                 input = input.replace("broadcast: ", "");
-                Bukkit.broadcastMessage(input);
+                Bukkit.broadcastMessage(Utils.translateLayout(input, player));
                 return;
             } else if (input.startsWith("console:")) {
                 input = input.replace("console: ", "");
                 dispatchConsoleCommand(player, input, true);
+                return;
+            } else if (input.startsWith("bungee:")) {
+                input = input.replace("bungee: ", "");
+                dispatchBungeeCordCommand(player, input, true);
                 return;
             } else if (input.startsWith("op:")) {
                 input = input.replace("op: ", "");
@@ -29,16 +46,32 @@ public class CustomCommands {
                 input = input.replace("player: ", "");
                 dispatchPlayerCommand(player, input, true);
                 return;
+            } else if (input.startsWith("chat:")) {
+                input = input.replace("chat: ", "");
+                dispatchChatCommand(player, input, true);
+                return;
             } else if (input.startsWith("message:")) {
                 input = input.replace("message: ", "");
                 dispatchMessageCommand(player, input, true);
                 return;
-            } else if (input.startsWith("bungee:")) {
-                input = input.replace("bungee: ", "");
-                dispatchBungeeCordCommand(player, input, true);
+            } else if (input.startsWith("message-suggestion:")) {
+                input = input.replace("message-suggestion: ", "");
+                dispatchMessageCommand(player, input, true);
+                return;
+            } else if (input.startsWith("message-console:")) {
+                input = input.replace("message-console: ", "");
+                dispatchMessageCommand(player, input, true);
+                return;
+            } else if (input.startsWith("message-player:")) {
+                input = input.replace("message-player: ", "");
+                dispatchMessageCommand(player, input, true);
+                return;
+            } else if (input.startsWith("message-op:")) {
+                input = input.replace("message-op: ", "");
+                dispatchMessageCommand(player, input, true);
                 return;
             }
-            dispatchConsoleCommand(null, input);
+            dispatchConsoleCommand(null, input, false);
         } else {
             executeCommands(input);
         }
@@ -47,15 +80,18 @@ public class CustomCommands {
     public static void executeCommands(String input) {
         if (input.startsWith("log:")) {
             input = input.replace("log: ", "");
-            ServerHandler.sendConsoleMessage(input);
+            ServerHandler.sendConsoleMessage(Utils.translateLayout(input, null));
             return;
         } else if (input.startsWith("broadcast:")) {
             input = input.replace("broadcast: ", "");
-            Bukkit.broadcastMessage(input);
+            Bukkit.broadcastMessage(Utils.translateLayout(input, null));
             return;
         } else if (input.startsWith("console:")) {
             input = input.replace("console: ", "");
             dispatchConsoleCommand(null, input, true);
+            return;
+        } else if (input.startsWith("bungee:")) {
+            dispatchBungeeCordCommand(null, input, true);
             return;
         } else if (input.startsWith("op:")) {
             ServerHandler.sendErrorMessage("&cThere is an error while execute command \"&eop: " + input + "&c\" &8- &cCan not find the execute target.");
@@ -63,34 +99,50 @@ public class CustomCommands {
         } else if (input.startsWith("player:")) {
             ServerHandler.sendErrorMessage("&cThere is an error while execute command \"&eplayer:" + input + "&c\" &8- &cCan not find the execute target.");
             return;
-        } else if (input.startsWith("message:")) {
-            ServerHandler.sendErrorMessage("&cThere is an error while execute command \"&emessage: " + input + "&c\" &8- &cCan not find the execute target.");
+        } else if (input.startsWith("chat:")) {
+            ServerHandler.sendErrorMessage("&cThere is an error while execute command \"&echat:" + input + "&c\" &8- &cCan not find the execute target.");
             return;
-        } else if (input.startsWith("bungee:")) {
-            ServerHandler.sendErrorMessage("&cThere is an error while execute command \"&ebungee: " + input + "&c\" &8- &cCan not find the execute target.");
+            /*
+        } else if (input.startsWith("message-suggestion:")) {
+            ServerHandler.sendErrorMessage("&cThere is an error while execute command \"&emessage-suggestion: " + input + "&c\" &8- &cCan not find the execute target.");
             return;
+        } else if (input.startsWith("message-console:")) {
+            ServerHandler.sendErrorMessage("&cThere is an error while execute command \"&emessage-console: " + input + "&c\" &8- &cCan not find the execute target.");
+            return;
+        } else if (input.startsWith("message-player:")) {
+            ServerHandler.sendErrorMessage("&cThere is an error while execute command \"&emessage-player: " + input + "&c\" &8- &cCan not find the execute target.");
+            return;
+        } else if (input.startsWith("message-op:")) {
+            ServerHandler.sendErrorMessage("&cThere is an error while execute command \"&emessage-op: " + input + "&c\" &8- &cCan not find the execute target.");
+            return;
+
+             */
         }
-        dispatchConsoleCommand(null, input);
+        dispatchConsoleCommand(null, input, true);
     }
 
-    private static void dispatchConsoleCommand(Player player, String command) {
-        try {
-            Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), Utils.translateLayout(command, player));
-        } catch (Exception e) {
-            ServerHandler.sendErrorMessage("&cThere was an issue executing a console command, if this continues please report it to the developer!");
-            ServerHandler.sendDebugTrace(e);
-        }
+    private static String msgCommand(String input) {
+        String[] arr = input.split(";", 3);
+        input = input.replace(arr[0] + ": ", "");
+        return input.replace("%cmd_title%", arr[0]);
     }
+
+    /**
+     * To execute console command.
+     *
+     * @param player
+     * @param command
+     * @param placeholder
+     */
 
     private static void dispatchConsoleCommand(Player player, String command, boolean placeholder) {
-        if (player != null) {
+        if (player != null && !(player instanceof ConsoleCommandSender)) {
             try {
                 if (placeholder) {
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), Utils.translateLayout(command, player));
                 } else {
                     Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), command);
                 }
-                Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), Utils.translateLayout(command, player));
             } catch (Exception e) {
                 ServerHandler.sendErrorMessage("&cThere was an issue executing a console command, if this continues please report it to the developer!");
                 ServerHandler.sendDebugTrace(e);
@@ -105,20 +157,13 @@ public class CustomCommands {
         }
     }
 
-    private static void dispatchOpCommand(Player player, String command) {
-        boolean isOp = player.isOp();
-        try {
-            player.setOp(true);
-            player.chat("/" + command);
-        } catch (Exception e) {
-            ServerHandler.sendDebugTrace(e);
-            player.setOp(isOp);
-            ServerHandler.sendErrorMessage("&cAn error has occurred while setting " + player.getName() + " status on the OP list, to ensure server security they have been removed as an OP.");
-        } finally {
-            player.setOp(isOp);
-        }
-    }
-
+    /**
+     * To execute operator command.
+     *
+     * @param player
+     * @param command
+     * @param placeholder
+     */
     private static void dispatchOpCommand(Player player, String command, boolean placeholder) {
         boolean isOp = player.isOp();
         try {
@@ -137,15 +182,13 @@ public class CustomCommands {
         }
     }
 
-    private static void dispatchPlayerCommand(Player player, String command) {
-        try {
-            player.chat("/" + command);
-        } catch (Exception e) {
-            ServerHandler.sendErrorMessage("&cThere was an issue executing a player command, if this continues please report it to the developer!");
-            ServerHandler.sendDebugTrace(e);
-        }
-    }
-
+    /**
+     * To execute player command.
+     *
+     * @param player
+     * @param command
+     * @param placeholder
+     */
     private static void dispatchPlayerCommand(Player player, String command, boolean placeholder) {
         try {
             if (placeholder) {
@@ -159,16 +202,13 @@ public class CustomCommands {
         }
     }
 
-
-    private static void dispatchChatCommand(Player player, String command) {
-        try {
-            player.chat(command);
-        } catch (Exception e) {
-            ServerHandler.sendErrorMessage("&cThere was an issue executing a player command, if this continues please report it to the developer!");
-            ServerHandler.sendDebugTrace(e);
-        }
-    }
-
+    /**
+     * To send message form player.
+     *
+     * @param player
+     * @param command
+     * @param placeholder
+     */
     private static void dispatchChatCommand(Player player, String command, boolean placeholder) {
         try {
             if (placeholder) {
@@ -182,15 +222,13 @@ public class CustomCommands {
         }
     }
 
-    private static void dispatchMessageCommand(Player player, String command) {
-        try {
-            player.sendMessage(command);
-        } catch (Exception e) {
-            ServerHandler.sendErrorMessage("&cThere was an issue executing a command to send a message, if this continues please report it to the developer!");
-            ServerHandler.sendDebugTrace(e);
-        }
-    }
-
+    /**
+     * To send message to player.
+     *
+     * @param player
+     * @param command
+     * @param placeholder
+     */
     private static void dispatchMessageCommand(Player player, String command, boolean placeholder) {
         try {
             if (placeholder) {
@@ -204,15 +242,13 @@ public class CustomCommands {
         }
     }
 
-    private static void dispatchBungeeCordCommand(Player player, String command) {
-        try {
-            BungeeCord.ExecuteCommand(player, command);
-        } catch (Exception e) {
-            ServerHandler.sendErrorMessage("&cThere was an issue executing an item's command to BungeeCord, if this continues please report it to the developer!");
-            ServerHandler.sendDebugTrace(e);
-        }
-    }
-
+    /**
+     * To execute BungeeCord command.
+     *
+     * @param player
+     * @param command
+     * @param placeholder
+     */
     private static void dispatchBungeeCordCommand(Player player, String command, boolean placeholder) {
         try {
             if (placeholder) {

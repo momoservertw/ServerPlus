@@ -88,76 +88,73 @@ public class Utils {
         }
     }
 
-    public static String translateLayout(String name, Player player) {
+    public static String translateLayout(String input, Player player) {
         String playerName = "EXEMPT";
-
         if (player != null) {
             playerName = player.getName();
         }
-
         if (player != null && !(player instanceof ConsoleCommandSender)) {
             try {
-                name = name.replace("%player%", playerName);
+                input = input.replace("%player%", playerName);
             } catch (Exception e) {
                 ServerHandler.sendDebugTrace(e);
             }
             try {
-                name = name.replace("%mob_kills%", String.valueOf(player.getStatistic(Statistic.MOB_KILLS)));
+                input = input.replace("%mob_kills%", String.valueOf(player.getStatistic(Statistic.MOB_KILLS)));
             } catch (Exception e) {
                 ServerHandler.sendDebugTrace(e);
             }
             try {
-                name = name.replace("%player_kills%", String.valueOf(player.getStatistic(Statistic.PLAYER_KILLS)));
+                input = input.replace("%player_kills%", String.valueOf(player.getStatistic(Statistic.PLAYER_KILLS)));
             } catch (Exception e) {
                 ServerHandler.sendDebugTrace(e);
             }
             try {
-                name = name.replace("%player_deaths%", String.valueOf(player.getStatistic(Statistic.DEATHS)));
+                input = input.replace("%player_deaths%", String.valueOf(player.getStatistic(Statistic.DEATHS)));
             } catch (Exception e) {
                 ServerHandler.sendDebugTrace(e);
             }
             try {
-                name = name.replace("%player_food%", String.valueOf(player.getFoodLevel()));
+                input = input.replace("%player_food%", String.valueOf(player.getFoodLevel()));
             } catch (Exception e) {
                 ServerHandler.sendDebugTrace(e);
             }
             try {
-                name = name.replace("%player_health%", String.valueOf(player.getHealth()));
+                input = input.replace("%player_health%", String.valueOf(player.getHealth()));
             } catch (Exception e) {
                 ServerHandler.sendDebugTrace(e);
             }
             try {
-                name = name.replace("%player_location%", player.getLocation().getBlockX() + ", " + player.getLocation().getBlockY() + ", " + player.getLocation().getBlockZ() + "");
+                input = input.replace("%player_location%", player.getLocation().getBlockX() + ", " + player.getLocation().getBlockY() + ", " + player.getLocation().getBlockZ() + "");
             } catch (Exception e) {
                 ServerHandler.sendDebugTrace(e);
             }
             try {
-                name = name.replace("%player_interact%", getNearbyPlayer(player, 3));
+                input = input.replace("%player_interact%", getNearbyPlayer(player, 3));
+            } catch (Exception e) {
+                ServerHandler.sendDebugTrace(e);
+            }
+        } else {
+            try {
+                input = input.replace("%player%", "CONSOLE");
             } catch (Exception e) {
                 ServerHandler.sendDebugTrace(e);
             }
         }
-        if (player == null) {
-            try {
-                name = name.replace("%player%", "CONSOLE");
-            } catch (Exception e) {
-                ServerHandler.sendDebugTrace(e);
-            }
-        }
-
-        name = ChatColor.translateAlternateColorCodes('&', name).toString();
+        input = ChatColor.translateAlternateColorCodes('&', input);
         if (ConfigHandler.getDepends().PlaceHolderAPIEnabled()) {
             try {
                 try {
-                    return PlaceholderAPI.setPlaceholders(player, name);
+                    String s = PlaceholderAPI.setPlaceholders(player, input);
+                    return s;
                 } catch (NoSuchFieldError e) {
                     ServerHandler.sendDebugMessage("Error has occured when setting the PlaceHolder " + e.getMessage() + ", if this issue persits contact the developer of PlaceholderAPI.");
-                    return name;
+                    return input;
                 }
             } catch (Exception e) {
             }
         }
-        return name;
+        return input;
     }
 
     /**

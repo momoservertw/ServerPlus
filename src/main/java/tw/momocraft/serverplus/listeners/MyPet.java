@@ -1,11 +1,13 @@
 package tw.momocraft.serverplus.listeners;
 
 import de.Keyle.MyPet.api.event.MyPetCallEvent;
-import de.Keyle.MyPet.api.event.MyPetCreateEvent;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
+import tw.momocraft.serverplus.handlers.ServerHandler;
 import tw.momocraft.serverplus.utils.CustomCommands;
 
 import java.util.List;
@@ -18,37 +20,19 @@ public class MyPet implements Listener {
     public void onMyPetCallEvent(MyPetCallEvent e) {
         if (ConfigHandler.getConfigPath().isMypet()) {
             if (ConfigHandler.getConfigPath().isMypetSkillAuto()) {
-                if (ConfigHandler.getConfigPath().isMypetSkillCall()) {
-                    if (e.getMyPet().getSkilltree() == null) {
-                        List<String> skillList = ConfigHandler.getConfigPath().getSkillProp().get(e.getMyPet().getPetType().name());
-                        if (skillList.isEmpty()) {
-                            skillList = ConfigHandler.getConfigPath().getSkillProp().get("all");
-                            if (skillList.isEmpty()) {
-                                return;
-                            }
-                        }
-                        CustomCommands.executeCommands(e.getOwner().getPlayer(), skillList.get(new Random().nextInt(skillList.size())));
+                if (e.getMyPet().getSkilltree() == null) {
+                    List<String> skillList = ConfigHandler.getConfigPath().getSkillProp().get(e.getMyPet().getPetType().name());
+                    if (skillList == null) {
+                        skillList = ConfigHandler.getConfigPath().getSkillProp().get("Default");
                     }
-                }
-            }
-        }
-    }
-
-    @EventHandler(priority = EventPriority.HIGH)
-    public void onMyPetCreateEvent(MyPetCreateEvent e) {
-        if (ConfigHandler.getConfigPath().isMypet()) {
-            if (ConfigHandler.getConfigPath().isMypetSkillAuto()) {
-                if (ConfigHandler.getConfigPath().isMypetSkillCreate()) {
-                    if (e.getMyPet().getSkilltree() == null) {
-                        List<String> skillList = ConfigHandler.getConfigPath().getSkillProp().get(e.getMyPet().getPetType().name());
-                        if (skillList.isEmpty()) {
-                            skillList = ConfigHandler.getConfigPath().getSkillProp().get("all");
-                            if (skillList.isEmpty()) {
-                                return;
-                            }
-                        }
-                        CustomCommands.executeCommands(e.getOwner().getPlayer(), skillList.get(new Random().nextInt(skillList.size())));
+                    String command = skillList.get(new Random().nextInt(skillList.size()));
+                    Player player = e.getOwner().getPlayer();
+                    if (player == null ) {
+                        player = Bukkit.getPlayer(e.getOwner().getName());
                     }
+                    CustomCommands.executeCustomCmds(player, command);
+                    ServerHandler.sendFeatureMessage("MyPet", e.getOwner().getName(), "skill", "continue", command,
+                            new Throwable().getStackTrace()[0]);
                 }
             }
         }

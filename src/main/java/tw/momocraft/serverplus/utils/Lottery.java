@@ -1,7 +1,6 @@
 package tw.momocraft.serverplus.utils;
 
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
 import tw.momocraft.serverplus.handlers.ServerHandler;
 
@@ -22,13 +21,17 @@ public class Lottery {
             }
             double randTotalChance = Math.random() * totalChance;
             double value;
+            String command;
             Random rand = new Random();
             for (List<String> key : lotteryProp.keySet()) {
                 value = lotteryProp.get(key);
                 // Compare the group chance with the randomly total chance.
                 if (randTotalChance <= value) {
                     // Random execute a reword command from that group.
-                    CustomCommands.executeCommands((Player) sender, key.get(rand.nextInt(key.size())));
+                    command = key.get(rand.nextInt(key.size()));
+                    CustomCommands.executeCustomCmds(sender, command);
+                    ServerHandler.sendFeatureMessage("Lottery", group, "execute", "continue", command,
+                            new Throwable().getStackTrace()[0]);
                     return;
                 }
                 randTotalChance -= value;
