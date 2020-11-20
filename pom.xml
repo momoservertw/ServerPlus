@@ -47,6 +47,11 @@
             <id>pcgf-repo</id>
             <url>https://repo.pcgamingfreaks.at/repository/everything</url>
         </repository>
+        <!--CraftationGaming Repository-->
+        <repository>
+            <id>CraftationGaming</id>
+            <url>https://raw.githubusercontent.com/RockinChaos/repository/maven-public/</url>
+        </repository>
     </repositories>
     <dependencies>
         <!--Google API-->
@@ -120,6 +125,13 @@
             <scope>system</scope>
             <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/MyPet-3.11-SNAPSHOT-B1586.jar</systemPath>
             <version>LEGACY</version>
+        </dependency>
+        <!--ItemJoin API-->
+        <dependency>
+            <groupId>me.RockinChaos.itemjoin</groupId>
+            <artifactId>ItemJoin</artifactId>
+            <version>5.1.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 

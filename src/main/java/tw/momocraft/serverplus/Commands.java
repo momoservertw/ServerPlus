@@ -5,9 +5,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
 import tw.momocraft.serverplus.handlers.PermissionsHandler;
 import tw.momocraft.serverplus.handlers.ServerHandler;
+import tw.momocraft.serverplus.utils.ItemJoin;
 import tw.momocraft.serverplus.utils.Language;
 import tw.momocraft.serverplus.utils.Lottery;
 import tw.momocraft.serverplus.utils.MarriageMaster;
@@ -101,10 +104,57 @@ public class Commands implements CommandExecutor {
         } else if (args.length == 2 && args[0].equalsIgnoreCase("lottery")) {
             if (PermissionsHandler.hasPermission(sender, "serverplus.command.lottery")) {
                 if (ConfigHandler.getConfigPath().isLottery()) {
-                    Lottery.startLottery(sender, args[1].toLowerCase());
+                    Lottery.startLottery(sender, args[1]);
                 } else {
                     ServerHandler.sendConsoleMessage("Lottery: Disabled");
                 }
+            } else {
+                Language.sendLangMessage("Message.noPermission", sender);
+            }
+            return true;
+        } else if (args.length == 1 && args[0].equalsIgnoreCase("itemjoinfix")) {
+            if (PermissionsHandler.hasPermission(sender, "serverplus.command.itemjoinfix")) {
+                if (!ConfigHandler.getConfigPath().isItemjoin()) {
+                    ServerHandler.sendConsoleMessage("ItemJoin: Disabled");
+                    return true;
+                }
+                if (!ConfigHandler.getConfigPath().isIjFixOldItem()) {
+                    ServerHandler.sendConsoleMessage("FixOldItem: Disabled");
+                    return true;
+                }
+                if (!ConfigHandler.getDepends().ItemJoinEnabled()) {
+                    ServerHandler.sendConsoleMessage("ItemJoin plugin: Disabled");
+                    return true;
+                }
+                if ((sender instanceof ConsoleCommandSender)) {
+                    ServerHandler.sendConsoleMessage("Only player can run this item.");
+                    return true;
+                }
+                ItemJoin.itemJoinFix((Player) sender, true);
+            } else {
+                Language.sendLangMessage("Message.noPermission", sender);
+            }
+            return true;
+        } else if (args.length == 2 && args[0].equalsIgnoreCase("itemjoinfix")) {
+            if (PermissionsHandler.hasPermission(sender, "serverplus.command.itemjoinfix")) {
+                if (!ConfigHandler.getConfigPath().isItemjoin()) {
+                    ServerHandler.sendConsoleMessage("ItemJoin: Disabled");
+                    return true;
+                }
+                if (!ConfigHandler.getConfigPath().isIjFixOldItem()) {
+                    ServerHandler.sendConsoleMessage("FixOldItem: Disabled");
+                    return true;
+                }
+                if (!ConfigHandler.getDepends().ItemJoinEnabled()) {
+                    ServerHandler.sendConsoleMessage("ItemJoin plugin: Disabled");
+                    return true;
+                }
+                if ((sender instanceof ConsoleCommandSender)) {
+                    ServerHandler.sendConsoleMessage("Only player can run this item.");
+                    return true;
+                }
+                boolean msg = Boolean.getBoolean(args[1]);
+                ItemJoin.itemJoinFix((Player) sender, msg);
             } else {
                 Language.sendLangMessage("Message.noPermission", sender);
             }

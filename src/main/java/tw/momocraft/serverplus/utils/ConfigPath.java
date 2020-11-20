@@ -3,6 +3,7 @@ package tw.momocraft.serverplus.utils;
 import org.bukkit.configuration.ConfigurationSection;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,7 @@ public class ConfigPath {
     //  ============================================== //
     //         General Settings                        //
     //  ============================================== //
-
+    private Map<String, String> customCmdProp;
 
     //  ============================================== //
     //         Lottery Settings                        //
@@ -33,11 +34,30 @@ public class ConfigPath {
     private Map<String, List<String>> skillProp;
 
     //  ============================================== //
+    //         ItemJoin Settings                        //
+    //  ============================================== //
+    private boolean itemjoin;
+    private boolean ijFixOldItem;
+    private Map<String, List<ItemJoinMap>> ijProp;
+
+    //  ============================================== //
     //         Setup all configuration.                //
     //  ============================================== //
     private void setUp() {
+        setGeneral();
         setupLottery();
         setupMyPet();
+        setUpItemJoin();
+    }
+
+    private void setGeneral() {
+        ConfigurationSection cmdConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("General.Custom-Commands");
+        if (cmdConfig != null) {
+            customCmdProp = new HashMap<>();
+            for (String group : cmdConfig.getKeys(false)) {
+                customCmdProp.put(group, ConfigHandler.getConfig("config.yml").getString("General.Custom-Commands." + group));
+            }
+        }
     }
 
     private void setupLottery() {
@@ -67,7 +87,7 @@ public class ConfigPath {
                                         ConfigHandler.getConfig("config.yml").getDouble("Lottery.Groups." + group + "." + key + ".Chance"));
                             }
                         }
-                        lotteryProp.put(group.toLowerCase(), groupMap);
+                        lotteryProp.put(group, groupMap);
                     }
                 }
             }
@@ -100,6 +120,34 @@ public class ConfigPath {
         }
     }
 
+    private void setUpItemJoin() {
+        itemjoin = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Enable");
+        ijFixOldItem = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Fix-Old-Item.Enable");
+        ConfigurationSection ijConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("ItemJoin.Fix-Old-Item.Groups");
+        if (ijConfig != null) {
+            ijProp = new HashMap<>();
+            ItemJoinMap ijMap;
+            String itemType;
+            for (String group : ijConfig.getKeys(false)) {
+                ijMap = new ItemJoinMap();
+                ijMap.setItemNode(group);
+                ijMap.setName(ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Name"));
+                itemType = ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Type");
+                //ijMap.setLore(ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Lore"));
+                try {
+                    ijProp.get(itemType).add(ijMap);
+                } catch (Exception ex) {
+                    ijProp.put(itemType, new ArrayList<>());
+                    ijProp.get(itemType).add(ijMap);
+                }
+            }
+        }
+    }
+
+    public Map<String, String> getCustomCmdProp() {
+        return customCmdProp;
+    }
+
     public boolean isLottery() {
         return lottery;
     }
@@ -118,5 +166,17 @@ public class ConfigPath {
 
     public Map<String, List<String>> getSkillProp() {
         return skillProp;
+    }
+
+    public boolean isItemjoin() {
+        return itemjoin;
+    }
+
+    public boolean isIjFixOldItem() {
+        return ijFixOldItem;
+    }
+
+    public Map<String, List<ItemJoinMap>> getIjProp() {
+        return ijProp;
     }
 }

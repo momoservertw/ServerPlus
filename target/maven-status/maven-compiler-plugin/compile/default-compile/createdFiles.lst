@@ -5,12 +5,15 @@ tw\momocraft\serverplus\Commands.class
 tw\momocraft\serverplus\utils\BungeeCord.class
 tw\momocraft\serverplus\utils\MarriageMaster.class
 tw\momocraft\serverplus\handlers\ConfigHandler.class
+tw\momocraft\serverplus\utils\ItemJoin.class
 tw\momocraft\serverplus\utils\VaultAPI.class
 tw\momocraft\serverplus\utils\Language$Lang.class
 tw\momocraft\serverplus\handlers\PermissionsHandler.class
 tw\momocraft\serverplus\utils\CustomCommands.class
 tw\momocraft\serverplus\handlers\UpdateHandler.class
 tw\momocraft\serverplus\utils\Utils.class
+tw\momocraft\serverplus\utils\ItemJoinMap.class
+tw\momocraft\serverplus\listeners\PlayerJoin.class
 tw\momocraft\serverplus\ServerPlus.class
 tw\momocraft\serverplus\utils\ResidenceUtils.class
 tw\momocraft\serverplus\listeners\MyPet.class

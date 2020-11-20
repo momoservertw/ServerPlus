@@ -57,9 +57,10 @@ public class ConfigHandler {
                 + (getDepends().MythicMobsEnabled() ? "MythicMobs, " : "")
                 + (getDepends().CMIEnabled() ? "CMI, " : "")
                 + (getDepends().ResidenceEnabled() ? "Residence, " : "")
-                + (getDepends().PlaceHolderAPIEnabled() ? "PlaceHolderAPI" : "")
-                + (getDepends().MarriageMasterEnabled() ? "MarriageMaster" : "")
-                + (getDepends().MyPetEnabled() ? "MyPet" : "")
+                + (getDepends().PlaceHolderAPIEnabled() ? "PlaceHolderAPI, " : "")
+                + (getDepends().MarriageMasterEnabled() ? "MarriageMaster, " : "")
+                + (getDepends().MyPetEnabled() ? "MyPet, " : "")
+                + (getDepends().ItemJoinEnabled() ? "ItemJoin, " : "")
                 + " &f]");
         /*
         if (getDepends().ResidenceEnabled()) {
@@ -76,7 +77,6 @@ public class ConfigHandler {
         File file;
         switch (fileName) {
             case "config.yml":
-                filePath = Bukkit.getWorldContainer();
                 if (configYAML == null) {
                     getConfigData(filePath, fileName);
                 }

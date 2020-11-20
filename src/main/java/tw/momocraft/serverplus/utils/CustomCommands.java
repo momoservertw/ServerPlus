@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
+import tw.momocraft.serverplus.handlers.ConfigHandler;
 import tw.momocraft.serverplus.handlers.ServerHandler;
 
 public class CustomCommands {
@@ -53,6 +54,10 @@ public class CustomCommands {
             } else if (input.startsWith("message:")) {
                 input = input.replace("message: ", "");
                 dispatchMessageCommand(player, input, true);
+                return;
+            } else if (input.startsWith("custom:")) {
+                input = input.replace("custom: ", "");
+                dispatchCustomCommand(player, input);
                 return;
             } else if (input.startsWith("message-suggestion:")) {
                 input = input.replace("message-suggestion: ", "");
@@ -125,6 +130,21 @@ public class CustomCommands {
         String[] arr = input.split(";", 3);
         input = input.replace(arr[0] + ": ", "");
         return input.replace("%cmd_title%", arr[0]);
+    }
+
+    /**
+     * To execute custom command.
+     */
+    // custom: money, %random_number%1000%
+    private static void dispatchCustomCommand(CommandSender sender, String input) {
+        String[] placeHolderArr = input.split(", ");
+        // money, %random_number%1000%
+        String newCmd = ConfigHandler.getConfigPath().getCustomCmdProp().get(placeHolderArr[0]);
+        for (int i = 1; i < +placeHolderArr.length; i++) {
+            newCmd = newCmd.replace("%cmd_arg" + i + "%", placeHolderArr[i]);
+        }
+        // money: "console: cmi money give %player% %cmd_arg1%"
+        executeCommands(sender, newCmd);
     }
 
     /**

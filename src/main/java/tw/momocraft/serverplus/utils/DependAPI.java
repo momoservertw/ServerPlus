@@ -10,6 +10,7 @@ public class DependAPI {
     private boolean PlaceHolderAPI = false;
     private boolean MarriageMaster = false;
     private boolean MyPet = false;
+    private boolean ItemJoin = false;
     private VaultAPI vault;
 
     public DependAPI() {
@@ -21,6 +22,7 @@ public class DependAPI {
         this.setPlaceHolderStatus(Bukkit.getServer().getPluginManager().getPlugin("PlaceHolderAPI") != null);
         this.setMarriageMasterStatus(Bukkit.getServer().getPluginManager().getPlugin("MarriageMaster") != null);
         this.setMyPetStatus(Bukkit.getServer().getPluginManager().getPlugin("MyPet") != null);
+        this.setItemJoinStatus(Bukkit.getServer().getPluginManager().getPlugin("ItemJoin") != null);
         this.setVault();
     }
 
@@ -48,6 +50,10 @@ public class DependAPI {
         return this.MyPet;
     }
 
+    public boolean ItemJoinEnabled() {
+        return this.ItemJoin;
+    }
+
     public void setMythicMobsStatus(boolean bool) {
         this.MythicMobs = bool;
     }
@@ -70,6 +76,10 @@ public class DependAPI {
 
     public void setMyPetStatus(boolean bool) {
         this.MyPet = bool;
+    }
+
+    public void setItemJoinStatus(boolean bool) {
+        this.ItemJoin = bool;
     }
 
     public VaultAPI getVault() {

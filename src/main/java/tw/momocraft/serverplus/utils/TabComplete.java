@@ -32,6 +32,12 @@ public class TabComplete implements TabCompleter {
             if (PermissionsHandler.hasPermission(sender, "serverplus.command.version")) {
                 commands.add("version");
             }
+            if (PermissionsHandler.hasPermission(sender, "serverplus.command.lottery")) {
+                commands.add("lottery");
+            }
+            if (PermissionsHandler.hasPermission(sender, "serverplus.command.itemjoinfix")) {
+                commands.add("itemjoinfix");
+            }
         }
         StringUtil.copyPartialMatches(args[(args.length - 1)], commands, completions);
         Collections.sort(completions);

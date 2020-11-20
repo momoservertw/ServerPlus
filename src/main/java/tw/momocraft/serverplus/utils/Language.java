@@ -130,7 +130,9 @@ public class Language {
         return langMessage
                 .replace("%command%", langHolder[0])
                 .replace("%player%", langHolder[1])
-                .replace("%targetplayer%", langHolder[2]);
+                .replace("%targetplayer%", langHolder[2])
+                .replace("%amount%", langHolder[6])
+                ;
     }
 
     public static String[] newString() {
