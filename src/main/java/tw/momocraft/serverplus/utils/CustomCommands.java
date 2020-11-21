@@ -8,7 +8,7 @@ import tw.momocraft.serverplus.handlers.ConfigHandler;
 import tw.momocraft.serverplus.handlers.ServerHandler;
 
 public class CustomCommands {
-    public static void executeCustomCmds(CommandSender sender, String input) {
+    public static void executeMultipleCmds(CommandSender sender, String input) {
         String[] cmds;
         if (input.contains(";")) {
             cmds = input.split(";");
@@ -59,6 +59,7 @@ public class CustomCommands {
                 input = input.replace("custom: ", "");
                 dispatchCustomCommand(player, input);
                 return;
+                /*
             } else if (input.startsWith("message-suggestion:")) {
                 input = input.replace("message-suggestion: ", "");
                 dispatchMessageCommand(player, input, true);
@@ -75,6 +76,9 @@ public class CustomCommands {
                 input = input.replace("message-op: ", "");
                 dispatchMessageCommand(player, input, true);
                 return;
+
+
+                 */
             }
             dispatchConsoleCommand(null, input, false);
         } else {
@@ -124,12 +128,6 @@ public class CustomCommands {
              */
         }
         dispatchConsoleCommand(null, input, true);
-    }
-
-    private static String msgCommand(String input) {
-        String[] arr = input.split(";", 3);
-        input = input.replace(arr[0] + ": ", "");
-        return input.replace("%cmd_title%", arr[0]);
     }
 
     /**

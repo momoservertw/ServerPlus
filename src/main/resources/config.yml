@@ -852,6 +852,14 @@ MyPet:
           - BLAZE
         Commands:
           - "op: serverplus lottery petskill_fire"
+# Prevent player change the MorphTool to identify the MorphTool.
+# The diamond MorphTool will be broken if it update to Netherite tools.
+MorphTool:
+  Enable: false
+  ToolName: "&c&l巨&6&l大&e&lな&a&lス&b&lラ&9&lイ&d&lム"
+  Prvent-Update-Netherite: true
+
+
 Message:
   prefix: '&f'
   noPermission: '&cYou do not have permission to use that command!'
@@ -864,3 +872,5 @@ Message:
       reload: "&a/serverplus reload &8- &7Reloads config file."
       version: "&f/serverplus version &8- &7Checks the plugin version and updates."
     ItemJoinFix: "&f成功掃描身上所有物品 - 修復 %amount% 個物品"
+    MorphToolRename: "&c這個物品不能更改名字"
+    MorphToolNetherite: "&c這個物品不能升級"

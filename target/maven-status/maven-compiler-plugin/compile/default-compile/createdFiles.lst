@@ -1,4 +1,5 @@
 tw\momocraft\serverplus\utils\DependAPI.class
+tw\momocraft\serverplus\listeners\MorphTool.class
 tw\momocraft\serverplus\utils\Lottery.class
 tw\momocraft\serverplus\utils\Language.class
 tw\momocraft\serverplus\Commands.class

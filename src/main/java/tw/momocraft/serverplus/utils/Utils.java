@@ -222,4 +222,9 @@ public class Utils {
         }
         return result;
     }
+
+    public static String translateColorCode(String input) {
+        return ChatColor.translateAlternateColorCodes('&', input);
+
+    }
 }

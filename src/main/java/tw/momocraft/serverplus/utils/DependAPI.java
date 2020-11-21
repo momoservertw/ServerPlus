@@ -11,6 +11,7 @@ public class DependAPI {
     private boolean MarriageMaster = false;
     private boolean MyPet = false;
     private boolean ItemJoin = false;
+    private boolean MorphTool = false;
     private VaultAPI vault;
 
     public DependAPI() {
@@ -23,6 +24,7 @@ public class DependAPI {
         this.setMarriageMasterStatus(Bukkit.getServer().getPluginManager().getPlugin("MarriageMaster") != null);
         this.setMyPetStatus(Bukkit.getServer().getPluginManager().getPlugin("MyPet") != null);
         this.setItemJoinStatus(Bukkit.getServer().getPluginManager().getPlugin("ItemJoin") != null);
+        this.setMorphToolStatus(Bukkit.getServer().getPluginManager().getPlugin("MorphTool") != null);
         this.setVault();
     }
 
@@ -54,6 +56,10 @@ public class DependAPI {
         return this.ItemJoin;
     }
 
+    public boolean MorphToolEnabled() {
+        return this.MorphTool;
+    }
+
     public void setMythicMobsStatus(boolean bool) {
         this.MythicMobs = bool;
     }
@@ -80,6 +86,10 @@ public class DependAPI {
 
     public void setItemJoinStatus(boolean bool) {
         this.ItemJoin = bool;
+    }
+
+    public void setMorphToolStatus(boolean bool) {
+        this.MorphTool = bool;
     }
 
     public VaultAPI getVault() {

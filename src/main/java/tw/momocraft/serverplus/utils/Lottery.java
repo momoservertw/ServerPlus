@@ -28,7 +28,7 @@ public class Lottery {
                 if (randTotalChance <= value) {
                     // Random execute a reword command from that group.
                     command = key.get(new Random().nextInt(key.size()));
-                    CustomCommands.executeCustomCmds(sender, command);
+                    CustomCommands.executeMultipleCmds(sender, command);
                     ServerHandler.sendFeatureMessage("Lottery", group, "execute", "continue", command,
                             new Throwable().getStackTrace()[0]);
                     return;

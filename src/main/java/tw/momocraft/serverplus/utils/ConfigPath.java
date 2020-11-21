@@ -41,16 +41,24 @@ public class ConfigPath {
     private Map<String, List<ItemJoinMap>> ijProp;
 
     //  ============================================== //
+    //         MorphTool Settings                        //
+    //  ============================================== //
+    private boolean morphtool;
+    private boolean morphtoolNetherite;
+    private String morphtoolName;
+
+    //  ============================================== //
     //         Setup all configuration.                //
     //  ============================================== //
     private void setUp() {
-        setGeneral();
+        setupGeneral();
         setupLottery();
         setupMyPet();
-        setUpItemJoin();
+        setupItemJoin();
+        setupMorphTool();
     }
 
-    private void setGeneral() {
+    private void setupGeneral() {
         ConfigurationSection cmdConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("General.Custom-Commands");
         if (cmdConfig != null) {
             customCmdProp = new HashMap<>();
@@ -120,7 +128,7 @@ public class ConfigPath {
         }
     }
 
-    private void setUpItemJoin() {
+    private void setupItemJoin() {
         itemjoin = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Enable");
         ijFixOldItem = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Fix-Old-Item.Enable");
         ConfigurationSection ijConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("ItemJoin.Fix-Old-Item.Groups");
@@ -131,9 +139,9 @@ public class ConfigPath {
             for (String group : ijConfig.getKeys(false)) {
                 ijMap = new ItemJoinMap();
                 ijMap.setItemNode(group);
-                ijMap.setName(ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Name"));
+                ijMap.setName(Utils.translateColorCode(ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Name")));
                 itemType = ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Type");
-                //ijMap.setLore(ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Lore"));
+                //ijMap.setLore(Utils.translateColorCode(ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Lore")));
                 try {
                     ijProp.get(itemType).add(ijMap);
                 } catch (Exception ex) {
@@ -142,6 +150,14 @@ public class ConfigPath {
                 }
             }
         }
+    }
+
+    private void setupMorphTool() {
+        morphtool = ConfigHandler.getConfig("config.yml").getBoolean("MorphTool.Enable");
+        morphtoolNetherite = ConfigHandler.getConfig("config.yml").getBoolean("MorphTool.Prvent-Update-Netherite");
+        try {
+            morphtoolName = Utils.translateColorCode(ConfigHandler.getConfig("config.yml").getString("MorphTool.ToolName"));
+        } catch (Exception e) {}
     }
 
     public Map<String, String> getCustomCmdProp() {
@@ -178,5 +194,17 @@ public class ConfigPath {
 
     public Map<String, List<ItemJoinMap>> getIjProp() {
         return ijProp;
+    }
+
+    public boolean isMorphtool() {
+        return morphtool;
+    }
+
+    public boolean isMorphtoolNetherite() {
+        return morphtoolNetherite;
+    }
+
+    public String getMorphtoolName() {
+        return morphtoolName;
     }
 }

@@ -59,6 +59,7 @@ public class PlayerJoin implements Listener {
                         continue;
                     }
                 } catch (Exception ex) {
+                    continue;
                 }
                 slotItem.setType(Material.AIR);
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ij get " + player.getName() + " " + ijMap.getItemNode());

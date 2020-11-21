@@ -4,7 +4,7 @@ author: Momocraft
 api-version: 1.13
 version: 1.0.0
 description: Server utils.
-softdepend: [Vault, MythicMobs, CMI, Residence, PlaceHolderAPI, MarriageMaster, MyPet, ItemJoin]
+softdepend: [Vault, MythicMobs, CMI, Residence, PlaceHolderAPI, MarriageMaster, MyPet, ItemJoin, MorphTool]
 
 commands:
   serverplus:

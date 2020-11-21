@@ -6,6 +6,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import tw.momocraft.serverplus.Commands;
 import tw.momocraft.serverplus.ServerPlus;
+import tw.momocraft.serverplus.listeners.MorphTool;
 import tw.momocraft.serverplus.listeners.MyPet;
 import tw.momocraft.serverplus.utils.ConfigPath;
 import tw.momocraft.serverplus.utils.DependAPI;
@@ -44,6 +45,11 @@ public class ConfigHandler {
             ServerHandler.sendFeatureMessage("Register-Event", "MyPet", "MyPet", "continue",
                     new Throwable().getStackTrace()[0]);
         }
+        if (ConfigHandler.getDepends().MorphToolEnabled()) {
+            ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new MorphTool(), ServerPlus.getInstance());
+            ServerHandler.sendFeatureMessage("Register-Event", "MorphTool", "PrepareSmithingEvent", "continue",
+                    new Throwable().getStackTrace()[0]);
+        }
         /*
         if (ConfigHandler.getDepends().ResidenceEnabled()) {
 
@@ -61,6 +67,7 @@ public class ConfigHandler {
                 + (getDepends().MarriageMasterEnabled() ? "MarriageMaster, " : "")
                 + (getDepends().MyPetEnabled() ? "MyPet, " : "")
                 + (getDepends().ItemJoinEnabled() ? "ItemJoin, " : "")
+                + (getDepends().MorphToolEnabled() ? "MorphTool, " : "")
                 + " &f]");
         /*
         if (getDepends().ResidenceEnabled()) {
