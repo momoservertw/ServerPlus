@@ -29,7 +29,6 @@ public class MorphTool implements Listener {
      */
     @EventHandler(priority = EventPriority.HIGH)
     private void onPrepareSmithingEvent(PrepareSmithingEvent e) {
-        ServerHandler.sendConsoleMessage("PrepareSmithingEvent");
         if (!ConfigHandler.getDepends().MorphToolEnabled()) {
             return;
         }
@@ -78,7 +77,6 @@ public class MorphTool implements Listener {
      */
     @EventHandler(priority = EventPriority.HIGH)
     private void onPrepareAnvilEvent(PrepareAnvilEvent e) {
-        ServerHandler.sendConsoleMessage("PrepareAnvilEvent");
         if (!ConfigHandler.getDepends().MorphToolEnabled()) {
             return;
         }

@@ -2,7 +2,7 @@
 # Wiki: https://github.com/momoservertw/ServerPlus/wiki
 Config-Version: 1
 Check-Updates: true
-Debugging: true
+Debugging: false
 
 General:
   # - "custom: congratulate, &e&l抽獎券, &c&l頭獎, &6&l遊戲幣一萬元"
@@ -807,7 +807,6 @@ ItemJoin:
       p_carnation:
         Type: "BOOK"
         Name: "&c&l特效&f✷ &c&l抱抱你 &f&l學習書"
-
 
 MyPet:
   Enable: true

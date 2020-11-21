@@ -43,10 +43,11 @@ public class ItemJoin {
             for (ItemJoinMap ijMap : ijProp.get(itemType)) {
                 try {
                     // Check item name.
-                    if (!itemMeta.getDisplayName().contains(ijMap.getName().replace("&", "§"))) {
+                    if (!itemMeta.getDisplayName().equals(ijMap.getName())) {
                         continue;
                     }
                 } catch (Exception ex) {
+                    continue;
                 }
                 amount = slotItem.getAmount();
                 fixAmount += amount;
