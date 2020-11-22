@@ -1,6 +1,5 @@
 tw\momocraft\serverplus\utils\DependAPI.class
 tw\momocraft\serverplus\listeners\MorphTool.class
-tw\momocraft\serverplus\utils\Lottery.class
 tw\momocraft\serverplus\utils\Language.class
 tw\momocraft\serverplus\Commands.class
 tw\momocraft\serverplus\utils\BungeeCord.class
@@ -16,7 +15,6 @@ tw\momocraft\serverplus\utils\Utils.class
 tw\momocraft\serverplus\utils\ItemJoinMap.class
 tw\momocraft\serverplus\listeners\PlayerJoin.class
 tw\momocraft\serverplus\ServerPlus.class
-tw\momocraft\serverplus\utils\ResidenceUtils.class
 tw\momocraft\serverplus\listeners\MyPet.class
 tw\momocraft\serverplus\utils\Logger.class
 tw\momocraft\serverplus\utils\ConfigPath.class

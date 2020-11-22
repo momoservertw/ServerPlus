@@ -24,22 +24,40 @@ public class ItemJoin {
         int fixAmount = 0;
         String itemNode;
         int amount;
+        boolean oneMenu = ConfigHandler.getConfigPath().isIjOneMenu();
+        String oneMenuName = ConfigHandler.getConfigPath().getIjOneMenuName();
+        String oneMenuType = ConfigHandler.getConfigPath().getIjOneMenuType();
+        boolean hasMenu= false;
         for (int i = 0; i <= 35; i++) {
             slotItem = player.getInventory().getItem(i);
-            // If itemJoin is available.
-            if (itemJoinAPI.isCustom(slotItem)) {
-                continue;
-            }
+            itemMeta = slotItem.getItemMeta();
             try {
                 itemType = slotItem.getType().name();
             } catch (Exception ex) {
+                continue;
+            }
+            // If itemJoin is available.
+            if (itemJoinAPI.isCustom(slotItem)) {
+                if (oneMenu) {
+                    try {
+                        if (itemType.equals(oneMenuType)) {
+                            if (itemMeta.getDisplayName().equals(oneMenuName)) {
+                                if (hasMenu) {
+                                    player.getInventory().setItem(i, null);
+                                    continue;
+                                }
+                                hasMenu = true;
+                            }
+                        }
+                    } catch (Exception ignored) {
+                    }
+                }
                 continue;
             }
             // Contains replace itemType.
             if (!ijKeys.contains(slotItem.getType().name())) {
                 continue;
             }
-            itemMeta = slotItem.getItemMeta();
             for (ItemJoinMap ijMap : ijProp.get(itemType)) {
                 try {
                     // Check item name.

@@ -20,9 +20,10 @@ public class TabComplete implements TabCompleter {
         final List<String> commands = new ArrayList<>();
         Collection<?> playersOnlineNew = null;
         Player[] playersOnlineOld;
+        /*
         if (args.length == 2 && args[0].equalsIgnoreCase("help") && PermissionsHandler.hasPermission(sender, "serverplus.use")) {
 
-        } else if (args.length == 1) {
+        } else */if (args.length == 1) {
             if (PermissionsHandler.hasPermission(sender, "serverplus.use")) {
                 commands.add("help");
             }
@@ -31,9 +32,6 @@ public class TabComplete implements TabCompleter {
             }
             if (PermissionsHandler.hasPermission(sender, "serverplus.command.version")) {
                 commands.add("version");
-            }
-            if (PermissionsHandler.hasPermission(sender, "serverplus.command.lottery")) {
-                commands.add("lottery");
             }
             if (PermissionsHandler.hasPermission(sender, "serverplus.command.itemjoinfix")) {
                 commands.add("itemjoinfix");

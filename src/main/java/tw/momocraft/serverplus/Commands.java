@@ -12,7 +12,6 @@ import tw.momocraft.serverplus.handlers.PermissionsHandler;
 import tw.momocraft.serverplus.handlers.ServerHandler;
 import tw.momocraft.serverplus.utils.ItemJoin;
 import tw.momocraft.serverplus.utils.Language;
-import tw.momocraft.serverplus.utils.Lottery;
 import tw.momocraft.serverplus.utils.MarriageMaster;
 
 
@@ -96,17 +95,6 @@ public class Commands implements CommandExecutor {
                     }
                 } else {
                     ServerHandler.sendConsoleMessage("Marriage Master: Disabled");
-                }
-            } else {
-                Language.sendLangMessage("Message.noPermission", sender);
-            }
-            return true;
-        } else if (args.length == 2 && args[0].equalsIgnoreCase("lottery")) {
-            if (PermissionsHandler.hasPermission(sender, "serverplus.command.lottery")) {
-                if (ConfigHandler.getConfigPath().isLottery()) {
-                    Lottery.startLottery(sender, args[1]);
-                } else {
-                    ServerHandler.sendConsoleMessage("Lottery: Disabled");
                 }
             } else {
                 Language.sendLangMessage("Message.noPermission", sender);

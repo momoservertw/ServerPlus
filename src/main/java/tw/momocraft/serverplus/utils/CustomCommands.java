@@ -138,6 +138,9 @@ public class CustomCommands {
         String[] placeHolderArr = input.split(", ");
         // money, %random_number%1000%
         String newCmd = ConfigHandler.getConfigPath().getCustomCmdProp().get(placeHolderArr[0]);
+        if (newCmd == null) {
+            ServerHandler.sendErrorMessage("&cCan not find the custom command type: " + placeHolderArr[0]);
+        }
         for (int i = 1; i < +placeHolderArr.length; i++) {
             newCmd = newCmd.replace("%cmd_arg" + i + "%", placeHolderArr[i]);
         }
