@@ -52,6 +52,11 @@
             <id>CraftationGaming</id>
             <url>https://raw.githubusercontent.com/RockinChaos/repository/maven-public/</url>
         </repository>
+        <!--DiscordSRV Repository-->
+        <repository>
+            <id>Scarsz-Nexus</id>
+            <url>https://nexus.scarsz.me/content/groups/public/</url>
+        </repository>
     </repositories>
     <dependencies>
         <!--Google API-->
@@ -102,7 +107,7 @@
             <groupId>me.Residence</groupId>
             <artifactId>Residence</artifactId>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/Residence4.9.0.5.jar</systemPath>
+            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/Residence4.9.2.1.jar</systemPath>
             <version>LEGACY</version>
         </dependency>
         <!--PlaceholderAPI API-->
@@ -123,7 +128,8 @@
             <groupId>me.MyPet</groupId>
             <artifactId>MyPet</artifactId>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/MyPet-3.11-SNAPSHOT-B1586.jar</systemPath>
+            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/MyPet-3.11-SNAPSHOT-B1586.jar
+            </systemPath>
             <version>LEGACY</version>
         </dependency>
         <!--ItemJoin API-->
@@ -131,6 +137,22 @@
             <groupId>me.RockinChaos.itemjoin</groupId>
             <artifactId>ItemJoin</artifactId>
             <version>5.1.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--MobFarmManager API-->
+        <dependency>
+            <groupId>me.MobFarmManager</groupId>
+            <artifactId>MobFarmManager</artifactId>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/MobFarmManager1.5.9.0.jar
+            </systemPath>
+            <version>LEGACY</version>
+        </dependency>
+        <!--DiscordSRV API-->
+        <dependency>
+            <groupId>com.discordsrv</groupId>
+            <artifactId>discordsrv</artifactId>
+            <version>1.20.0</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

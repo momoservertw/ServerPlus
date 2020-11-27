@@ -17,6 +17,12 @@ public class ConfigPath {
     //         General Settings                        //
     //  ============================================== //
     private Map<String, String> customCmdProp;
+    private boolean logDefaultNew;
+    private boolean logDefaultZip;
+    private boolean logCustomNew;
+    private boolean logCustomZip;
+    private String logCustomPath;
+    private String logCustomName;
 
     //  ============================================== //
     //         MyPet Settings                        //
@@ -118,15 +124,43 @@ public class ConfigPath {
     private void setupMorphTool() {
         morphtool = ConfigHandler.getConfig("config.yml").getBoolean("MorphTool.Enable");
         morphtoolNetherite = ConfigHandler.getConfig("config.yml").getBoolean("MorphTool.Prvent-Update-Netherite");
-        try {
-            morphtoolName = Utils.translateColorCode(ConfigHandler.getConfig("config.yml").getString("MorphTool.ToolName"));
-        } catch (Exception e) {}
+        morphtoolName = Utils.translateColorCode(ConfigHandler.getConfig("config.yml").getString("MorphTool.ToolName"));
     }
 
+    //  ============================================== //
+    //         General Settings                        //
+    //  ============================================== //
     public Map<String, String> getCustomCmdProp() {
         return customCmdProp;
     }
 
+    public boolean isLogDefaultNew() {
+        return logDefaultNew;
+    }
+
+    public boolean isLogDefaultZip() {
+        return logDefaultZip;
+    }
+
+    public boolean isLogCustomNew() {
+        return logCustomNew;
+    }
+
+    public boolean isLogCustomZip() {
+        return logCustomZip;
+    }
+
+    public String getLogCustomName() {
+        return logCustomName;
+    }
+
+    public String getLogCustomPath() {
+        return logCustomPath;
+    }
+
+    //  ============================================== //
+    //         Mypet Settings                          //
+    //  ============================================== //
     public boolean isMypet() {
         return mypet;
     }
@@ -139,6 +173,9 @@ public class ConfigPath {
         return skillProp;
     }
 
+    //  ============================================== //
+    //         Mypet Settings                          //
+    //  ============================================== //
     public boolean isItemjoin() {
         return itemjoin;
     }

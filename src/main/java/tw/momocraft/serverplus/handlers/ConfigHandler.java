@@ -8,11 +8,8 @@ import tw.momocraft.serverplus.Commands;
 import tw.momocraft.serverplus.ServerPlus;
 import tw.momocraft.serverplus.listeners.MorphTool;
 import tw.momocraft.serverplus.listeners.MyPet;
-import tw.momocraft.serverplus.utils.ConfigPath;
-import tw.momocraft.serverplus.utils.DependAPI;
+import tw.momocraft.serverplus.utils.*;
 import org.bukkit.Location;
-import tw.momocraft.serverplus.utils.Logger;
-import tw.momocraft.serverplus.utils.TabComplete;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -26,14 +23,18 @@ public class ConfigHandler {
     private static ConfigPath configPath;
     private static UpdateHandler updater;
     private static Logger logger;
+    private static Zip ziper;
 
-    public static void generateData() {
+    public static void generateData(boolean reload) {
         genConfigFile("config.yml");
         setDepends(new DependAPI());
         sendUtilityDepends();
         setConfigPath(new ConfigPath());
-        setUpdater(new UpdateHandler());
+        if (!reload) {
+            setUpdater(new UpdateHandler());
+        }
         setLogger(new Logger());
+        setZip(new Zip());
     }
 
     public static void registerEvents() {
@@ -177,12 +178,8 @@ public class ConfigHandler {
         return configPath;
     }
 
-    public static boolean getDebugging() {
+    public static boolean isDebugging() {
         return ConfigHandler.getConfig("config.yml").getBoolean("Debugging");
-    }
-
-    public static boolean getLoggable() {
-        return ConfigHandler.getConfig("config.yml").getBoolean("Log-Commands");
     }
 
     public static UpdateHandler getUpdater() {
@@ -201,24 +198,11 @@ public class ConfigHandler {
         return logger;
     }
 
-    /**
-     * Converts a serialized location to a Location. Returns null if string is empty
-     *
-     * @param s - serialized location in format "world:x:y:z"
-     * @return Location
-     */
-    static public Location getLocationString(final String s) {
-        if (s == null || s.trim() == "") {
-            return null;
-        }
-        final String[] parts = s.split(":");
-        if (parts.length == 4) {
-            final World w = Bukkit.getServer().getWorld(parts[0]);
-            final int x = Integer.parseInt(parts[1]);
-            final int y = Integer.parseInt(parts[2]);
-            final int z = Integer.parseInt(parts[3]);
-            return new Location(w, x, y, z);
-        }
-        return null;
+    private static void setZip(Zip zip) {
+        ziper = zip;
+    }
+
+    public static Zip getZip() {
+        return ziper;
     }
 }

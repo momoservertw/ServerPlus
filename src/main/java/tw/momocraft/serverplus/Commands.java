@@ -50,7 +50,7 @@ public class Commands implements CommandExecutor {
         } else if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
             if (PermissionsHandler.hasPermission(sender, "serverplus.command.reload")) {
                 // working: close purge.Auto-Clean schedule
-                ConfigHandler.generateData();
+                ConfigHandler.generateData(true);
                 Language.sendLangMessage("Message.configReload", sender);
             } else {
                 Language.sendLangMessage("Message.noPermission", sender);
