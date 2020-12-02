@@ -27,15 +27,15 @@ public class ItemJoin {
         boolean oneMenu = ConfigHandler.getConfigPath().isIjOneMenu();
         String oneMenuName = ConfigHandler.getConfigPath().getIjOneMenuName();
         String oneMenuType = ConfigHandler.getConfigPath().getIjOneMenuType();
-        boolean hasMenu= false;
+        boolean hasMenu = false;
         for (int i = 0; i <= 35; i++) {
             slotItem = player.getInventory().getItem(i);
-            itemMeta = slotItem.getItemMeta();
             try {
-                itemType = slotItem.getType().name();
+                itemMeta = slotItem.getItemMeta();
             } catch (Exception ex) {
                 continue;
             }
+            itemType = slotItem.getType().name();
             // If itemJoin is available.
             if (itemJoinAPI.isCustom(slotItem)) {
                 if (oneMenu) {
@@ -49,7 +49,8 @@ public class ItemJoin {
                                 hasMenu = true;
                             }
                         }
-                    } catch (Exception ignored) {
+                    } catch (Exception ex) {
+                        continue;
                     }
                 }
                 continue;
@@ -72,6 +73,9 @@ public class ItemJoin {
                 // Remove item and get the new item again.
                 player.getInventory().setItem(i, null);
                 itemNode = ijMap.getItemNode();
+                if (itemNode.equals(ConfigHandler.getConfigPath().getIjOneMenuNode())) {
+                    hasMenu = true;
+                }
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ij get " + itemNode + " " + player.getName() + " " + amount);
                 ServerHandler.sendFeatureMessage("ItemJoin", itemNode, "give", "continue",
                         new Throwable().getStackTrace()[0]);

@@ -31,21 +31,10 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
-        <!--MythicMobs API-->
-        <repository>
-            <id>nexus</id>
-            <name>Lumine Releases</name>
-            <url>https://mvn.lumine.io/repository/maven-public/</url>
-        </repository>
         <!--PlaceholderAPI Repo-->
         <repository>
             <id>placeholderapi</id>
             <url>http://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-        </repository>
-        <!--MarriageMaster Repo-->
-        <repository>
-            <id>pcgf-repo</id>
-            <url>https://repo.pcgamingfreaks.at/repository/everything</url>
         </repository>
         <!--CraftationGaming Repository-->
         <repository>
@@ -56,6 +45,11 @@
         <repository>
             <id>Scarsz-Nexus</id>
             <url>https://nexus.scarsz.me/content/groups/public/</url>
+        </repository>
+        <!--AuthMe Repo-->
+        <repository>
+            <id>codemc-repo</id>
+            <url>http://repo.codemc.org/repository/maven-public/</url>
         </repository>
     </repositories>
     <dependencies>
@@ -87,13 +81,6 @@
             <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/VaultAPI.jar</systemPath>
             <version>LATEST</version>
         </dependency>
-        <!--MythicMobs API-->
-        <dependency>
-            <groupId>io.lumine.xikage</groupId>
-            <artifactId>MythicMobs</artifactId>
-            <version>LATEST</version>
-            <scope>provided</scope>
-        </dependency>
         <!--CMI API-->
         <dependency>
             <groupId>me.CMI</groupId>
@@ -116,12 +103,6 @@
             <artifactId>placeholderapi</artifactId>
             <version>LATEST</version>
             <scope>provided</scope>
-        </dependency>
-        <!-- MarriageMaster API -->
-        <dependency>
-            <groupId>at.pcgamingfreaks</groupId>
-            <artifactId>MarriageMaster-API</artifactId>
-            <version>2.2</version><!-- Check api-version shield for newest version -->
         </dependency>
         <!--MyPet API-->
         <dependency>
@@ -153,6 +134,22 @@
             <groupId>com.discordsrv</groupId>
             <artifactId>discordsrv</artifactId>
             <version>1.20.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--MysqlPlayerDataBridge API-->
+        <dependency>
+            <groupId>me.MysqlPlayerDataBridge</groupId>
+            <artifactId>MysqlPlayerDataBridge</artifactId>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/MysqlPlayerDataBridge-v3.35.0.jar
+            </systemPath>
+            <version>LEGACY</version>
+        </dependency>
+        <!--AuthMe API-->
+        <dependency>
+            <groupId>fr.xephi</groupId>
+            <artifactId>authme</artifactId>
+            <version>LATEST</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

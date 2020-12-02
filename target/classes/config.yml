@@ -5,13 +5,73 @@ Check-Updates: true
 Debugging: false
 
 General:
-  # - "custom: congratulate, &e&l抽獎券, &c&l頭獎, &6&l遊戲幣一萬元"
+  Settings:
+    Features:
+      # Changed these options need to restart the server.
+      Hook:
+        Vault: true
+        PlaceHolderAPI: true
+        Residence: true
+        CMI: true
+        MyPet: true
+        MorphTool: true
+        ItemJoin: true
+        DiscordSRV: true
+        AuthMe: true
+  # The settings for custom commands.
+  # More information: https://github.com/momoservertw/LotteryPlus/wiki/Custom-Command
   Custom-Commands:
-    reward: "message: &f &6&l得到了&c✤ &f%cmd_arg1%"
+    Settings:
+      Log:
+        Default:
+          # Creating new file if the modified date is difference.
+          New-File: true
+          To-Zip: true
+        Custom:
+          New-File: false
+          To-Zip: true
+          Path: "plugin//CustomLogs"
+          Name: "latest"
+    # To send frequently used commands with placeholders.
+  Groups:
+    reward: "message: &6&lReward&c✤ &f%cmd_arg1%"
     awards: "message: &d✧ &f%cmd_arg1% &d✧"
-    cgl: "broadcast: &6恭喜 &e%player% &6使用 &f%cmd_arg1% &8- &6兌換到%cmd_arg2% &7<&f%cmd_arg3%&7>"
-    money: "console: cmi money give %player% %cmd_arg1%"
-
+    cgl: "broadcast: &6Congratulate &e%player% &6use &f%cmd_arg1% &8- &6Get the %cmd_arg2% &7<&f%cmd_arg3%&7>"
+    money: "console: money give %player% %cmd_arg1%"
+  # Specifying the spawn locations.
+  # More information: https://github.com/momoservertw/EntityPlus/wiki/Location
+  Location:
+    NormalWorlds:
+      Worlds:
+        - world
+    NetherWorlds:
+      Worlds:
+        - world_nether
+    EndWorlds:
+      Worlds:
+        - world_the_end
+    NormalBorder:
+      Worlds:
+        - world
+      Area:
+        S: 10000
+  # Check if there are certain blocks nearby.
+  # More information: https://github.com/momoservertw/EntityPlus/wiki/Blocks
+  Blocks:
+    # When creatures spawn in wither_rose.
+    InWitherRose:
+      Types:
+        - WITHER_ROSE
+      Search:
+        V: 1
+    NearbyMonument:
+      Types:
+        - PRISMARINE
+        - DARK_PRISMARINE
+        - PRISMARINE_BRICKS
+      Search:
+        S: 5
+        Y: 5
 
 MyPet:
   Enable: true
@@ -22,26 +82,26 @@ MyPet:
       Default:
         Enable: true
         Commands:
-          - "op: serverplus lottery petskill"
+          - "op: lotteryplus lottery petskill"
       Arrowexp:
         Enable: false
         Types:
           - Skeleton
         Commands:
-          - "op: serverplus lottery petskill_arrowexp"
+          - "op: lotteryplus lottery petskill_arrowexp"
       Decay:
         Enable: false
         Types:
           - Husk
         Commands:
-          - "op: serverplus lottery petskill_decay"
+          - "op: lotteryplus lottery petskill_decay"
       Lithe:
         Enable: false
         Types:
           - Donkey
           - Horse
         Commands:
-          - "op: serverplus lottery petskill_lithe"
+          - "op: lotteryplus lottery petskill_lithe"
       Mount:
         Enable: false
         Types:
@@ -57,17 +117,25 @@ MyPet:
         Commands:
           - "op: serverplus lottery petskill_fire"
 
+MySQLPlayerDataBridge:
+  Enable: true
+  SyncComplete:
+    Enable: true
+    Commands:
+      - "player: lotteryplus itemjoinfix false"
+      - "player: zlogin"
+
 # A simple ItemJoin item convertor for broken Items.
+# Command: /serverplus itemjoinfix
 ItemJoin:
   Enable: true
-  # Command: itemjoinfix
-  # Command: itemjoinfix
   Fix-Old-Item:
     Enable: true
     Settings:
       # The multiple menu item in player's inventory will be removed.
       One-Menu:
         Enable: true
+        ItemNode: "menu5"
         Type: "PLAYER_HEAD"
         Name: "&d&l茉茉選單&f㍿ &7剉冰"
     Groups:
@@ -298,6 +366,84 @@ MorphTool:
   ToolName: "&c&l巨&6&l大&e&lな&a&lス&b&lラ&9&lイ&d&lム"
   Prvent-Update-Netherite: true
 
+# Warning player to set their email.
+AuthMe:
+  Enable: true
+  Mail-Warning:
+    Enable: true
+
+Donate:
+  Enable: true
+  Groups:
+    mb:
+      Enable: true
+      Commands:
+        - "console: lp user %player% parent settrack donate mb"
+
+        - "broadcast: &6玩家 &e&l$player &6成為了 &a&lMB&6， 謝謝你&4&o♥"
+        - "message: &d&l茉茉&c&o♥ &f歡迎加入大家庭！ 你現在是永久的居民囉 :)"
+        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
+        - "message: &7解鎖："
+        - "message: &7- 傳送點 +1"
+        - "message: &7- 特效✷ 喜悅 (MB專屬)"
+        - "message: &7- 戴帽子 /hat"
+        - "message: &7- 遠端打開終界箱 /ender"
+    vip:
+      Enable: true
+      Commands:
+        - "console: lp user %player% parent settrack donate vip"
+        - "console: petadmin create -f %player% sheep baby"
+
+        - "broadcast: &6玩家 &e&l$player &6成為了 &b&lVIP玩家&6， 謝謝你&4&o♥"
+        - "message: &d&l茉茉&c&o♥ &f謝謝你們的付出！ 期待伺服器能變得更好 :)"
+        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
+        - "message: &7解鎖："
+        - "message: &7- 特效✷ 自由藍天、火焰 (VIP專屬)"
+        - "message: &7- 暱稱顏色： 藍色(b)"
+        -
+    mvp:
+      Enable: true
+      Commands:
+        - 'console: lp user %player% parent settrack donate mvp'
+        - "broadcast: &6玩家 &e&l$player &6成為了 &d&lMVP&6， 謝謝你&4&o♥"
+        - "message: &d&l茉茉&c&o♥ &f你現在擁有更多社區管理權限"
+        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
+        - "message: &7解鎖："
+        - "message: &7- 特效✷ 永恆愛戀、愛心 (MVP專屬)"
+        - "message: &7- 暱稱顏色： 紫色(d)"
+    #支付GOD
+    buy_god:
+      command: /motw buy god
+      type: RUN_CONSOLE
+      runcmd:
+        - '$Script$%if%$PlayerData%mointsall%<8000'
+        - '$text$&d茉茉&c&o♥ &f累計贊助還不足喔！'
+        - '$Script$%elseif%%luckperms_in_group_mvp%==yes'
+        - '/lp user $player parent settrack donate god'
+        - '$delay$'
+        - '/mos 203'
+        - '$delay$'
+        - '$broadcasttext$&6冒險者 &e&l$player &6成為了 &e&lGOD玩家&6， 謝謝你&4&o♥'
+        - '$delay$'
+        - '$text$&d茉茉&c&o♥ &e你現在是伺服器榮譽的玩家！！'
+        - '$delay$'
+        - '$text$&c&l個人特效&f✷ &f解鎖GOD專屬特效: &e&l尊爵不凡 &4&l地獄鬼步 &e&l遊&a&l戲&b&l舞&d&l台'
+        - '$delay$'
+        - '$text$&e&l個人檔案&4&o♥ &f解鎖暱稱顏色: &e&l黃色'
+        - '$Script$%elseif%%luckperms_in_group_general%==yes<or>%luckperms_in_group_default%==yes'
+        - '$text$&d茉茉&c&o♥ &e請先升級為MB玩家！ &8- &f選單->贊助系統->升級MB'
+        - '$delay$'
+        - '$Script$%elseif%%luckperms_in_group_mb%==yes'
+        - '$text$&d茉茉&c&o♥ &e請先升級為VIP玩家！ &8- &f選單->贊助系統->升級VIP'
+        - '$delay$'
+        - '$Script$%elseif%%luckperms_in_group_vip%==yes'
+        - '$text$&d茉茉&c&o♥ &e請先升級為MVP玩家！ &8- &f選單->贊助系統->升級MVP'
+        - '$delay$'
+        - '$Script$%else%'
+        - '$text$&e你已經升級過囉！'
+      delaytimer: 10
+      delaytimer_format: TICKS
+      permission-required: false
 
 Message:
   prefix: '&f'
@@ -313,3 +459,4 @@ Message:
     ItemJoinFix: "&f成功掃描身上所有物品 - 修復 %amount% 個物品"
     MorphToolRename: "&c這個物品不能更改名字"
     MorphToolNetherite: "&c這個物品不能升級"
+    AuthMeMailEmpty: "&c請設置 Email 用於取回密碼， 輸入/email add 信箱 信箱"

@@ -5,21 +5,73 @@ Check-Updates: true
 Debugging: false
 
 General:
-  # To send frequently used commands with placeholders.
-  # More information: https://github.com/momoservertw/EntityPlus/wiki/Custom-Command
+  Settings:
+    Features:
+      # Changed these options need to restart the server.
+      Hook:
+        Vault: true
+        PlaceHolderAPI: true
+        Residence: true
+        CMI: true
+        MyPet: true
+        MorphTool: true
+        ItemJoin: true
+        DiscordSRV: true
+        AuthMe: true
+  # The settings for custom commands.
+  # More information: https://github.com/momoservertw/LotteryPlus/wiki/Custom-Command
   Custom-Commands:
     Settings:
       Log:
-        To-Zip: true
+        Default:
+          # Creating new file if the modified date is difference.
+          New-File: true
+          To-Zip: true
         Custom:
-          Path: "plugin/Logs"
-          Name: "custom"
-    Groups:
-      reward: "message: &6&lReward&c✤ &f%cmd_arg1%"
-      awards: "message: &d✧ &f%cmd_arg1% &d✧"
-      cgl: "broadcast: &6Congratulate &e%player% &6use &f%cmd_arg1% &8- &6Get the %cmd_arg2% &7<&f%cmd_arg3%&7>"
-      money: "console: money give %player% %cmd_arg1%"
-
+          New-File: false
+          To-Zip: true
+          Path: "plugin//CustomLogs"
+          Name: "latest"
+    # To send frequently used commands with placeholders.
+  Groups:
+    reward: "message: &6&lReward&c✤ &f%cmd_arg1%"
+    awards: "message: &d✧ &f%cmd_arg1% &d✧"
+    cgl: "broadcast: &6Congratulate &e%player% &6use &f%cmd_arg1% &8- &6Get the %cmd_arg2% &7<&f%cmd_arg3%&7>"
+    money: "console: money give %player% %cmd_arg1%"
+  # Specifying the spawn locations.
+  # More information: https://github.com/momoservertw/EntityPlus/wiki/Location
+  Location:
+    NormalWorlds:
+      Worlds:
+        - world
+    NetherWorlds:
+      Worlds:
+        - world_nether
+    EndWorlds:
+      Worlds:
+        - world_the_end
+    NormalBorder:
+      Worlds:
+        - world
+      Area:
+        S: 10000
+  # Check if there are certain blocks nearby.
+  # More information: https://github.com/momoservertw/EntityPlus/wiki/Blocks
+  Blocks:
+    # When creatures spawn in wither_rose.
+    InWitherRose:
+      Types:
+        - WITHER_ROSE
+      Search:
+        V: 1
+    NearbyMonument:
+      Types:
+        - PRISMARINE
+        - DARK_PRISMARINE
+        - PRISMARINE_BRICKS
+      Search:
+        S: 5
+        Y: 5
 
 MyPet:
   Enable: true
@@ -30,26 +82,26 @@ MyPet:
       Default:
         Enable: true
         Commands:
-          - "op: serverplus lottery petskill"
+          - "op: lotteryplus lottery petskill"
       Arrowexp:
         Enable: false
         Types:
           - Skeleton
         Commands:
-          - "op: serverplus lottery petskill_arrowexp"
+          - "op: lotteryplus lottery petskill_arrowexp"
       Decay:
         Enable: false
         Types:
           - Husk
         Commands:
-          - "op: serverplus lottery petskill_decay"
+          - "op: lotteryplus lottery petskill_decay"
       Lithe:
         Enable: false
         Types:
           - Donkey
           - Horse
         Commands:
-          - "op: serverplus lottery petskill_lithe"
+          - "op: lotteryplus lottery petskill_lithe"
       Mount:
         Enable: false
         Types:
@@ -65,17 +117,25 @@ MyPet:
         Commands:
           - "op: serverplus lottery petskill_fire"
 
+MySQLPlayerDataBridge:
+  Enable: true
+  SyncComplete:
+    Enable: true
+    Commands:
+      - "player: lotteryplus itemjoinfix false"
+      - "player: zlogin"
+
 # A simple ItemJoin item convertor for broken Items.
+# Command: /serverplus itemjoinfix
 ItemJoin:
   Enable: true
-  # Command: itemjoinfix
-  # Command: itemjoinfix
   Fix-Old-Item:
     Enable: true
     Settings:
       # The multiple menu item in player's inventory will be removed.
       One-Menu:
         Enable: true
+        ItemNode: "menu5"
         Type: "PLAYER_HEAD"
         Name: "&d&l茉茉選單&f㍿ &7剉冰"
     Groups:
@@ -306,6 +366,18 @@ MorphTool:
   ToolName: "&c&l巨&6&l大&e&lな&a&lス&b&lラ&9&lイ&d&lム"
   Prvent-Update-Netherite: true
 
+# Warning player to set their email.
+AuthMe:
+  Enable: true
+  Mail-Warning:
+    Enable: true
+
+# Warning player to set their email.
+Key:
+  Enable: true
+  Mail-Warning:
+    Enable: true
+
 Donate:
   Enable: true
   Groups:
@@ -379,7 +451,6 @@ Donate:
       delaytimer_format: TICKS
       permission-required: false
 
-
 Message:
   prefix: '&f'
   noPermission: '&cYou do not have permission to use that command!'
@@ -394,3 +465,4 @@ Message:
     ItemJoinFix: "&f成功掃描身上所有物品 - 修復 %amount% 個物品"
     MorphToolRename: "&c這個物品不能更改名字"
     MorphToolNetherite: "&c這個物品不能升級"
+    AuthMeMailEmpty: "&c請設置 Email 用於取回密碼， 輸入/email add 信箱 信箱"

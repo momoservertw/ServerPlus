@@ -4,48 +4,68 @@ import org.bukkit.Bukkit;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
 
 public class DependAPI {
-    private boolean MythicMobs = false;
-    private boolean CMI = false;
-    private boolean Residence = false;
+    private VaultAPI vaultApi;
+    private boolean Vault = false;
     private boolean PlaceHolderAPI = false;
-    private boolean MarriageMaster = false;
+    private boolean Residence = false;
+    private boolean CMI = false;
     private boolean MyPet = false;
     private boolean ItemJoin = false;
     private boolean MorphTool = false;
-    private VaultAPI vault;
+    private boolean DiscordSRV = false;
+    private boolean MysqlPlayerDataBridge = false;
+    private boolean AuthMe = false;
 
     public DependAPI() {
-        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.MythicMobs")) {
-            this.setMythicMobsStatus(Bukkit.getServer().getPluginManager().getPlugin("MythicMobs") != null);
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.Vault")) {
+            this.setVaultStatus(Bukkit.getServer().getPluginManager().getPlugin("Vault") != null);
+            if (Vault) {
+                setVaultApi();
+            }
         }
-        this.setCMIStatus(Bukkit.getServer().getPluginManager().getPlugin("CMI") != null);
-        this.setResidenceStatus(Bukkit.getServer().getPluginManager().getPlugin("Residence") != null);
-        this.setPlaceHolderStatus(Bukkit.getServer().getPluginManager().getPlugin("PlaceHolderAPI") != null);
-        this.setMarriageMasterStatus(Bukkit.getServer().getPluginManager().getPlugin("MarriageMaster") != null);
-        this.setMyPetStatus(Bukkit.getServer().getPluginManager().getPlugin("MyPet") != null);
-        this.setItemJoinStatus(Bukkit.getServer().getPluginManager().getPlugin("ItemJoin") != null);
-        this.setMorphToolStatus(Bukkit.getServer().getPluginManager().getPlugin("MorphTool") != null);
-        this.setVault();
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.PlaceHolderAPI")) {
+            this.setPlaceHolderStatus(Bukkit.getServer().getPluginManager().getPlugin("PlaceHolderAPI") != null);
+        }
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.Residence")) {
+            this.setResidenceStatus(Bukkit.getServer().getPluginManager().getPlugin("Residence") != null);
+        }
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.CMI")) {
+            this.setCMIStatus(Bukkit.getServer().getPluginManager().getPlugin("CMI") != null);
+        }
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.MyPet")) {
+            this.setMyPetStatus(Bukkit.getServer().getPluginManager().getPlugin("MyPet") != null);
+        }
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.ItemJoin")) {
+            this.setItemJoinStatus(Bukkit.getServer().getPluginManager().getPlugin("ItemJoin") != null);
+        }
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.MorphTool")) {
+            this.setMorphToolStatus(Bukkit.getServer().getPluginManager().getPlugin("MorphTool") != null);
+        }
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.DiscordSRV")) {
+            this.setDiscordSRVStatus(Bukkit.getServer().getPluginManager().getPlugin("DiscordSRV") != null);
+        }
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.DiscordSRV")) {
+            this.setMpbdStatus(Bukkit.getServer().getPluginManager().getPlugin("MysqlPlayerDataBridge") != null);
+        }
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.AuthMe")) {
+            this.setAuthMeStatus(Bukkit.getServer().getPluginManager().getPlugin("AuthMe") != null);
+        }
     }
 
-    public boolean MythicMobsEnabled() {
-        return this.MythicMobs;
-    }
-
-    public boolean CMIEnabled() {
-        return this.CMI;
-    }
-
-    public boolean ResidenceEnabled() {
-        return this.Residence;
+    public boolean VaultEnabled() {
+        return this.Vault;
     }
 
     public boolean PlaceHolderAPIEnabled() {
         return this.PlaceHolderAPI;
     }
 
-    public boolean MarriageMasterEnabled() {
-        return this.MarriageMaster;
+    public boolean ResidenceEnabled() {
+        return this.Residence;
+    }
+
+    public boolean CMIEnabled() {
+        return this.CMI;
     }
 
     public boolean MyPetEnabled() {
@@ -60,24 +80,33 @@ public class DependAPI {
         return this.MorphTool;
     }
 
-    public void setMythicMobsStatus(boolean bool) {
-        this.MythicMobs = bool;
+    public boolean DiscordSRVEnabled() {
+        return this.DiscordSRV;
     }
 
-    public void setCMIStatus(boolean bool) {
-        this.CMI = bool;
+    public boolean MpdbEnabled() {
+        return this.MysqlPlayerDataBridge;
     }
 
-    public void setResidenceStatus(boolean bool) {
-        this.Residence = bool;
+
+    public boolean AuthMeEnabled() {
+        return this.AuthMe;
+    }
+
+    public void setVaultStatus(boolean bool) {
+        this.Vault = bool;
     }
 
     public void setPlaceHolderStatus(boolean bool) {
         this.PlaceHolderAPI = bool;
     }
 
-    public void setMarriageMasterStatus(boolean bool) {
-        this.MarriageMaster = bool;
+    public void setResidenceStatus(boolean bool) {
+        this.Residence = bool;
+    }
+
+    public void setCMIStatus(boolean bool) {
+        this.CMI = bool;
     }
 
     public void setMyPetStatus(boolean bool) {
@@ -92,11 +121,24 @@ public class DependAPI {
         this.MorphTool = bool;
     }
 
-    public VaultAPI getVault() {
-        return this.vault;
+    public void setDiscordSRVStatus(boolean bool) {
+        this.DiscordSRV = bool;
     }
 
-    private void setVault() {
-        this.vault = new VaultAPI();
+    public void setMpbdStatus(boolean bool) {
+        this.MysqlPlayerDataBridge = bool;
+    }
+
+    private void setAuthMeStatus(boolean bool) {
+        this.AuthMe = bool;
+    }
+
+
+    public VaultAPI getVaultApi() {
+        return this.vaultApi;
+    }
+
+    private void setVaultApi() {
+        vaultApi = new VaultAPI();
     }
 }

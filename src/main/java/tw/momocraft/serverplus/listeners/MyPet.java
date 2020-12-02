@@ -27,7 +27,7 @@ public class MyPet implements Listener {
                     }
                     String command = skillList.get(new Random().nextInt(skillList.size()));
                     Player player = e.getOwner().getPlayer();
-                    if (player == null ) {
+                    if (player == null) {
                         player = Bukkit.getPlayer(e.getOwner().getName());
                     }
                     CustomCommands.executeMultipleCmds(player, command);

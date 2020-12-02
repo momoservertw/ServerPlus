@@ -1,6 +1,8 @@
 package tw.momocraft.serverplus.utils;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.EntityType;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
 
 import java.util.ArrayList;
@@ -32,11 +34,19 @@ public class ConfigPath {
     private Map<String, List<String>> skillProp;
 
     //  ============================================== //
+    //         MySQLPlayerDataBridge Settings          //
+    //  ============================================== //
+    private boolean mpdb;
+    private boolean mpdbSyncComplete;
+    private List<String> mpdbSyncCompleteCmds;
+
+    //  ============================================== //
     //         ItemJoin Settings                        //
     //  ============================================== //
     private boolean itemjoin;
     private boolean ijFixOldItem;
     private boolean ijOneMenu;
+    private String ijOneMenuNode;
     private String ijOneMenuName;
     private String ijOneMenuType;
     private Map<String, List<ItemJoinMap>> ijProp;
@@ -49,16 +59,28 @@ public class ConfigPath {
     private String morphtoolName;
 
     //  ============================================== //
+    //         AuthMe Settings                        //
+    //  ============================================== //
+    private boolean authMe;
+    private boolean authMeMail;
+
+    //  ============================================== //
     //         Setup all configuration.                //
     //  ============================================== //
     private void setUp() {
-        setupGeneral();
-        setupMyPet();
-        setupItemJoin();
-        setupMorphTool();
+        setGeneral();
+        setMyPet();
+        setMpdb();
+        setItemJoin();
+        setMorphTool();
+        setAuthMe();
     }
 
-    private void setupGeneral() {
+
+    //  ============================================== //
+    //         Setup General.                          //
+    //  ============================================== //
+    private void setGeneral() {
         ConfigurationSection cmdConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("General.Custom-Commands");
         if (cmdConfig != null) {
             customCmdProp = new HashMap<>();
@@ -68,7 +90,10 @@ public class ConfigPath {
         }
     }
 
-    private void setupMyPet() {
+    //  ============================================== //
+    //         Setup MyPet.                            //
+    //  ============================================== //
+    private void setMyPet() {
         mypet = ConfigHandler.getConfig("config.yml").getBoolean("MyPet.Enable");
         mypetSkillAuto = ConfigHandler.getConfig("config.yml").getBoolean("MyPet.Skilltree-Auto-Select.Enable");
         ConfigurationSection skillConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("MyPet.Skilltree-Auto-Select.Groups");
@@ -93,13 +118,25 @@ public class ConfigPath {
             }
         }
     }
+    //  ============================================== //
+    //         MySQLPlayerDataBridge Settings          //
+    //  ============================================== //
+    private void setMpdb() {
+        mpdb = ConfigHandler.getConfig("config.yml").getBoolean("MySQLPlayerDataBridge.Enable");
+        mpdbSyncComplete = ConfigHandler.getConfig("config.yml").getBoolean("MySQLPlayerDataBridge.SyncComplete.Enable");
+        mpdbSyncCompleteCmds = ConfigHandler.getConfig("config.yml").getStringList("MySQLPlayerDataBridge.SyncComplete.Commands");
+    }
 
-    private void setupItemJoin() {
+    //  ============================================== //
+    //         ItemJoin Settings                       //
+    //  ============================================== //
+    private void setItemJoin() {
         itemjoin = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Enable");
         ijFixOldItem = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Fix-Old-Item.Enable");
-        ijOneMenu = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Fix-Old-Item.Settings.Enable");
-        ijOneMenuName = ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Settings.Name");
-        ijOneMenuType = ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Settings.Type");
+        ijOneMenu = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Fix-Old-Item.Settings.One-Menu.Enable");
+        ijOneMenuNode = ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Settings.One-Menu.ItemNode");
+        ijOneMenuName = ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Settings.One-Menu.Name");
+        ijOneMenuType = ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Settings.One-Menu.Type");
         ConfigurationSection ijConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("ItemJoin.Fix-Old-Item.Groups");
         if (ijConfig != null) {
             ijProp = new HashMap<>();
@@ -121,10 +158,21 @@ public class ConfigPath {
         }
     }
 
-    private void setupMorphTool() {
+    //  ============================================== //
+    //         MorphTool Settings                      //
+    //  ============================================== //
+    private void setMorphTool() {
         morphtool = ConfigHandler.getConfig("config.yml").getBoolean("MorphTool.Enable");
         morphtoolNetherite = ConfigHandler.getConfig("config.yml").getBoolean("MorphTool.Prvent-Update-Netherite");
         morphtoolName = Utils.translateColorCode(ConfigHandler.getConfig("config.yml").getString("MorphTool.ToolName"));
+    }
+
+    //  ============================================== //
+    //         AuthMe Settings          //
+    //  ============================================== //
+    private void setAuthMe() {
+        authMe = ConfigHandler.getConfig("config.yml").getBoolean("AuthMe.Enable");
+        authMeMail = ConfigHandler.getConfig("config.yml").getBoolean("AuthMe.Mail-Warning.Enable");
     }
 
     //  ============================================== //
@@ -172,9 +220,23 @@ public class ConfigPath {
     public Map<String, List<String>> getSkillProp() {
         return skillProp;
     }
+    //  ============================================== //
+    //         MySQLPlayerDataBridge Settings          //
+    //  ============================================== //
+    public boolean isMpdb() {
+        return mpdb;
+    }
+
+    public boolean isMpdbSyncComplete() {
+        return mpdbSyncComplete;
+    }
+
+    public List<String> getMpdbSyncCompleteCmds() {
+        return mpdbSyncCompleteCmds;
+    }
 
     //  ============================================== //
-    //         Mypet Settings                          //
+    //         ItemJoin Settings                       //
     //  ============================================== //
     public boolean isItemjoin() {
         return itemjoin;
@@ -184,10 +246,29 @@ public class ConfigPath {
         return ijFixOldItem;
     }
 
+    public boolean isIjOneMenu() {
+        return ijOneMenu;
+    }
+
+    public String getIjOneMenuNode() {
+        return ijOneMenuNode;
+    }
+
+    public String getIjOneMenuName() {
+        return ijOneMenuName;
+    }
+
+    public String getIjOneMenuType() {
+        return ijOneMenuType;
+    }
+
     public Map<String, List<ItemJoinMap>> getIjProp() {
         return ijProp;
     }
 
+    //  ============================================== //
+    //         MorphTool Settings                      //
+    //  ============================================== //
     public boolean isMorphtool() {
         return morphtool;
     }
@@ -199,16 +280,48 @@ public class ConfigPath {
     public String getMorphtoolName() {
         return morphtoolName;
     }
-
-    public boolean isIjOneMenu() {
-        return ijOneMenu;
+    //  ============================================== //
+    //         AuthMe Settings                      //
+    //  ============================================== //
+    public boolean isAuthMe() {
+        return authMe;
     }
 
-    public String getIjOneMenuName() {
-        return ijOneMenuName;
+    public boolean isAuthMeMail() {
+        return authMeMail;
     }
 
-    public String getIjOneMenuType() {
-        return ijOneMenuType;
+    //  ============================================== //
+    //         Others                                  //
+    //  ============================================== //
+    public List<String> getTypeList(String file, String path, String listType) {
+        List<String> list = new ArrayList<>();
+        List<String> customList;
+        for (String type : ConfigHandler.getConfig(file).getStringList(path)) {
+            try {
+                if (listType.equals("Entities")) {
+                    list.add(EntityType.valueOf(type).name());
+                } else if (listType.equals("Materials")) {
+                    list.add(Material.valueOf(type).name());
+                }
+            } catch (Exception e) {
+                customList = ConfigHandler.getConfig("groups.yml").getStringList(listType + "." + type);
+                if (customList.isEmpty()) {
+                    continue;
+                }
+                // Add Custom Group.
+                for (String customType : customList) {
+                    try {
+                        if (listType.equals("Entities")) {
+                            list.add(EntityType.valueOf(customType).name());
+                        } else if (listType.equals("Materials")) {
+                            list.add(Material.valueOf(customType).name());
+                        }
+                    } catch (Exception ex) {
+                    }
+                }
+            }
+        }
+        return list;
     }
 }

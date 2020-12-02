@@ -1,47 +1,47 @@
 package tw.momocraft.serverplus.utils;
 
 import net.milkbowl.vault.economy.Economy;
-import org.bukkit.Bukkit;
+import net.milkbowl.vault.permission.Permission;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import tw.momocraft.serverplus.ServerPlus;
-import tw.momocraft.serverplus.handlers.ConfigHandler;
 import tw.momocraft.serverplus.handlers.ServerHandler;
 
 public class VaultAPI {
     private Economy econ = null;
-    private boolean isEnabled = false;
+    private Permission perms = null;
 
-    public VaultAPI() {
-        this.setVaultStatus(Bukkit.getServer().getPluginManager().getPlugin("Vault") != null);
-    }
-
-    private void enableEconomy() {
-        if (ConfigHandler.getConfig("config.yml").getBoolean("softDepend.Vault") && ServerPlus.getInstance().getServer().getPluginManager().getPlugin("Vault") != null) {
-            if (!this.setupEconomy()) {
-                ServerHandler.sendErrorMessage("There was an issue setting up Vault to work with ServerPlus!");
-                ServerHandler.sendErrorMessage("If this continues, please contact the plugin developer!");
-            }
+    VaultAPI() {
+        if (!this.setupEconomy()) {
+            ServerHandler.sendErrorMessage("&cCan not find the Economy plugin.");
+        }
+        if (!this.setupPermissions()) {
+            ServerHandler.sendErrorMessage("&cCan not find the Permission plugin.");
         }
     }
 
     private boolean setupEconomy() {
-        if (ServerPlus.getInstance().getServer().getPluginManager().getPlugin("Vault") == null) {  return false; }
         RegisteredServiceProvider<Economy> rsp = ServerPlus.getInstance().getServer().getServicesManager().getRegistration(Economy.class);
-        if (rsp == null) {  return false; }
+        if (rsp == null) {
+            return false;
+        }
         this.econ = rsp.getProvider();
-        return this.econ != null;
+        return true;
+    }
+
+    private boolean setupPermissions() {
+        RegisteredServiceProvider<Permission> rsp = ServerPlus.getInstance().getServer().getServicesManager().getRegistration(Permission.class);
+        if (rsp == null) {
+            return false;
+        }
+        this.perms = rsp.getProvider();
+        return true;
     }
 
     public Economy getEconomy() {
         return this.econ;
     }
 
-    public boolean vaultEnabled() {
-        return this.isEnabled;
-    }
-
-    private void setVaultStatus(boolean bool) {
-        if (bool) { this.enableEconomy(); }
-        this.isEnabled = bool;
+    public Permission getPermissions() {
+        return this.perms;
     }
 }

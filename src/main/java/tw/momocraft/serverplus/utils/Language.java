@@ -3,11 +3,10 @@ package tw.momocraft.serverplus.utils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
-import tw.momocraft.serverplus.handlers.ServerHandler;
+
+import java.util.Arrays;
 
 public class Language {
-    private static Lang langType = Lang.ENGLISH;
-
     public static void dispatchMessage(CommandSender sender, String langMessage, boolean hasPrefix) {
         if (hasPrefix) {
             Player player = null;
@@ -15,7 +14,7 @@ public class Language {
                 player = (Player) sender;
             }
             langMessage = Utils.translateLayout(langMessage, player);
-            String prefix = Utils.translateLayout(ConfigHandler.getConfig(langType.nodeLocation()).getString("Message.prefix"), player);
+            String prefix = Utils.translateLayout(ConfigHandler.getConfig("config.yml").getString("Message.prefix"), player);
             if (prefix == null) {
                 prefix = "";
             } else {
@@ -47,24 +46,17 @@ public class Language {
         if (sender instanceof Player) {
             player = (Player) sender;
         }
-        String langMessage = ConfigHandler.getConfig(langType.nodeLocation()).getString(nodeLocation);
-        String prefix = Utils.translateLayout(ConfigHandler.getConfig(langType.nodeLocation()).getString("Message.prefix"), player);
+        String langMessage = ConfigHandler.getConfig("config.yml").getString(nodeLocation);
+        String prefix = Utils.translateLayout(ConfigHandler.getConfig("config.yml").getString("Message.prefix"), player);
         if (prefix == null) {
             prefix = "";
-        } else {
-            prefix += "";
         }
         if (langMessage != null && !langMessage.isEmpty()) {
             langMessage = translateLangHolders(langMessage, initializeRows(placeHolder));
             langMessage = Utils.translateLayout(langMessage, player);
             String[] langLines = langMessage.split(" /n ");
             for (String langLine : langLines) {
-                String langStrip = prefix + langLine;
-                if (isConsoleMessage(nodeLocation)) {
-                    ServerHandler.sendConsoleMessage(langLine);
-                } else {
-                    sender.sendMessage(langStrip);
-                }
+                sender.sendMessage(prefix + langLine);
             }
         }
     }
@@ -75,8 +67,8 @@ public class Language {
             if (sender instanceof Player) {
                 player = (Player) sender;
             }
-            String langMessage = ConfigHandler.getConfig(langType.nodeLocation()).getString(nodeLocation);
-            String prefix = Utils.translateLayout(ConfigHandler.getConfig(langType.nodeLocation()).getString("Message.prefix"), player);
+            String langMessage = ConfigHandler.getConfig("config.yml").getString(nodeLocation);
+            String prefix = Utils.translateLayout(ConfigHandler.getConfig("config.yml").getString("Message.prefix"), player);
             if (prefix == null) {
                 prefix = "";
             } else {
@@ -96,7 +88,7 @@ public class Language {
             if (sender instanceof Player) {
                 player = (Player) sender;
             }
-            String langMessage = ConfigHandler.getConfig(langType.nodeLocation()).getString(nodeLocation);
+            String langMessage = ConfigHandler.getConfig("config.yml").getString(nodeLocation);
             if (langMessage != null && !langMessage.isEmpty()) {
                 langMessage = translateLangHolders(langMessage, initializeRows(placeHolder));
                 langMessage = Utils.translateLayout(langMessage, player);
@@ -111,18 +103,15 @@ public class Language {
     private static String[] initializeRows(String... placeHolder) {
         if (placeHolder == null || placeHolder.length != newString().length) {
             String[] langHolder = Language.newString();
-            for (int i = 0; i < langHolder.length; i++) {
-                langHolder[i] = "null";
-            }
+            Arrays.fill(langHolder, "null");
             return langHolder;
         } else {
-            String[] langHolder = placeHolder;
-            for (int i = 0; i < langHolder.length; i++) {
-                if (langHolder[i] == null) {
-                    langHolder[i] = "null";
+            for (int i = 0; i < placeHolder.length; i++) {
+                if (placeHolder[i] == null) {
+                    placeHolder[i] = "null";
                 }
             }
-            return langHolder;
+            return placeHolder;
         }
     }
 
@@ -137,24 +126,5 @@ public class Language {
 
     public static String[] newString() {
         return new String[14];
-    }
-
-
-    private enum Lang {
-        DEFAULT("config.yml", 0), ENGLISH("config.yml", 1);
-
-        private Lang(final String nodeLocation, final int i) {
-            this.nodeLocation = nodeLocation;
-        }
-
-        private final String nodeLocation;
-
-        private String nodeLocation() {
-            return nodeLocation;
-        }
-    }
-
-    private static boolean isConsoleMessage(String nodeLocation) {
-        return false;
     }
 }

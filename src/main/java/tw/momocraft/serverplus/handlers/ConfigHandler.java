@@ -1,15 +1,15 @@
 package tw.momocraft.serverplus.handlers;
 
 import org.bukkit.Bukkit;
-import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import tw.momocraft.serverplus.Commands;
 import tw.momocraft.serverplus.ServerPlus;
+import tw.momocraft.serverplus.listeners.AuthMe;
 import tw.momocraft.serverplus.listeners.MorphTool;
 import tw.momocraft.serverplus.listeners.MyPet;
+import tw.momocraft.serverplus.listeners.SyncComplete;
 import tw.momocraft.serverplus.utils.*;
-import org.bukkit.Location;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -51,40 +51,46 @@ public class ConfigHandler {
             ServerHandler.sendFeatureMessage("Register-Event", "MorphTool", "PrepareSmithingEvent", "continue",
                     new Throwable().getStackTrace()[0]);
         }
-        /*
-        if (ConfigHandler.getDepends().ResidenceEnabled()) {
-
+        if (ConfigHandler.getDepends().ItemJoinEnabled()) {
+            ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new SyncComplete(), ServerPlus.getInstance());
+            ServerHandler.sendFeatureMessage("Register-Event", "ItemJoin", "PlayerJoinEvent", "continue",
+                    new Throwable().getStackTrace()[0]);
         }
-         */
+        if (ConfigHandler.getDepends().AuthMeEnabled()) {
+            ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new AuthMe(), ServerPlus.getInstance());
+            ServerHandler.sendFeatureMessage("Register-Event", "AuthMe", "LoginEvent", "continue",
+                    new Throwable().getStackTrace()[0]);
+        }
     }
 
     private static void sendUtilityDepends() {
         ServerHandler.sendConsoleMessage("&fHooked [ &e"
-                + (getDepends().getVault().vaultEnabled() ? "Vault, " : "")
-                + (getDepends().MythicMobsEnabled() ? "MythicMobs, " : "")
+                + (getDepends().VaultEnabled() ? "Vault, " : "")
                 + (getDepends().CMIEnabled() ? "CMI, " : "")
                 + (getDepends().ResidenceEnabled() ? "Residence, " : "")
                 + (getDepends().PlaceHolderAPIEnabled() ? "PlaceHolderAPI, " : "")
-                + (getDepends().MarriageMasterEnabled() ? "MarriageMaster, " : "")
                 + (getDepends().MyPetEnabled() ? "MyPet, " : "")
                 + (getDepends().ItemJoinEnabled() ? "ItemJoin, " : "")
                 + (getDepends().MorphToolEnabled() ? "MorphTool, " : "")
+                + (getDepends().DiscordSRVEnabled() ? "DiscordSRV, " : "")
+                + (getDepends().MpdbEnabled() ? "MysqlPlayerDataBridge, " : "")
+                + (getDepends().AuthMeEnabled() ? "AuthMe, " : "")
                 + " &f]");
         /*
-        if (getDepends().ResidenceEnabled()) {
-            ServerHandler.sendConsoleMessage("&fAdd Residence flags: "
-                    + (FlagPermissions.getPosibleAreaFlags().contains("climb") ? "climb, " : "")
-            );
+        if (ConfigHandler.getDepends().ResidenceEnabled()) {
+            if (ConfigHandler.getConfigPath().isSpawnResFlag()) {
+                FlagPermissions.addFlag("spawnbypass");
+            }
         }
          */
     }
-
 
     public static FileConfiguration getConfig(String fileName) {
         File filePath = ServerPlus.getInstance().getDataFolder();
         File file;
         switch (fileName) {
             case "config.yml":
+                filePath = Bukkit.getWorldContainer();
                 if (configYAML == null) {
                     getConfigData(filePath, fileName);
                 }
@@ -102,17 +108,17 @@ public class ConfigHandler {
         return getPath(fileName, file, false);
     }
 
-    private static FileConfiguration getConfigData(File filePath, String fileName) {
+    private static void getConfigData(File filePath, String fileName) {
         File file = new File(filePath, fileName);
         if (!(file).exists()) {
             try {
                 ServerPlus.getInstance().saveResource(fileName, false);
             } catch (Exception e) {
                 ServerHandler.sendErrorMessage("&cCannot save " + fileName + " to disk!");
-                return null;
+                return;
             }
         }
-        return getPath(fileName, file, true);
+        getPath(fileName, file, true);
     }
 
     private static YamlConfiguration getPath(String fileName, File file, boolean saveData) {
@@ -141,8 +147,8 @@ public class ConfigHandler {
                 break;
         }
         getConfigData(filePath, fileName);
-        File File = new File(filePath, fileName);
-        if (File.exists() && getConfig(fileName).getInt("Config-Version") != configVersion) {
+        File file = new File(filePath, fileName);
+        if (file.exists() && getConfig(fileName).getInt("Config-Version") != configVersion) {
             if (ServerPlus.getInstance().getResource(fileName) != null) {
                 LocalDateTime currentDate = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
@@ -150,7 +156,7 @@ public class ConfigHandler {
                 String newGen = fileNameSlit[0] + " " + currentTime + "." + fileNameSlit[0];
                 File newFile = new File(filePath, newGen);
                 if (!newFile.exists()) {
-                    File.renameTo(newFile);
+                    file.renameTo(newFile);
                     File configFile = new File(filePath, fileName);
                     configFile.delete();
                     getConfigData(filePath, fileName);
