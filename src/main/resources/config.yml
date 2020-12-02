@@ -18,6 +18,39 @@ General:
         ItemJoin: true
         DiscordSRV: true
         AuthMe: true
+  # The menu item for some events like showing blocks or destroying it.
+  # If you don't have a menu in your server, you can set Item Name to "" to use a vanilla item.
+  # Support: ItemJoin
+  Menu:
+    ItemJoin: ""
+    Item:
+      Type: "PLAYER_HEAD"
+      Name: "&e&lMy &6&lMenu"
+  Location:
+    NormalWorlds:
+      Worlds:
+        - world
+    NetherWorlds:
+      Worlds:
+        - world_nether
+    EndWorlds:
+      Worlds:
+        - world_the_end
+    NormalBorder:
+      Worlds:
+        - world
+      Area:
+        S: 10000
+    Bedrock_World:
+      Worlds:
+        - world
+      Area:
+        Y: ">= 5"
+    Bedrock_Nether:
+      Worlds:
+        - world_nether
+      Area:
+        Y: "5 ~ 123"
   # The settings for custom commands.
   # More information: https://github.com/momoservertw/LotteryPlus/wiki/Custom-Command
   Custom-Commands:
@@ -38,40 +71,6 @@ General:
     awards: "message: &d✧ &f%cmd_arg1% &d✧"
     cgl: "broadcast: &6Congratulate &e%player% &6use &f%cmd_arg1% &8- &6Get the %cmd_arg2% &7<&f%cmd_arg3%&7>"
     money: "console: money give %player% %cmd_arg1%"
-  # Specifying the spawn locations.
-  # More information: https://github.com/momoservertw/EntityPlus/wiki/Location
-  Location:
-    NormalWorlds:
-      Worlds:
-        - world
-    NetherWorlds:
-      Worlds:
-        - world_nether
-    EndWorlds:
-      Worlds:
-        - world_the_end
-    NormalBorder:
-      Worlds:
-        - world
-      Area:
-        S: 10000
-  # Check if there are certain blocks nearby.
-  # More information: https://github.com/momoservertw/EntityPlus/wiki/Blocks
-  Blocks:
-    # When creatures spawn in wither_rose.
-    InWitherRose:
-      Types:
-        - WITHER_ROSE
-      Search:
-        V: 1
-    NearbyMonument:
-      Types:
-        - PRISMARINE
-        - DARK_PRISMARINE
-        - PRISMARINE_BRICKS
-      Search:
-        S: 5
-        Y: 5
 
 MyPet:
   Enable: true
