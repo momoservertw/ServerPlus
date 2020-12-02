@@ -372,6 +372,90 @@ AuthMe:
   Mail-Warning:
     Enable: true
 
+# Warning player to set their email.
+Event:
+  Enable: true
+  Settings:
+    Features:
+      # Change these options need to restart the server.
+      Event:
+        AsyncPlayerChatEvent: false
+        PlayerAdvancementDoneEvent: false
+        PlayerBedEnterEvent: false
+        PlayerBedLeaveEvent: false
+        PlayerBucketEvent: false
+        PlayerChangedMainHandEvent: false
+        PlayerChangedWorldEvent: false
+        PlayerCommandSendEvent: false
+        PlayerDropItemEvent: false
+        PlayerEditBookEvent: false
+        PlayerEggThrowEvent: false
+        PlayerExpChangeEvent: false
+        PlayerFishEvent: false
+        PlayerGameModeChangeEvent: false
+        PlayerHarvestBlockEvent: false
+        PlayerInteractEntityEvent: false
+        PlayerInteractEvent: false
+        PlayerItemBreakEvent: false
+        PlayerItemConsumeEvent: false
+        PlayerItemDamageEvent: false
+        PlayerItemHeldEvent: false
+        PlayerItemMendEvent: false
+        PlayerJoinEvent: false
+        PlayerKickEvent: false
+        PlayerLevelChangeEvent: false
+        PlayerLocaleChangeEvent: false
+        PlayerLoginEvent: false
+        PlayerMoveEvent: false
+        PlayerPickupItemEvent: false
+        PlayerQuitEvent: false
+        PlayerRecipeDiscoverEvent: false
+        PlayerResourcePackStatusEvent: false
+        PlayerRespawnEvent: false
+        PlayerRiptideEvent: false
+        PlayerShearEntityEvent: false
+        PlayerSpawnLocationEvent: false
+        PlayerStatisticIncrementEvent: false
+        #, PlayerSwapHandItemsEvent, PlayerTakeLecternBookEvent, PlayerToggleFlightEvent, PlayerToggleSneakEvent, PlayerToggleSprintEvent, PlayerVelocityEvent
+
+           # Command: /serverplus event toggle
+    Toggle:
+      "On":
+        - 'console: lp user %player% permission unset eventplus.events.%event%'
+      "Off":
+        - 'console: lp user %player% permission set eventplus.events.%event% false'
+  Groups:
+    Open_Menu:
+      Enable: false
+      Trigger:
+        # Press "f".
+        Swap: true
+      Conditions:
+        Sneak: true
+        Fly: false
+      Actions:
+        Cancel-Event: true
+        Commands:
+          - 'console: bossshop open menu %player%'
+    Advanced_Example:
+      Enable: false
+      Trigger:
+        Click-Entity: true
+      Targets:
+        Entities:
+          - PIG
+          - SHEEP
+          - COW
+      Conditions:
+        Main-Hand: menu
+        Succeed:
+          PlaceHolder: '%money% >= 100'
+      Actions:
+        Succeed:
+          Money: '- 100'
+        Failed:
+          Cancel-Event: true
+
 Donate:
   Enable: true
   Groups:

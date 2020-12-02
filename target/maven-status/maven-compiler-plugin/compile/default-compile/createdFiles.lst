@@ -22,6 +22,7 @@ tw\momocraft\serverplus\utils\ResidenceUtils.class
 tw\momocraft\serverplus\listeners\MyPet.class
 tw\momocraft\serverplus\utils\Logger.class
 tw\momocraft\serverplus\utils\ConfigPath.class
+tw\momocraft\serverplus\handlers\RegisterHandler.class
 tw\momocraft\serverplus\utils\TabComplete.class
 tw\momocraft\serverplus\utils\locationutils\LocationUtils.class
 tw\momocraft\serverplus\handlers\ServerHandler.class

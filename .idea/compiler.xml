@@ -6,9 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="GuardianPlus" />
         <module name="EntityPlus" />
         <module name="ServerPlus" />
+        <module name="GuardianPlus" />
       </profile>
     </annotationProcessing>
   </component>

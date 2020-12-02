@@ -2,6 +2,7 @@ package tw.momocraft.serverplus.utils;
 
 import org.bukkit.Bukkit;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
+import tw.momocraft.serverplus.handlers.ServerHandler;
 
 public class DependAPI {
     private VaultAPI vaultApi;
@@ -50,6 +51,29 @@ public class DependAPI {
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.AuthMe")) {
             this.setAuthMeStatus(Bukkit.getServer().getPluginManager().getPlugin("AuthMe") != null);
         }
+        sendUtilityDepends();
+    }
+
+    private void sendUtilityDepends() {
+        ServerHandler.sendConsoleMessage("&fHooked [ &e"
+                + (ConfigHandler.getDepends().VaultEnabled() ? "Vault, " : "")
+                + (ConfigHandler.getDepends().CMIEnabled() ? "CMI, " : "")
+                + (ConfigHandler.getDepends().ResidenceEnabled() ? "Residence, " : "")
+                + (ConfigHandler.getDepends().PlaceHolderAPIEnabled() ? "PlaceHolderAPI, " : "")
+                + (ConfigHandler.getDepends().MyPetEnabled() ? "MyPet, " : "")
+                + (ConfigHandler.getDepends().ItemJoinEnabled() ? "ItemJoin, " : "")
+                + (ConfigHandler.getDepends().MorphToolEnabled() ? "MorphTool, " : "")
+                + (ConfigHandler.getDepends().DiscordSRVEnabled() ? "DiscordSRV, " : "")
+                + (ConfigHandler.getDepends().MpdbEnabled() ? "MysqlPlayerDataBridge, " : "")
+                + (ConfigHandler.getDepends().AuthMeEnabled() ? "AuthMe, " : "")
+                + " &f]");
+        /*
+        if (ConfigHandler.getDepends().ResidenceEnabled()) {
+            if (ConfigHandler.getConfigPath().isSpawnResFlag()) {
+                FlagPermissions.addFlag("spawnbypass");
+            }
+        }
+         */
     }
 
     public boolean VaultEnabled() {

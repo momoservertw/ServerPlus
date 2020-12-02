@@ -15,10 +15,9 @@ import java.util.Random;
 
 public class MyPet implements Listener {
 
-
     @EventHandler(priority = EventPriority.HIGH)
     public void onMyPetCallEvent(MyPetCallEvent e) {
-        if (ConfigHandler.getConfigPath().isMypet()) {
+        if (ConfigHandler.getConfigPath().isMyPet()) {
             if (ConfigHandler.getConfigPath().isMypetSkillAuto()) {
                 if (e.getMyPet().getSkilltree() == null) {
                     List<String> skillList = ConfigHandler.getConfigPath().getSkillProp().get(e.getMyPet().getPetType().name());

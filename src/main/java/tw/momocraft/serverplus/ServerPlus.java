@@ -2,6 +2,7 @@ package tw.momocraft.serverplus;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
+import tw.momocraft.serverplus.handlers.RegisterHandler;
 import tw.momocraft.serverplus.handlers.ServerHandler;
 
 public class ServerPlus extends JavaPlugin {
@@ -11,7 +12,7 @@ public class ServerPlus extends JavaPlugin {
     public void onEnable() {
         instance = this;
         ConfigHandler.generateData(false);
-        ConfigHandler.registerEvents();
+        RegisterHandler.registerEvents();
         ServerHandler.sendConsoleMessage("&fhas been Enabled.");
     }
 

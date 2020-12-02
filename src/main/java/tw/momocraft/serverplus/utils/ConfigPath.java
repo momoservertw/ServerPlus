@@ -27,9 +27,16 @@ public class ConfigPath {
     private String logCustomName;
 
     //  ============================================== //
+    //         Event Settings                        //
+    //  ============================================== //
+    private boolean event;
+    private Map<String, Boolean> eventRegisterProp = new HashMap<>();
+    private Map<String, List<String>> eventProp = new HashMap<>();
+
+    //  ============================================== //
     //         MyPet Settings                        //
     //  ============================================== //
-    private boolean mypet;
+    private boolean myPet;
     private boolean mypetSkillAuto;
     private Map<String, List<String>> skillProp;
 
@@ -69,6 +76,7 @@ public class ConfigPath {
     //  ============================================== //
     private void setUp() {
         setGeneral();
+        setEvent();
         setMyPet();
         setMpdb();
         setItemJoin();
@@ -91,10 +99,30 @@ public class ConfigPath {
     }
 
     //  ============================================== //
+    //         Setup Event.                            //
+    //  ============================================== //
+    private void setEvent() {
+        event = ConfigHandler.getConfig("config.yml").getBoolean("Event.Enable");
+
+        ConfigurationSection eventRegConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Settings.Features.Event");
+        if (eventRegConfig != null) {
+            for (String event : eventRegConfig.getKeys(false)) {
+                eventRegisterProp.put(event, ConfigHandler.getConfig("config.yml").getBoolean("Event.Settings.Features.Event." + event));
+            }
+        }
+        ConfigurationSection eventConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups");
+        if (eventConfig != null) {
+            for (String group : eventConfig.getKeys(false)) {
+
+            }
+        }
+    }
+
+    //  ============================================== //
     //         Setup MyPet.                            //
     //  ============================================== //
     private void setMyPet() {
-        mypet = ConfigHandler.getConfig("config.yml").getBoolean("MyPet.Enable");
+        myPet = ConfigHandler.getConfig("config.yml").getBoolean("MyPet.Enable");
         mypetSkillAuto = ConfigHandler.getConfig("config.yml").getBoolean("MyPet.Skilltree-Auto-Select.Enable");
         ConfigurationSection skillConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("MyPet.Skilltree-Auto-Select.Groups");
         if (skillConfig != null) {
@@ -118,6 +146,7 @@ public class ConfigPath {
             }
         }
     }
+
     //  ============================================== //
     //         MySQLPlayerDataBridge Settings          //
     //  ============================================== //
@@ -209,8 +238,23 @@ public class ConfigPath {
     //  ============================================== //
     //         Mypet Settings                          //
     //  ============================================== //
-    public boolean isMypet() {
-        return mypet;
+    public boolean isEvent() {
+        return event;
+    }
+
+    public Map<String, Boolean> getEventRegisterProp() {
+        return eventRegisterProp;
+    }
+
+    public Map<String, List<String>> getEventProp() {
+        return eventProp;
+    }
+
+    //  ============================================== //
+    //         MyPet Settings                          //
+    //  ============================================== //
+    public boolean isMyPet() {
+        return myPet;
     }
 
     public boolean isMypetSkillAuto() {
@@ -220,6 +264,7 @@ public class ConfigPath {
     public Map<String, List<String>> getSkillProp() {
         return skillProp;
     }
+
     //  ============================================== //
     //         MySQLPlayerDataBridge Settings          //
     //  ============================================== //
@@ -280,6 +325,7 @@ public class ConfigPath {
     public String getMorphtoolName() {
         return morphtoolName;
     }
+
     //  ============================================== //
     //         AuthMe Settings                      //
     //  ============================================== //

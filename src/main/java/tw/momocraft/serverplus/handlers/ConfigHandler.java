@@ -28,61 +28,12 @@ public class ConfigHandler {
     public static void generateData(boolean reload) {
         genConfigFile("config.yml");
         setDepends(new DependAPI());
-        sendUtilityDepends();
         setConfigPath(new ConfigPath());
         if (!reload) {
             setUpdater(new UpdateHandler());
         }
         setLogger(new Logger());
         setZip(new Zip());
-    }
-
-    public static void registerEvents() {
-        ServerPlus.getInstance().getCommand("ServerPlus").setExecutor(new Commands());
-        ServerPlus.getInstance().getCommand("ServerPlus").setTabCompleter(new TabComplete());
-
-        if (ConfigHandler.getDepends().MyPetEnabled()) {
-            ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new MyPet(), ServerPlus.getInstance());
-            ServerHandler.sendFeatureMessage("Register-Event", "MyPet", "MyPet", "continue",
-                    new Throwable().getStackTrace()[0]);
-        }
-        if (ConfigHandler.getDepends().MorphToolEnabled()) {
-            ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new MorphTool(), ServerPlus.getInstance());
-            ServerHandler.sendFeatureMessage("Register-Event", "MorphTool", "PrepareSmithingEvent", "continue",
-                    new Throwable().getStackTrace()[0]);
-        }
-        if (ConfigHandler.getDepends().ItemJoinEnabled()) {
-            ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new SyncComplete(), ServerPlus.getInstance());
-            ServerHandler.sendFeatureMessage("Register-Event", "ItemJoin", "PlayerJoinEvent", "continue",
-                    new Throwable().getStackTrace()[0]);
-        }
-        if (ConfigHandler.getDepends().AuthMeEnabled()) {
-            ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new AuthMe(), ServerPlus.getInstance());
-            ServerHandler.sendFeatureMessage("Register-Event", "AuthMe", "LoginEvent", "continue",
-                    new Throwable().getStackTrace()[0]);
-        }
-    }
-
-    private static void sendUtilityDepends() {
-        ServerHandler.sendConsoleMessage("&fHooked [ &e"
-                + (getDepends().VaultEnabled() ? "Vault, " : "")
-                + (getDepends().CMIEnabled() ? "CMI, " : "")
-                + (getDepends().ResidenceEnabled() ? "Residence, " : "")
-                + (getDepends().PlaceHolderAPIEnabled() ? "PlaceHolderAPI, " : "")
-                + (getDepends().MyPetEnabled() ? "MyPet, " : "")
-                + (getDepends().ItemJoinEnabled() ? "ItemJoin, " : "")
-                + (getDepends().MorphToolEnabled() ? "MorphTool, " : "")
-                + (getDepends().DiscordSRVEnabled() ? "DiscordSRV, " : "")
-                + (getDepends().MpdbEnabled() ? "MysqlPlayerDataBridge, " : "")
-                + (getDepends().AuthMeEnabled() ? "AuthMe, " : "")
-                + " &f]");
-        /*
-        if (ConfigHandler.getDepends().ResidenceEnabled()) {
-            if (ConfigHandler.getConfigPath().isSpawnResFlag()) {
-                FlagPermissions.addFlag("spawnbypass");
-            }
-        }
-         */
     }
 
     public static FileConfiguration getConfig(String fileName) {
