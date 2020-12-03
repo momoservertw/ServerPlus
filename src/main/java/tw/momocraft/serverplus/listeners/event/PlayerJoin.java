@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
 import tw.momocraft.serverplus.handlers.ServerHandler;
+import tw.momocraft.serverplus.utils.CustomCommands;
 import tw.momocraft.serverplus.utils.Utils;
 import tw.momocraft.serverplus.utils.event.ActionMap;
 import tw.momocraft.serverplus.utils.event.ConditionMap;
@@ -95,17 +96,16 @@ public class PlayerJoin implements Listener {
             if (condition.equals("false")) {
                 continue;
             }
-            // Executing actions.
-            if (executeAtions(eventMap.getActions())) {
+            // Executing actions and return if the action contain canceling event.
+            if (executeActions(player, eventMap.getActions())) {
 
             }
         }
     }
 
     /**
-     *
-     * @param player the player who triggered the event.
-     * @param targetName the target name of player or block, etc.
+     * @param player           the player who triggered the event.
+     * @param targetName       the target name of player or block, etc.
      * @param conditionMapList the ConditionMap list.
      * @return if the conditions are matched.
      */
@@ -146,64 +146,72 @@ public class PlayerJoin implements Listener {
     }
 
     /**
-     *
      * @param actionMapList the executing Actions.
      * @return if the event canceled.
      */
-    private boolean executeAtions(List<ActionMap> actionMapList) {
+    private boolean executeActions(Player player, List<ActionMap> actionMapList) {
         // Executing actions.
         if (actionMapList == null) {
             ServerHandler.sendErrorMessage("Can not find the Action settings: " + group);
             return true;
         }
         for (ActionMap actionMap : actionMapList) {
+            if (actionMap.getCommands() != null) {
+                for (String cmd : actionMap.getCommands()) {
+                    CustomCommands.executeMultipleCmds(player, cmd);
+                }
+            }
+            if (actionMap.getCleanSlots() != null) {
+                cleanSlots(player, actionMap.getCleanSlots());
+            }
             if (actionMap.getCancel() != null) {
                 // e.setCancelled(true);
             }
-            if (actionMap.getCleanSlots() != null) {
-                for (String slot : actionMap.getCleanSlots()) {
-                    // Inventory
-                    if (slot.matches("0-9")) {
-                        try {
-                            player.getInventory().setItem(Integer.parseInt(slot), null);
-                        } catch (Exception ex) {
-                            ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
-                        }
-                    }
-                    switch (slot) {
-                        // Equipment
-                        case "HEAD":
-                            player.getInventory().setHelmet(null);
-                            break;
-                        case "CHEST":
-                            player.getInventory().setChestplate(null);
-                            break;
-                        case "LEGS":
-                            player.getInventory().setLeggings(null);
-                            break;
-                        case "FEET":
-                            player.getInventory().setBoots(null);
-                            break;
-                        case "HAND":
-                            player.getInventory().setItemInMainHand(null);
-                            break;
-                        case "OFF_HAND":
-                            player.getInventory().setItemInOffHand(null);
-                            break;
-                        //
-                        case "CRAFTING[1]":
-                        case "CRAFTING[2]":
-                        case "CRAFTING[3]":
-                        case "CRAFTING[4]":
-                            try {
-                                player.getOpenInventory().getTopInventory().setItem(Integer.parseInt(slot.replace("CRAFTING[", "").replace("]", "")), null);
-                            } catch (Exception ex) {
-                                ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
-                            }
-                        default:
-                            ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
-                    }
+        }
+    }
+
+    private void cleanSlots(Player player, List<String> slots) {
+        for (String slot : slots) {
+            // Inventory
+            if (slot.matches("0-9")) {
+                try {
+                    player.getInventory().setItem(Integer.parseInt(slot), null);
+                } catch (Exception ex) {
+                    ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
                 }
+            }
+            switch (slot) {
+                // Equipment
+                case "HEAD":
+                    player.getInventory().setHelmet(null);
+                    break;
+                case "CHEST":
+                    player.getInventory().setChestplate(null);
+                    break;
+                case "LEGS":
+                    player.getInventory().setLeggings(null);
+                    break;
+                case "FEET":
+                    player.getInventory().setBoots(null);
+                    break;
+                case "HAND":
+                    player.getInventory().setItemInMainHand(null);
+                    break;
+                case "OFF_HAND":
+                    player.getInventory().setItemInOffHand(null);
+                    break;
+                //
+                case "CRAFTING[1]":
+                case "CRAFTING[2]":
+                case "CRAFTING[3]":
+                case "CRAFTING[4]":
+                    try {
+                        player.getOpenInventory().getTopInventory().setItem(Integer.parseInt(slot.replace("CRAFTING[", "").replace("]", "")), null);
+                    } catch (Exception ex) {
+                        ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
+                    }
+                default:
+                    ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
             }
         }
     }
