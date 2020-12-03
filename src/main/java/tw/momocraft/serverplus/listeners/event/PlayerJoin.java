@@ -96,64 +96,19 @@ public class PlayerJoin implements Listener {
                 continue;
             }
             // Executing actions.
-            List<ActionMap> actionMapList = eventMap.getActions();
-            if (actionMapList == null) {
-                ServerHandler.sendErrorMessage("Can not find the Action settings: " + group);
-                return;
-            }
-            for (ActionMap actionMap : actionMapList) {
-                if (actionMap.getCancel() != null) {
-                    // e.setCancelled(true);
-                }
-                if (actionMap.getCleanSlots() != null) {
-                    for (String slot : actionMap.getCleanSlots()) {
-                        // Inventory
-                        if (slot.matches("0-9")) {
-                            try {
-                                player.getInventory().setItem(Integer.parseInt(slot), null);
-                            } catch (Exception ex) {
-                                ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
-                            }
-                        }
-                        switch (slot) {
-                            // Equipment
-                            case "HEAD":
-                                player.getInventory().setHelmet(null);
-                                break;
-                            case "CHEST":
-                                player.getInventory().setChestplate(null);
-                                break;
-                            case "LEGS":
-                                player.getInventory().setLeggings(null);
-                                break;
-                            case "FEET":
-                                player.getInventory().setBoots(null);
-                                break;
-                            case "HAND":
-                                player.getInventory().setItemInMainHand(null);
-                                break;
-                            case "OFF_HAND":
-                                player.getInventory().setItemInOffHand(null);
-                                break;
-                            //
-                            case "CRAFTING[1]":
-                            case "CRAFTING[2]":
-                            case "CRAFTING[3]":
-                            case "CRAFTING[4]":
-                                try {
-                                    player.getOpenInventory().getTopInventory().setItem(Integer.parseInt(slot.replace("CRAFTING[", "").replace("]", "")), null);
-                                } catch (Exception ex) {
-                                    ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
-                                }
-                            default:
-                                ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
-                        }
-                    }
-                }
+            if (executeAtions(eventMap.getActions())) {
+
             }
         }
     }
 
+    /**
+     *
+     * @param player the player who triggered the event.
+     * @param targetName the target name of player or block, etc.
+     * @param conditionMapList the ConditionMap list.
+     * @return if the conditions are matched.
+     */
     private String checkConditions(Player player, String targetName, List<ConditionMap> conditionMapList) {
         if (conditionMapList == null) {
             return "";
@@ -188,6 +143,69 @@ public class PlayerJoin implements Listener {
             return "";
         }
         return "";
+    }
+
+    /**
+     *
+     * @param actionMapList the executing Actions.
+     * @return if the event canceled.
+     */
+    private boolean executeAtions(List<ActionMap> actionMapList) {
+        // Executing actions.
+        if (actionMapList == null) {
+            ServerHandler.sendErrorMessage("Can not find the Action settings: " + group);
+            return true;
+        }
+        for (ActionMap actionMap : actionMapList) {
+            if (actionMap.getCancel() != null) {
+                // e.setCancelled(true);
+            }
+            if (actionMap.getCleanSlots() != null) {
+                for (String slot : actionMap.getCleanSlots()) {
+                    // Inventory
+                    if (slot.matches("0-9")) {
+                        try {
+                            player.getInventory().setItem(Integer.parseInt(slot), null);
+                        } catch (Exception ex) {
+                            ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
+                        }
+                    }
+                    switch (slot) {
+                        // Equipment
+                        case "HEAD":
+                            player.getInventory().setHelmet(null);
+                            break;
+                        case "CHEST":
+                            player.getInventory().setChestplate(null);
+                            break;
+                        case "LEGS":
+                            player.getInventory().setLeggings(null);
+                            break;
+                        case "FEET":
+                            player.getInventory().setBoots(null);
+                            break;
+                        case "HAND":
+                            player.getInventory().setItemInMainHand(null);
+                            break;
+                        case "OFF_HAND":
+                            player.getInventory().setItemInOffHand(null);
+                            break;
+                        //
+                        case "CRAFTING[1]":
+                        case "CRAFTING[2]":
+                        case "CRAFTING[3]":
+                        case "CRAFTING[4]":
+                            try {
+                                player.getOpenInventory().getTopInventory().setItem(Integer.parseInt(slot.replace("CRAFTING[", "").replace("]", "")), null);
+                            } catch (Exception ex) {
+                                ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
+                            }
+                        default:
+                            ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
+                    }
+                }
+            }
+        }
     }
 
     private boolean checkHoldingMenu(Player player) {
