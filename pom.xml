@@ -51,6 +51,16 @@
             <id>codemc-repo</id>
             <url>http://repo.codemc.org/repository/maven-public/</url>
         </repository>
+        <!--LocaleLib Repo-->
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+        <!--LangUtils Repo-->
+        <repository>
+            <id>lang-utils-repo</id>
+            <url>https://raw.github.com/MascusJeoraly/LanguageUtils/mvn-repo/</url>
+        </repository>
     </repositories>
     <dependencies>
         <!--Google API-->
@@ -141,7 +151,7 @@
             <groupId>me.MysqlPlayerDataBridge</groupId>
             <artifactId>MysqlPlayerDataBridge</artifactId>
             <scope>system</scope>
-            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/MysqlPlayerDataBridge-v3.35.0.jar
+            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/serverplus/extra/MysqlPlayerDataBridge-v3.35.0.jar
             </systemPath>
             <version>LEGACY</version>
         </dependency>
@@ -151,6 +161,27 @@
             <artifactId>authme</artifactId>
             <version>LATEST</version>
             <scope>provided</scope>
+        </dependency>
+        <!--LocaleLib API-->
+        <dependency>
+            <groupId>com.github.PikaMug</groupId>
+            <artifactId>LocaleLib</artifactId>
+            <version>1.6</version>
+        </dependency>
+        <!--LangUtils API-->
+        <dependency>
+            <groupId>com.meowj</groupId>
+            <artifactId>LangUtils</artifactId>
+            <!--Please check the latest version -->
+            <version>1.9</version>
+        </dependency>
+        <!--PlayerPoints API-->
+        <dependency>
+            <groupId>org.black_ixx</groupId>
+            <artifactId>PlayerPoints</artifactId>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/serverplus/extra/PlayerPoints.jar</systemPath>
+            <version>LEGACY</version>
         </dependency>
     </dependencies>
 

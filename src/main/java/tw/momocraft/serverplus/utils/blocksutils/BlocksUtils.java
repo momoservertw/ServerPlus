@@ -31,8 +31,8 @@ public class BlocksUtils {
                 if (groupConfig != null) {
                     blocksMaps.put(group, getBlocksMap(group));
                 } else {
-                    ServerHandler.sendConsoleMessage("&cThere is an error occurred. Please check your configuration.");
-                    ServerHandler.sendConsoleMessage("&cBlocks: " + group + " not found.");
+                    ServerHandler.sendErrorMessage("&cThere is an error occurred. Please check your configuration.");
+                    ServerHandler.sendErrorMessage("&cBlocks: " + group + " not found.");
                 }
             }
         }

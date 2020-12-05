@@ -9,8 +9,9 @@ public class EventMap {
 
     private List<String> events;
     private Map<String, List<String>> targets;
-    private List<ConditionMap> conditions;
-    private List<ActionMap> actions;
+    private ConditionMap conditions;
+    private ActionMap actions;
+    private ActionMap actionsFailed;
 
     public long getPriority() {
         return priority;
@@ -24,13 +25,18 @@ public class EventMap {
         return targets;
     }
 
-    public List<ConditionMap> getConditions() {
+    public ConditionMap getConditions() {
         return conditions;
     }
 
-    public List<ActionMap> getActions() {
+    public ActionMap getActions() {
         return actions;
     }
+
+    public ActionMap getActionsFailed() {
+        return actionsFailed;
+    }
+
 
     public void setPriority(long priority) {
         this.priority = priority;
@@ -44,11 +50,15 @@ public class EventMap {
         this.targets = targets;
     }
 
-    public void setConditions(List<ConditionMap> conditions) {
+    public void setConditions(ConditionMap conditions) {
         this.conditions = conditions;
     }
 
-    public void setActions(List<ActionMap> actions) {
+    public void setActions(ActionMap actions) {
         this.actions = actions;
+    }
+
+    public void setActionsFailed(ActionMap actionsFailed) {
+        this.actionsFailed = actionsFailed;
     }
 }

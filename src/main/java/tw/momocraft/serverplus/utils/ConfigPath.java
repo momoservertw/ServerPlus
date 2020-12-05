@@ -5,9 +5,11 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.EntityType;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
 import tw.momocraft.serverplus.handlers.ServerHandler;
+import tw.momocraft.serverplus.utils.blocksutils.BlocksUtils;
 import tw.momocraft.serverplus.utils.event.ActionMap;
 import tw.momocraft.serverplus.utils.event.ConditionMap;
 import tw.momocraft.serverplus.utils.event.EventMap;
+import tw.momocraft.serverplus.utils.locationutils.LocationUtils;
 
 import java.util.*;
 
@@ -20,6 +22,10 @@ public class ConfigPath {
     //         General Settings                        //
     //  ============================================== //
     private Map<String, String> customCmdProp;
+
+    private LocationUtils locationUtils;
+    private BlocksUtils blocksUtils;
+
     private boolean logDefaultNew;
     private boolean logDefaultZip;
     private boolean logCustomNew;
@@ -30,6 +36,8 @@ public class ConfigPath {
     private String menuIJ;
     private String menuType;
     private String menuName;
+
+    private String vanillaTrans;
 
     //  ============================================== //
     //         Event Settings                        //
@@ -101,10 +109,14 @@ public class ConfigPath {
                 customCmdProp.put(group, ConfigHandler.getConfig("config.yml").getString("General.Custom-Commands." + group));
             }
         }
+        locationUtils = new LocationUtils();
+        blocksUtils = new BlocksUtils();
 
         menuIJ = ConfigHandler.getConfig("config.yml").getString("General.Menu.ItemJoin");
         menuType = ConfigHandler.getConfig("config.yml").getString("General.Menu.Item.Type");
         menuName = ConfigHandler.getConfig("config.yml").getString("General.Menu.Item.Name");
+
+        vanillaTrans = ConfigHandler.getConfig("config.yml").getString("General.Vanilla-Translate.Local");
     }
 
     //  ============================================== //
@@ -122,26 +134,20 @@ public class ConfigPath {
         ConfigurationSection eventConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups");
         if (eventConfig != null) {
             EventMap eventMap;
+            // Targets
             ConfigurationSection targetConfig;
             Map<String, List<String>> targetMap;
-
+            // Conditions
             ConfigurationSection conditionConfig;
-            ConfigurationSection conditionValueConfig;
-            List<ConditionMap> conditionMapList;
-            List<ConditionMap> conditionValueMapList;
             ConditionMap conditionMap;
-            ConditionMap conditionValueMap;
-
+            // Actions
             ConfigurationSection actionConfig;
-            ConfigurationSection actionValueConfig;
-            List<ActionMap> actionMapList;
-            List<ActionMap> actionValueMapList;
             ActionMap actionMap;
-            ActionMap actionValueMap;
             for (String group : eventConfig.getKeys(false)) {
                 eventMap = new EventMap();
                 eventMap.setPriority(ConfigHandler.getConfig("config.yml").getLong("Event.Groups." + group + ".Priority"));
                 eventMap.setEvents(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Events"));
+                // Targets
                 targetConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups." + group + ".Targets");
                 if (targetConfig != null) {
                     targetMap = new HashMap<>();
@@ -150,11 +156,11 @@ public class ConfigPath {
                     }
                     eventMap.setTargets(targetMap);
                 }
+                // Conditions
                 conditionConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups." + group + ".Conditions");
                 if (conditionConfig != null) {
-                    conditionMapList = new ArrayList<>();
+                    conditionMap = new ConditionMap();
                     for (String key : conditionConfig.getKeys(false)) {
-                        conditionMap = new ConditionMap();
                         switch (key) {
                             case "Placeholders":
                                 conditionMap.setPlaceholders(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Conditions." + key));
@@ -162,49 +168,30 @@ public class ConfigPath {
                             case "Holding-Menu":
                                 conditionMap.setHoldingMenu(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Conditions." + key));
                                 break;
-                            case "Succeed":
-                                conditionValueConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups." + group + ".Conditions." + key);
-                                if (conditionValueConfig == null) {
-                                    break;
-                                }
-                                conditionValueMap = new ConditionMap();
-                                conditionValueMapList = new ArrayList<>();
-                                for (String key2 : conditionValueConfig.getKeys(false)) {
-                                    if (key2.equals("Placeholders")) {
-                                        conditionValueMap.setPlaceholders(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Conditions." + key + "." + key2));
-                                    } else if (key2.equals("Holding-Menu")) {
-                                        conditionValueMap.setHoldingMenu(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Conditions." + key + "." + key2));
-                                    }
-                                    conditionValueMapList.add(conditionValueMap);
-                                }
-                                conditionMap.setSucceedMap(conditionValueMapList);
+                            case "Boimes":
+                                conditionMap.setBoimes(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Conditions." + key));
                                 break;
-                            case "Failed":
-                                conditionValueConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups." + group + ".Conditions." + key);
-                                if (conditionValueConfig == null) {
-                                    break;
-                                }
-                                conditionValueMap = new ConditionMap();
-                                conditionValueMapList = new ArrayList<>();
-                                for (String key2 : conditionValueConfig.getKeys(false)) {
-                                    if (key2.equals("Placeholders")) {
-                                        conditionValueMap.setPlaceholders(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Conditions." + key + "." + key2));
-                                    } else if (key2.equals("Holding-Menu")) {
-                                        conditionValueMap.setHoldingMenu(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Conditions." + key + "." + key2));
-                                    }
-                                    conditionValueMapList.add(conditionValueMap);
-                                }
-                                conditionMap.setFailedMap(conditionValueMapList);
+                            case "Day":
+                                conditionMap.setDay(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Conditions." + key));
+                                break;
+                            case "Liquid":
+                                conditionMap.setLiquid(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Conditions." + key));
+                                break;
+                            case "Location":
+                                conditionMap.setLocMaps(locationUtils.getSpeLocMaps("config.yml", "Event.Groups." + group + ".Conditions." + key));
+                                break;
+                            case "Blocks":
+                                conditionMap.setBlocksMaps(blocksUtils.getSpeBlocksMaps("config.yml", "Event.Groups." + group + ".Conditions." + key));
                                 break;
                         }
                     }
-                    eventMap.setConditions(conditionMapList);
+                    eventMap.setConditions(conditionMap);
                 }
+                // Actions
                 actionConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups." + group + ".Actions");
                 if (actionConfig != null) {
-                    actionMapList = new ArrayList<>();
+                    actionMap = new ActionMap();
                     for (String key : actionConfig.getKeys(false)) {
-                        actionMap = new ActionMap();
                         switch (key) {
                             case "Commands":
                                 actionMap.setCommands(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Actions." + key));
@@ -227,80 +214,39 @@ public class ConfigPath {
                             case "Show-Pet-Info":
                                 actionMap.setPetInfo(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions." + key));
                                 break;
-                            case "Succeed":
-                                actionValueConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups." + group + ".Actions." + key);
-                                if (actionValueConfig == null) {
-                                    break;
-                                }
-                                actionValueMap = new ActionMap();
-                                actionValueMapList = new ArrayList<>();
-                                for (String key2 : actionValueConfig.getKeys(false)) {
-                                    switch (key2) {
-                                        case "Commands":
-                                            actionMap.setCommands(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Actions." + key + "." + key2));
-                                            break;
-                                        case "Cancel":
-                                            actionMap.setCancel(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions." + key + "." + key2));
-                                            break;
-                                        case "Kill":
-                                            actionMap.setKill(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions." + key + "." + key2));
-                                            break;
-                                        case "Kill-Target":
-                                            actionMap.setKillTarget(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions." + key + "." + key2));
-                                            break;
-                                        case "Clean-Slot":
-                                            actionMap.setCleanSlots(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Actions." + key + "." + key2));
-                                            break;
-                                        case "Clean-Slot-Target":
-                                            actionMap.setCleanSlotTarget(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Actions." + key + "." + key2));
-                                            break;
-                                        case "Show-Pet-Info":
-                                            actionMap.setPetInfo(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions." + key + "." + key2));
-                                            break;
-                                    }
-                                    actionValueMapList.add(actionValueMap);
-                                }
-                                actionMap.setSucceedMap(actionValueMapList);
+                        }
+                    }
+                    eventMap.setActions(actionMap);
+                }
+                actionConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups." + group + ".Actions-Failed");
+                if (actionConfig != null) {
+                    actionMap = new ActionMap();
+                    for (String key : actionConfig.getKeys(false)) {
+                        switch (key) {
+                            case "Commands":
+                                actionMap.setCommands(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Actions-Failed." + key));
                                 break;
-                            case "Failed":
-                                actionValueConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups." + group + ".Actions." + key);
-                                if (actionValueConfig == null) {
-                                    break;
-                                }
-                                actionValueMap = new ActionMap();
-                                actionValueMapList = new ArrayList<>();
-                                for (String key2 : actionValueConfig.getKeys(false)) {
-                                    switch (key2) {
-                                        case "Commands":
-                                            actionMap.setCommands(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Actions." + key + "." + key2));
-                                            break;
-                                        case "Cancel":
-                                            actionMap.setCancel(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions." + key + "." + key2));
-                                            break;
-                                        case "Kill":
-                                            actionMap.setKill(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions." + key + "." + key2));
-                                            break;
-                                        case "Kill-Target":
-                                            actionMap.setKillTarget(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions." + key + "." + key2));
-                                            break;
-                                        case "Clean-Slot":
-                                            actionMap.setCleanSlots(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Actions." + key + "." + key2));
-                                            break;
-                                        case "Clean-Slot-Target":
-                                            actionMap.setCleanSlotTarget(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Actions." + key + "." + key2));
-                                            break;
-                                        case "Show-Pet-Info":
-                                            actionMap.setPetInfo(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions." + key + "." + key2));
-                                            break;
-                                    }
-                                    actionValueMapList.add(actionValueMap);
-                                }
-                                actionMap.setFailedMap(actionValueMapList);
+                            case "Cancel":
+                                actionMap.setCancel(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions-Failed." + key));
+                                break;
+                            case "Kill":
+                                actionMap.setKill(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions-Failed." + key));
+                                break;
+                            case "Kill-Target":
+                                actionMap.setKillTarget(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions-Failed." + key));
+                                break;
+                            case "Clean-Slot":
+                                actionMap.setCleanSlots(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Actions-Failed." + key));
+                                break;
+                            case "Clean-Slot-Target":
+                                actionMap.setCleanSlotTarget(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Actions-Failed." + key));
+                                break;
+                            case "Show-Pet-Info":
+                                actionMap.setPetInfo(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions-Failed." + key));
                                 break;
                         }
-                        actionMapList.add(actionMap);
                     }
-                    eventMap.setActions(actionMapList);
+                    eventMap.setActionsFailed(actionMap);
                 }
                 // Add properties to all events.
                 for (String event : eventMap.getEvents()) {
@@ -335,6 +281,7 @@ public class ConfigPath {
                 eventProp.replace(event, newEnMap);
             }
         }
+
     }
 
     //  ============================================== //
@@ -466,8 +413,12 @@ public class ConfigPath {
         return menuType;
     }
 
+    public String getVanillaTrans() {
+        return vanillaTrans;
+    }
+
     //  ============================================== //
-    //         Mypet Settings                          //
+    //         MyPet Settings                          //
     //  ============================================== //
     public boolean isEvent() {
         return event;

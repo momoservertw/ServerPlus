@@ -6,6 +6,8 @@ import tw.momocraft.serverplus.handlers.ServerHandler;
 
 public class DependAPI {
     private VaultAPI vaultApi;
+    private PlayerPointsAPI playerPointsApi;
+
     private boolean Vault = false;
     private boolean PlaceHolderAPI = false;
     private boolean Residence = false;
@@ -16,6 +18,8 @@ public class DependAPI {
     private boolean DiscordSRV = false;
     private boolean MysqlPlayerDataBridge = false;
     private boolean AuthMe = false;
+    private boolean LangUtils = false;
+    private boolean PlayerPoints = false;
 
     public DependAPI() {
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.Vault")) {
@@ -23,6 +27,15 @@ public class DependAPI {
             if (Vault) {
                 setVaultApi();
             }
+        }
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.PlayerPoints")) {
+            this.setPlayerPointsStatus(Bukkit.getServer().getPluginManager().getPlugin("PlayerPoints") != null);
+            if (PlayerPoints) {
+                setPlayerPointsApi();
+            }
+        }
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.LangUtils")) {
+            this.setLangUtilsStatus(Bukkit.getServer().getPluginManager().getPlugin("LangUtils") != null);
         }
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.PlaceHolderAPI")) {
             this.setPlaceHolderStatus(Bukkit.getServer().getPluginManager().getPlugin("PlaceHolderAPI") != null);
@@ -45,30 +58,33 @@ public class DependAPI {
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.DiscordSRV")) {
             this.setDiscordSRVStatus(Bukkit.getServer().getPluginManager().getPlugin("DiscordSRV") != null);
         }
-        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.DiscordSRV")) {
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.MysqlPlayerDataBridge")) {
             this.setMpbdStatus(Bukkit.getServer().getPluginManager().getPlugin("MysqlPlayerDataBridge") != null);
         }
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.AuthMe")) {
             this.setAuthMeStatus(Bukkit.getServer().getPluginManager().getPlugin("AuthMe") != null);
         }
+
         sendUtilityDepends();
     }
 
     private void sendUtilityDepends() {
         ServerHandler.sendConsoleMessage("&fHooked [ &e"
-                + (ConfigHandler.getDepends().VaultEnabled() ? "Vault, " : "")
-                + (ConfigHandler.getDepends().CMIEnabled() ? "CMI, " : "")
-                + (ConfigHandler.getDepends().ResidenceEnabled() ? "Residence, " : "")
-                + (ConfigHandler.getDepends().PlaceHolderAPIEnabled() ? "PlaceHolderAPI, " : "")
-                + (ConfigHandler.getDepends().MyPetEnabled() ? "MyPet, " : "")
-                + (ConfigHandler.getDepends().ItemJoinEnabled() ? "ItemJoin, " : "")
-                + (ConfigHandler.getDepends().MorphToolEnabled() ? "MorphTool, " : "")
-                + (ConfigHandler.getDepends().DiscordSRVEnabled() ? "DiscordSRV, " : "")
-                + (ConfigHandler.getDepends().MpdbEnabled() ? "MysqlPlayerDataBridge, " : "")
-                + (ConfigHandler.getDepends().AuthMeEnabled() ? "AuthMe, " : "")
+                + (VaultEnabled() ? "Vault, " : "")
+                + (CMIEnabled() ? "CMI, " : "")
+                + (ResidenceEnabled() ? "Residence, " : "")
+                + (PlaceHolderAPIEnabled() ? "PlaceHolderAPI, " : "")
+                + (MyPetEnabled() ? "MyPet, " : "")
+                + (ItemJoinEnabled() ? "ItemJoin, " : "")
+                + (MorphToolEnabled() ? "MorphTool, " : "")
+                + (DiscordSRVEnabled() ? "DiscordSRV, " : "")
+                + (MpdbEnabled() ? "MysqlPlayerDataBridge, " : "")
+                + (AuthMeEnabled() ? "AuthMe, " : "")
+                + (LangUtilsEnabled() ? "LangUtils, " : "")
+                + (PlayerPointsEnabled() ? "PlayerPoints, " : "")
                 + " &f]");
         /*
-        if (ConfigHandler.getDepends().ResidenceEnabled()) {
+        if (ResidenceEnabled()) {
             if (ConfigHandler.getConfigPath().isSpawnResFlag()) {
                 FlagPermissions.addFlag("spawnbypass");
             }
@@ -112,13 +128,21 @@ public class DependAPI {
         return this.MysqlPlayerDataBridge;
     }
 
-
-    public boolean AuthMeEnabled() {
-        return this.AuthMe;
+    public boolean LangUtilsEnabled() {
+        return this.LangUtils;
     }
+
+    public boolean PlayerPointsEnabled() {
+        return this.PlayerPoints;
+    }
+
 
     public void setVaultStatus(boolean bool) {
         this.Vault = bool;
+    }
+
+    public boolean AuthMeEnabled() {
+        return this.AuthMe;
     }
 
     public void setPlaceHolderStatus(boolean bool) {
@@ -157,6 +181,13 @@ public class DependAPI {
         this.AuthMe = bool;
     }
 
+    private void setLangUtilsStatus(boolean bool) {
+        this.LangUtils = bool;
+    }
+
+    private void setPlayerPointsStatus(boolean bool) {
+        this.PlayerPoints = bool;
+    }
 
     public VaultAPI getVaultApi() {
         return this.vaultApi;
@@ -164,5 +195,13 @@ public class DependAPI {
 
     private void setVaultApi() {
         vaultApi = new VaultAPI();
+    }
+
+    public PlayerPointsAPI getPlayerPointsApi() {
+        return this.playerPointsApi;
+    }
+
+    private void setPlayerPointsApi() {
+        playerPointsApi = new PlayerPointsAPI();
     }
 }

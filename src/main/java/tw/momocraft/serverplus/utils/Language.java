@@ -62,40 +62,22 @@ public class Language {
     }
 
     public static void sendLangMessage(String nodeLocation, CommandSender sender, boolean hasPrefix, String... placeHolder) {
+        Player player = null;
+        if (sender instanceof Player) {
+            player = (Player) sender;
+        }
+        String prefix = "";
         if (hasPrefix) {
-            Player player = null;
-            if (sender instanceof Player) {
-                player = (Player) sender;
-            }
-            String langMessage = ConfigHandler.getConfig("config.yml").getString(nodeLocation);
-            String prefix = Utils.translateLayout(ConfigHandler.getConfig("config.yml").getString("Message.prefix"), player);
-            if (prefix == null) {
-                prefix = "";
-            } else {
-                prefix += "";
-            }
-            if (langMessage != null && !langMessage.isEmpty()) {
-                langMessage = translateLangHolders(langMessage, initializeRows(placeHolder));
-                langMessage = Utils.translateLayout(langMessage, player);
-                String[] langLines = langMessage.split(" /n ");
-                for (String langLine : langLines) {
-                    String langStrip = prefix + langLine;
-                    sender.sendMessage(langStrip);
-                }
-            }
-        } else {
-            Player player = null;
-            if (sender instanceof Player) {
-                player = (Player) sender;
-            }
-            String langMessage = ConfigHandler.getConfig("config.yml").getString(nodeLocation);
-            if (langMessage != null && !langMessage.isEmpty()) {
-                langMessage = translateLangHolders(langMessage, initializeRows(placeHolder));
-                langMessage = Utils.translateLayout(langMessage, player);
-                String[] langLines = langMessage.split(" /n ");
-                for (String langLine : langLines) {
-                    sender.sendMessage(langLine);
-                }
+            prefix = Utils.translateLayout(ConfigHandler.getConfig("config.yml").getString("Message.prefix"), player);
+        }
+        String langMessage = ConfigHandler.getConfig("config.yml").getString(nodeLocation);
+        if (langMessage != null && !langMessage.isEmpty()) {
+            langMessage = translateLangHolders(langMessage, initializeRows(placeHolder));
+            langMessage = Utils.translateLayout(langMessage, player);
+            String[] langLines = langMessage.split(" /n ");
+            for (String langLine : langLines) {
+                String langStrip = prefix + langLine;
+                sender.sendMessage(langStrip);
             }
         }
     }
@@ -120,7 +102,15 @@ public class Language {
                 .replace("%command%", langHolder[0])
                 .replace("%player%", langHolder[1])
                 .replace("%targetplayer%", langHolder[2])
-                .replace("%amount%", langHolder[6])
+                //.replace("%pricetype%", langHolder[3])
+                //.replace("%price%", langHolder[4])
+                //.replace("%balance%", langHolder[5])
+                //.replace("%amount%", langHolder[6])
+                //.replace("%item%", langHolder[7])
+                //.replace("%nick%", langHolder[11])
+                //.replace("%nick_color%", langHolder[12])
+                //.replace("%nick_length%", ConfigHandler.getConfig("config.yml").getString("Nick.Limits.Length"));
+                .replace("%event%", langHolder[11])
                 ;
     }
 

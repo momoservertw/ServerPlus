@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
 import tw.momocraft.serverplus.handlers.ServerHandler;
+import tw.momocraft.serverplus.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -117,17 +118,17 @@ public class LocationUtils {
                 // R: 1000
                 switch (type) {
                     case "X":
-                        return getRange(loc.getBlockX(), Integer.parseInt(values[0]));
+                        return Utils.getRange(loc.getBlockX(), Integer.parseInt(values[0]));
                     case "Y":
-                        return getRange(loc.getBlockY(), Integer.parseInt(values[0]));
+                        return Utils.getRange(loc.getBlockY(), Integer.parseInt(values[0]));
                     case "Z":
-                        return getRange(loc.getBlockZ(), Integer.parseInt(values[0]));
+                        return Utils.getRange(loc.getBlockZ(), Integer.parseInt(values[0]));
                     case "!X":
-                        return !getRange(loc.getBlockX(), Integer.parseInt(values[0]));
+                        return !Utils.getRange(loc.getBlockX(), Integer.parseInt(values[0]));
                     case "!Y":
-                        return !getRange(loc.getBlockY(), Integer.parseInt(values[0]));
+                        return !Utils.getRange(loc.getBlockY(), Integer.parseInt(values[0]));
                     case "!Z":
-                        return !getRange(loc.getBlockZ(), Integer.parseInt(values[0]));
+                        return !Utils.getRange(loc.getBlockZ(), Integer.parseInt(values[0]));
                     case "R":
                         return getRound(loc, Integer.parseInt(values[0]));
                     case "!R":
@@ -141,34 +142,34 @@ public class LocationUtils {
                 // X: ">= 1000"
                 switch (type) {
                     case "X":
-                        return getCompare(values[0], loc.getBlockX(), Integer.parseInt(values[1]));
+                        return Utils.getCompare(values[0], loc.getBlockX(), Integer.parseInt(values[1]));
                     case "Y":
-                        return getCompare(values[0], loc.getBlockY(), Integer.parseInt(values[1]));
+                        return Utils.getCompare(values[0], loc.getBlockY(), Integer.parseInt(values[1]));
                     case "Z":
-                        return getCompare(values[0], loc.getBlockZ(), Integer.parseInt(values[1]));
+                        return Utils.getCompare(values[0], loc.getBlockZ(), Integer.parseInt(values[1]));
                     case "!X":
-                        return !getCompare(values[0], loc.getBlockX(), Integer.parseInt(values[1]));
+                        return !Utils.getCompare(values[0], loc.getBlockX(), Integer.parseInt(values[1]));
                     case "!Y":
-                        return !getCompare(values[0], loc.getBlockY(), Integer.parseInt(values[1]));
+                        return !Utils.getCompare(values[0], loc.getBlockY(), Integer.parseInt(values[1]));
                     case "!Z":
-                        return !getCompare(values[0], loc.getBlockZ(), Integer.parseInt(values[1]));
+                        return !Utils.getCompare(values[0], loc.getBlockZ(), Integer.parseInt(values[1]));
                 }
             } else if (length == 3) {
                 // X: "-1000 ~ 1000"
                 // R: "1000 0 0"
                 switch (type) {
                     case "X":
-                        return getRange(loc.getBlockX(), Integer.parseInt(values[0]), Integer.parseInt(values[2]));
+                        return Utils.getRange(loc.getBlockX(), Integer.parseInt(values[0]), Integer.parseInt(values[2]));
                     case "Y":
-                        return getRange(loc.getBlockY(), Integer.parseInt(values[0]), Integer.parseInt(values[2]));
+                        return Utils.getRange(loc.getBlockY(), Integer.parseInt(values[0]), Integer.parseInt(values[2]));
                     case "Z":
-                        return getRange(loc.getBlockZ(), Integer.parseInt(values[0]), Integer.parseInt(values[2]));
+                        return Utils.getRange(loc.getBlockZ(), Integer.parseInt(values[0]), Integer.parseInt(values[2]));
                     case "!X":
-                        return !getRange(loc.getBlockX(), Integer.parseInt(values[0]), Integer.parseInt(values[2]));
+                        return !Utils.getRange(loc.getBlockX(), Integer.parseInt(values[0]), Integer.parseInt(values[2]));
                     case "!Y":
-                        return !getRange(loc.getBlockY(), Integer.parseInt(values[0]), Integer.parseInt(values[2]));
+                        return !Utils.getRange(loc.getBlockY(), Integer.parseInt(values[0]), Integer.parseInt(values[2]));
                     case "!Z":
-                        return !getRange(loc.getBlockZ(), Integer.parseInt(values[0]), Integer.parseInt(values[2]));
+                        return !Utils.getRange(loc.getBlockZ(), Integer.parseInt(values[0]), Integer.parseInt(values[2]));
                     case "R":
                         return getRound(loc, Integer.parseInt(values[0]), Integer.parseInt(values[1]), Integer.parseInt(values[2]));
                     case "!R":
@@ -193,54 +194,10 @@ public class LocationUtils {
                 }
             }
         } catch (Exception e) {
-            ServerHandler.sendConsoleMessage("&cThere is an error occurred. Please check the \"Location\" format.");
-            ServerHandler.sendConsoleMessage("&c" + type + ": " + value);
+            ServerHandler.sendErrorMessage("There is an error occurred. Please check the \"Location\" format.");
+            ServerHandler.sendErrorMessage(type + ": " + value);
         }
         return false;
-    }
-
-    /**
-     * @param operator the comparison operator to compare two numbers.
-     * @param number1  first number.
-     * @param number2  second number.
-     */
-    private boolean getCompare(String operator, int number1, int number2) {
-        switch (operator) {
-            case ">":
-                return number1 > number2;
-            case "<":
-                return number1 < number2;
-            case ">=":
-            case "=>":
-                return number1 >= number2;
-            case "<=":
-            case "=<":
-                return number1 <= number2;
-            case "==":
-            case "=":
-                return number1 == number2;
-        }
-        return false;
-    }
-
-    /**
-     * @param number the checking number.
-     * @param r1     the first side of range.
-     * @param r2     another side of range.
-     * @return if the check number is inside the range.
-     * It will return false if the two side of range numbers are equal.
-     */
-    private boolean getRange(int number, int r1, int r2) {
-        return r1 <= number && number <= r2 || r2 <= number && number <= r1;
-    }
-
-    /**
-     * @param number the location of event.
-     * @param r      the side of range.
-     * @return if the check number is inside the range.
-     */
-    private boolean getRange(int number, int r) {
-        return -r <= number && number <= r || r <= number && number <= -r;
     }
 
     /**

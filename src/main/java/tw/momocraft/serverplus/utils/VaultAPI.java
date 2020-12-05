@@ -2,6 +2,7 @@ package tw.momocraft.serverplus.utils;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import tw.momocraft.serverplus.ServerPlus;
 import tw.momocraft.serverplus.handlers.ServerHandler;
@@ -43,5 +44,9 @@ public class VaultAPI {
 
     public Permission getPermissions() {
         return this.perms;
+    }
+
+    public double getBalance(OfflinePlayer offlinePlayer) {
+        return econ.getBalance(offlinePlayer);
     }
 }

@@ -6,6 +6,7 @@ import tw.momocraft.serverplus.listeners.AuthMe;
 import tw.momocraft.serverplus.listeners.MorphTool;
 import tw.momocraft.serverplus.listeners.MyPet;
 import tw.momocraft.serverplus.listeners.SyncComplete;
+import tw.momocraft.serverplus.listeners.event.PlayerJoin;
 import tw.momocraft.serverplus.utils.TabComplete;
 
 import java.util.Map;
@@ -26,9 +27,9 @@ public class RegisterHandler {
             ServerHandler.sendFeatureMessage("Register-Event", "MorphTool", "PrepareSmithingEvent", "continue",
                     new Throwable().getStackTrace()[0]);
         }
-        if (ConfigHandler.getDepends().ItemJoinEnabled()) {
+        if (ConfigHandler.getDepends().MpdbEnabled()) {
             ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new SyncComplete(), ServerPlus.getInstance());
-            ServerHandler.sendFeatureMessage("Register-Event", "ItemJoin", "PlayerJoinEvent", "continue",
+            ServerHandler.sendFeatureMessage("Register-Event", "ItemJoin", "SyncCompleteEvent", "continue",
                     new Throwable().getStackTrace()[0]);
         }
         if (ConfigHandler.getDepends().AuthMeEnabled()) {
@@ -43,8 +44,10 @@ public class RegisterHandler {
                 continue;
             }
             switch (event) {
-                case "AsyncPlayerChatEvent":
-                    ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new AuthMe(), ServerPlus.getInstance());
+                case "PlayerJoinEvent":
+                    ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new PlayerJoin(), ServerPlus.getInstance());
+                    ServerHandler.sendFeatureMessage("Register-Event", "Event", "PlayerJoin", "continue",
+                            new Throwable().getStackTrace()[0]);
                     break;
             }
         }

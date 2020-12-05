@@ -4,6 +4,7 @@ import java.util.List;
 
 public class ActionMap {
     private List<String> commands;
+    private List<String> commandsTarget;
     private String cancel;
     private String kill;
     private String killTarget;
@@ -50,6 +51,10 @@ public class ActionMap {
         return commands;
     }
 
+    public List<String> getCommandsTarget() {
+        return commandsTarget;
+    }
+
     public void setKillTarget(String killTarget) {
         this.killTarget = killTarget;
     }
@@ -84,5 +89,9 @@ public class ActionMap {
 
     public void setPetInfo(String petInfo) {
         this.petInfo = petInfo;
+    }
+
+    public void setCommandsTarget(List<String> commandsTarget) {
+        this.commandsTarget = commandsTarget;
     }
 }

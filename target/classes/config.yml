@@ -6,6 +6,9 @@ Debugging: false
 
 General:
   Settings:
+    # Translating the placeholder of vanilla Items, Entities, Enchantments name.
+    Vanilla-Translate:
+      Local: "en_us"
     Features:
       # Changed these options need to restart the server.
       Hook:
@@ -18,6 +21,40 @@ General:
         ItemJoin: true
         DiscordSRV: true
         AuthMe: true
+        LocaleLib: true
+  # The menu item for some events like showing blocks or destroying it.
+  # If you don't have a menu in your server, you can set Item Name to "" to use a vanilla item.
+  # Support: ItemJoin
+  Menu:
+    ItemJoin: ""
+    Item:
+      Type: "PLAYER_HEAD"
+      Name: "&e&lMy &6&lMenu"
+  Location:
+    NormalWorlds:
+      Worlds:
+        - world
+    NetherWorlds:
+      Worlds:
+        - world_nether
+    EndWorlds:
+      Worlds:
+        - world_the_end
+    NormalBorder:
+      Worlds:
+        - world
+      Area:
+        S: 10000
+    Bedrock_World:
+      Worlds:
+        - world
+      Area:
+        Y: ">= 5"
+    Bedrock_Nether:
+      Worlds:
+        - world_nether
+      Area:
+        Y: "5 ~ 123"
   # The settings for custom commands.
   # More information: https://github.com/momoservertw/LotteryPlus/wiki/Custom-Command
   Custom-Commands:
@@ -38,40 +75,6 @@ General:
     awards: "message: &d✧ &f%cmd_arg1% &d✧"
     cgl: "broadcast: &6Congratulate &e%player% &6use &f%cmd_arg1% &8- &6Get the %cmd_arg2% &7<&f%cmd_arg3%&7>"
     money: "console: money give %player% %cmd_arg1%"
-  # Specifying the spawn locations.
-  # More information: https://github.com/momoservertw/EntityPlus/wiki/Location
-  Location:
-    NormalWorlds:
-      Worlds:
-        - world
-    NetherWorlds:
-      Worlds:
-        - world_nether
-    EndWorlds:
-      Worlds:
-        - world_the_end
-    NormalBorder:
-      Worlds:
-        - world
-      Area:
-        S: 10000
-  # Check if there are certain blocks nearby.
-  # More information: https://github.com/momoservertw/EntityPlus/wiki/Blocks
-  Blocks:
-    # When creatures spawn in wither_rose.
-    InWitherRose:
-      Types:
-        - WITHER_ROSE
-      Search:
-        V: 1
-    NearbyMonument:
-      Types:
-        - PRISMARINE
-        - DARK_PRISMARINE
-        - PRISMARINE_BRICKS
-      Search:
-        S: 5
-        Y: 5
 
 MyPet:
   Enable: true
@@ -379,82 +382,69 @@ Event:
     Features:
       # Change these options need to restart the server.
       Event:
-        AsyncPlayerChatEvent: false
-        PlayerAdvancementDoneEvent: false
-        PlayerBedEnterEvent: false
-        PlayerBedLeaveEvent: false
-        PlayerBucketEvent: false
-        PlayerChangedMainHandEvent: false
-        PlayerChangedWorldEvent: false
-        PlayerCommandSendEvent: false
-        PlayerDropItemEvent: false
-        PlayerEditBookEvent: false
-        PlayerEggThrowEvent: false
-        PlayerExpChangeEvent: false
-        PlayerFishEvent: false
-        PlayerGameModeChangeEvent: false
-        PlayerHarvestBlockEvent: false
-        PlayerInteractEntityEvent: false
-        PlayerInteractEvent: false
-        PlayerItemBreakEvent: false
-        PlayerItemConsumeEvent: false
-        PlayerItemDamageEvent: false
-        PlayerItemHeldEvent: false
-        PlayerItemMendEvent: false
         PlayerJoinEvent: false
-        PlayerKickEvent: false
-        PlayerLevelChangeEvent: false
-        PlayerLocaleChangeEvent: false
-        PlayerLoginEvent: false
-        PlayerMoveEvent: false
-        PlayerPickupItemEvent: false
-        PlayerQuitEvent: false
-        PlayerRecipeDiscoverEvent: false
-        PlayerResourcePackStatusEvent: false
-        PlayerRespawnEvent: false
-        PlayerRiptideEvent: false
-        PlayerShearEntityEvent: false
-        PlayerSpawnLocationEvent: false
-        PlayerStatisticIncrementEvent: false
-        #, PlayerSwapHandItemsEvent, PlayerTakeLecternBookEvent, PlayerToggleFlightEvent, PlayerToggleSneakEvent, PlayerToggleSprintEvent, PlayerVelocityEvent
-
-           # Command: /serverplus event toggle
+    # Command: /serverplus event toggle
     Toggle:
       "On":
         - 'console: lp user %player% permission unset eventplus.events.%event%'
       "Off":
         - 'console: lp user %player% permission set eventplus.events.%event% false'
   Groups:
-    Open_Menu:
+    Example:
       Enable: false
-      Trigger:
-        # Press "f".
-        Swap: true
-      Conditions:
-        Sneak: true
-        Fly: false
-      Actions:
-        Cancel-Event: true
-        Commands:
-          - 'console: bossshop open menu %player%'
-    Advanced_Example:
-      Enable: false
-      Trigger:
-        Click-Entity: true
+      Event:
+        - PlayerInteractEntityEvent
       Targets:
         Entities:
           - PIG
           - SHEEP
           - COW
       Conditions:
-        Main-Hand: menu
+        Holding-Menu: true
         Succeed:
-          PlaceHolder: '%money% >= 100'
+          PlaceHolders:
+            - '%money% >= 100'
+            - '%money% >= 100'
       Actions:
-        Succeed:
-          Money: '- 100'
-        Failed:
-          Cancel-Event: true
+        Commands:
+          - "console: money take %player% 100"
+          - "message: &eYou killed a %target%."
+      Actions-Failed:
+        Cancel: true
+        Commands:
+          - "message: &cYou dont have enough money to interact %target% - Need: $100"
+    Keyboard-Command-F:
+      Enable: false
+      Event:
+        - PlayerSwapHandItemsEvent
+      Conditions:
+        Sneak: true
+        Fly: false
+      Actions:
+        Cancel: true
+        Commands:
+          - "console: bossshop open menu %player%"
+    Keyboard-Command-1:
+      Enable: false
+      Event:
+        - PlayerChangedMainHandEvent
+      Conditions:
+        Sneak: true
+        Fly: false
+      Actions:
+        Cancel: true
+        Commands:
+          - "console: pvp toggle player"
+    Show_Pet_Info:
+      Enable: false
+      Event:
+        - MyPetInteractEvent
+      Conditions:
+        Sneak: true
+        Holing-Menu: true
+      Actions:
+        Show-Pet-Info: true
+        Cancel: true
 
 Donate:
   Enable: true

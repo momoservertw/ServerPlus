@@ -9,8 +9,8 @@ import tw.momocraft.serverplus.handlers.ServerHandler;
 
 public class CustomCommands {
     public static void executeMultipleCmds(CommandSender sender, String input) {
-        String[] cmds;
         if (input.contains(";")) {
+            String[] cmds;
             cmds = input.split(";");
             for (String cmd : cmds) {
                 executeCommands(sender, cmd);
