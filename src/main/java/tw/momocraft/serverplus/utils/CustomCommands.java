@@ -7,8 +7,25 @@ import org.bukkit.entity.Player;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
 import tw.momocraft.serverplus.handlers.ServerHandler;
 
+import java.util.List;
+
 public class CustomCommands {
-    public static void executeMultipleCmds(CommandSender sender, String input) {
+
+    public static void executeMultiCmdsList(CommandSender sender, List<String> input) {
+        for (String value : input) {
+            if (value.contains(";")) {
+                String[] cmds;
+                cmds = value.split(";");
+                for (String cmd : cmds) {
+                    executeCommands(sender, cmd);
+                }
+            } else {
+                executeCommands(sender, value);
+            }
+        }
+    }
+
+    public static void executeMultiCmds(CommandSender sender, String input) {
         if (input.contains(";")) {
             String[] cmds;
             cmds = input.split(";");
@@ -151,9 +168,6 @@ public class CustomCommands {
     /**
      * To execute console command.
      *
-     * @param player
-     * @param command
-     * @param placeholder
      */
 
     private static void dispatchConsoleCommand(Player player, String command, boolean placeholder) {
@@ -181,9 +195,6 @@ public class CustomCommands {
     /**
      * To execute operator command.
      *
-     * @param player
-     * @param command
-     * @param placeholder
      */
     private static void dispatchOpCommand(Player player, String command, boolean placeholder) {
         boolean isOp = player.isOp();
@@ -206,9 +217,6 @@ public class CustomCommands {
     /**
      * To execute player command.
      *
-     * @param player
-     * @param command
-     * @param placeholder
      */
     private static void dispatchPlayerCommand(Player player, String command, boolean placeholder) {
         try {
@@ -226,9 +234,6 @@ public class CustomCommands {
     /**
      * To send message form player.
      *
-     * @param player
-     * @param command
-     * @param placeholder
      */
     private static void dispatchChatCommand(Player player, String command, boolean placeholder) {
         try {
@@ -246,9 +251,6 @@ public class CustomCommands {
     /**
      * To send message to player.
      *
-     * @param player
-     * @param command
-     * @param placeholder
      */
     private static void dispatchMessageCommand(Player player, String command, boolean placeholder) {
         try {
@@ -266,9 +268,6 @@ public class CustomCommands {
     /**
      * To execute BungeeCord command.
      *
-     * @param player
-     * @param command
-     * @param placeholder
      */
     private static void dispatchBungeeCordCommand(Player player, String command, boolean placeholder) {
         try {

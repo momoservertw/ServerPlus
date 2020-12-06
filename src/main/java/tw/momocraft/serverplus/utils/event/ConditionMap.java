@@ -10,15 +10,15 @@ public class ConditionMap {
     private String holdingMenu;
     private List<String> placeholders;
 
-    private List<String> reasons;
-    private List<String> ignoreReasons;
+    private List<Integer> handSlots;
+    private String sneak;
+    private String fly;
     private List<String> boimes;
     private List<String> ignoreBoimes;
     private String liquid;
     private String day;
     private List<LocationMap> locMaps = new ArrayList<>();
     private List<BlocksMap> blocksMaps = new ArrayList<>();
-
 
     public String getHoldingMenu() {
         return holdingMenu;
@@ -28,6 +28,17 @@ public class ConditionMap {
         return placeholders;
     }
 
+    public List<Integer> getHandSlots() {
+        return handSlots;
+    }
+
+    public String getFly() {
+        return fly;
+    }
+
+    public String getSneak() {
+        return sneak;
+    }
 
     public String getDay() {
         return day;
@@ -35,13 +46,6 @@ public class ConditionMap {
 
     public String getLiquid() {
         return liquid;
-    }
-
-    public List<String> getReasons() {
-        return reasons;
-    }
-    public List<String> getIgnoreReasons() {
-        return ignoreReasons;
     }
 
     public List<String> getBoimes() {
@@ -69,13 +73,16 @@ public class ConditionMap {
         this.placeholders = placeholders;
     }
 
-
-    public void setReasons(List<String> reasons) {
-        this.reasons = reasons;
+    public void setHandSlots(List<Integer> handSlots) {
+        this.handSlots = handSlots;
     }
 
-    public void setIgnoreReasons(List<String> ignoreReasons) {
-        this.ignoreReasons = ignoreReasons;
+    public void setFly(String fly) {
+        this.fly = fly;
+    }
+
+    public void setSneak(String sneak) {
+        this.sneak = sneak;
     }
 
     public void setBoimes(List<String> boimes) {
@@ -93,7 +100,6 @@ public class ConditionMap {
     public void setDay(String day) {
         this.day = day;
     }
-
 
     public void setBlocksMaps(List<BlocksMap> blocksMaps) {
         this.blocksMaps = blocksMaps;

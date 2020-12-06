@@ -375,14 +375,152 @@ AuthMe:
   Mail-Warning:
     Enable: true
 
-# Warning player to set their email.
+HotKey:
+  Enable: true
+  Menu:
+    Enable: true
+    Crafting1:
+      Enable: true
+      Slot: 0
+      Item:
+        id: ELYTRA
+        name: '&e&lTeleport Menu'
+        lore:
+          - '&7Click to open'
+      Commands:
+        - "console: say command Crafting1"
+    Crafting2:
+      Enable: true
+      Slot: 1
+      Item:
+        id: ENDER_CHEST
+        name: '&e&lEnder Chest'
+        lore:
+          - '&7Click to open'
+      Commands:
+        - "console: say command Crafting2"
+    Crafting3:
+      Enable: true
+      Slot: 2
+      Item:
+        id: IRON_SWORD
+        name: '&e&lPVP'
+        lore:
+          - '&7Click to toggle'
+      Commands:
+        - "console: say command Crafting3"
+    Crafting4:
+      Enable: true
+      Slot: 3
+      Item:
+        id: TROPICAL_FISH
+        name: '&e&lPet Menu'
+        lore:
+          - '&7Click to open'
+      Commands:
+        - "console: say command Crafting4"
+    Crafting5:
+      Enable: true
+      Slot: 4
+      Item:
+        id: FLOWER_POT
+        name: '&e&lCrash Can'
+        lore:
+          - '&7Click to open'
+      Commands:
+        - "console: say command Crafting5"
+  Keyboard:
+    Enable: true
+    Settings:
+      Cooldown:
+        Enable: true
+        Interval: 60
+        Message: false
+    Groups:
+      ShiftF:
+        Enable: true
+        Slot: -1
+        Cancel: true
+        Commands:
+          - "console: say command Shift + F"
+      Shift1:
+        Enable: true
+        Slot: 0
+        Cancel: true
+        Commands:
+          - "console: say command Shift + 1"
+      Shift2:
+        Enable: true
+        Slot: 1
+        Cancel: true
+        Commands:
+          - "console: say command Shift + 2"
+      Shift3:
+        Enable: true
+        Slot: 2
+        Cancel: true
+        Commands:
+          - "console: say command Shift + 3"
+      Shift4:
+        Enable: true
+        Slot: 3
+        Cancel: true
+        Commands:
+          - "console: say command Shift + 4"
+      Shift5:
+        Enable: true
+        Slot: 4
+        Cancel: true
+        Commands:
+          - "console: say command Shift + 5"
+      Shift6:
+        Enable: true
+        Slot: 5
+        Cancel: true
+        Commands:
+          - "console: say command Shift + 6"
+      Shift7:
+        Enable: true
+        Slot: 6
+        Cancel: true
+        Commands:
+          - "console: say command Shift + 7"
+      Shift8:
+        Enable: true
+        Slot: 7
+        Cancel: true
+        Commands:
+          - "console: say command Shift + 8"
+      Shift9:
+        Enable: true
+        Slot: 8
+        Cancel: true
+        Commands:
+          - "console: say command Shift + 9"
+
 Event:
   Enable: true
   Settings:
     Features:
       # Change these options need to restart the server.
-      Event:
+      Register:
         PlayerJoinEvent: false
+        PlayerQuitEvent: false
+        PlayerInteractEntityEvent: false
+        PlayerInteractEvent: false
+        PlayerPickupItemEvent: false
+        PlayerToggleSneakEvent: false
+        PlayerChangedMainHandEvent: false
+        PlayerSwapHandItemsEvent: false
+        PlayerBucketFillEvent: false
+        PlayerFishEvent: false
+        PlayerItemConsumeEvent: false
+        PlayerToggleFlightEvent: false
+        ProjectileLaunchEvent: false
+        InventoryInteractEvent: false
+        CMIAfkEnterEvent: false
+        CMIAfkLeaveEvent: false
+        MyPetInteractEvent: false
     # Command: /serverplus event toggle
     Toggle:
       "On":
@@ -392,7 +530,7 @@ Event:
   Groups:
     Example:
       Enable: false
-      Event:
+      Events:
         - PlayerInteractEntityEvent
       Targets:
         Entities:
@@ -401,10 +539,8 @@ Event:
           - COW
       Conditions:
         Holding-Menu: true
-        Succeed:
-          PlaceHolders:
-            - '%money% >= 100'
-            - '%money% >= 100'
+        PlaceHolders:
+          - '%money% >= 100'
       Actions:
         Commands:
           - "console: money take %player% 100"
@@ -415,7 +551,7 @@ Event:
           - "message: &cYou dont have enough money to interact %target% - Need: $100"
     Keyboard-Command-F:
       Enable: false
-      Event:
+      Events:
         - PlayerSwapHandItemsEvent
       Conditions:
         Sneak: true
@@ -423,28 +559,69 @@ Event:
       Actions:
         Cancel: true
         Commands:
-          - "console: bossshop open menu %player%"
+          - "player: shop menu"
     Keyboard-Command-1:
       Enable: false
-      Event:
+      Events:
         - PlayerChangedMainHandEvent
       Conditions:
+        Hand-Slots:
+          - 0
         Sneak: true
         Fly: false
       Actions:
         Cancel: true
         Commands:
-          - "console: pvp toggle player"
+          - "player: shop motw_tp"
+    Keyboard-Command-2:
+      Enable: false
+      Events:
+        - PlayerChangedMainHandEvent
+      Conditions:
+        Hand-Slots:
+          - 1
+        Sneak: true
+        Fly: false
+      Actions:
+        Cancel: true
+        Commands:
+          - "player: pvp toggle"
+    Keyboard-Command-3:
+      Enable: false
+      Events:
+        - PlayerChangedMainHandEvent
+      Conditions:
+        Hand-Slots:
+          - 2
+        Sneak: true
+        Fly: false
+      Actions:
+        Cancel: true
+        Commands:
+          - "player: enderchest"
+    Keyboard-Command-4:
+      Enable: false
+      Events:
+        - PlayerChangedMainHandEvent
+      Conditions:
+        Hand-Slots:
+          - 3
+        Sneak: true
+        Fly: false
+      Actions:
+        Cancel: true
+        Commands:
+          - "player: cmi dispose"
     Show_Pet_Info:
       Enable: false
-      Event:
+      Events:
         - MyPetInteractEvent
       Conditions:
         Sneak: true
         Holing-Menu: true
       Actions:
-        Show-Pet-Info: true
         Cancel: true
+        Show-Pet-Info: true
 
 Donate:
   Enable: true
@@ -524,6 +701,7 @@ Message:
   noPermission: '&cYou do not have permission to use that command!'
   configReload: '&aConfiguration(s) Reloaded!'
   unknownCommand: '&cUnknown command, See &e/ServerPlus help &cfor a list of commands.'
+  cooldown: '&fPlease try it again later.'
   ServerPlus:
     Commands:
       title: "&8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩ &d&lServerPlus &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"

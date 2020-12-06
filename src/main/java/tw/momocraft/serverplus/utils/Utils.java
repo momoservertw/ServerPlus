@@ -58,12 +58,37 @@ public class Utils {
     }
 
     /**
+     * @param value the checking value
+     * @return if the chance will succeed or not.
+     */
+    public static boolean isRandChance(double value) {
+        return value < new Random().nextDouble();
+    }
+
+    /**
+     * @param value      the spawn reason of this entity.
+     * @return if the feature is enavle
+     */
+    public static boolean isEnable(String value, boolean def) {
+        if (value == null) {
+            return def;
+        }
+        if (value.equals("true")) {
+            return true;
+        } else if (value.equals("false")) {
+            return false;
+        } else {
+            return def;
+        }
+    }
+
+    /**
      * @param value      the spawn reason of this entity.
      * @param list       the spawn Reasons in configuration.
      * @param ignoreList the spawn Ignore-Reasons in configuration.
      * @return if the entity spawn reason match the config setting.
      */
-    public static boolean containValue(String value, List<String> list, List<String> ignoreList) {
+    public static boolean containIgnoreValue(String value, List<String> list, List<String> ignoreList) {
         if (ignoreList.contains(value)) {
             return false;
         }
@@ -74,27 +99,28 @@ public class Utils {
     }
 
     /**
-     * @param operator the comparison operator to compare two numbers.
-     * @param number1  first number.
-     * @param number2  second number.
+     * @param block the checking block.
+     * @param value the option "Liquid" in configuration.
+     * @return if the entity spawned in water or lava.
      */
-    public static boolean getCompare(String operator, int number1, int number2) {
-        switch (operator) {
-            case ">":
-                return number1 > number2;
-            case "<":
-                return number1 < number2;
-            case ">=":
-            case "=>":
-                return number1 >= number2;
-            case "<=":
-            case "=<":
-                return number1 <= number2;
-            case "==":
-            case "=":
-                return number1 == number2;
+    public static boolean isLiquid(Block block, String value) {
+        if (value == null) {
+            return true;
         }
-        return false;
+        boolean blockLiquid = block.isLiquid();
+        return value.equals("true") && blockLiquid || value.equals("false") && !blockLiquid;
+    }
+
+    /**
+     * @param time  the checking word time..
+     * @param value the spawn day/night in configuration.
+     * @return if the entity spawn day match the config setting.
+     */
+    public static boolean isDay(double time, String value) {
+        if (value == null) {
+            return true;
+        }
+        return value.equals("true") && (time < 12300 || time > 23850) || value.equals("false") && (time >= 12300 && time <= 23850);
     }
 
     /**
@@ -122,6 +148,17 @@ public class Utils {
     }
 
     /**
+     * @param number the checking number
+     * @param r1     the first side of range.
+     * @param r2     another side of range.
+     * @return if the check number is inside the range.
+     * It will return false if the two side of range numbers are equal.
+     */
+    public static boolean getRange(double number, double r1, double r2) {
+        return r1 <= number && number <= r2 || r2 <= number && number <= r1;
+    }
+
+    /**
      * @param number the checking number.
      * @param r1     the first side of range.
      * @param r2     another side of range.
@@ -139,6 +176,28 @@ public class Utils {
      */
     public static boolean getRange(int number, int r) {
         return -r <= number && number <= r || r <= number && number <= -r;
+    }
+
+    /**
+     * @param number the location of event.
+     * @param r      the side of range.
+     * @return if the check number is inside the range.
+     */
+    public static boolean getRange(double number, double r) {
+        return -r <= number && number <= r || r <= number && number <= -r;
+    }
+
+    /**
+     * @param loc      location.
+     * @param loc2     location2.
+     * @param distance The checking value.
+     * @return if two locations is in the distance.
+     */
+    public static boolean inTheRange(Location loc, Location loc2, int distance) {
+        if (loc.getWorld() == loc2.getWorld()) {
+            return loc.distanceSquared(loc2) <= distance;
+        }
+        return false;
     }
 
     public static String getNearbyPlayer(Player player, int range) {
@@ -167,6 +226,9 @@ public class Utils {
     }
 
     public static String translateLayout(String input, Player player) {
+        if (input == null) {
+            return "";
+        }
         if (player != null && !(player instanceof ConsoleCommandSender)) {
             String playerName = player.getName();
             // %player%
@@ -190,6 +252,18 @@ public class Utils {
             // %player_interact%
             try {
                 input = input.replace("%player_interact%", getNearbyPlayer(player, 3));
+            } catch (Exception e) {
+                ServerHandler.sendDebugTrace(e);
+            }
+            // %player_sneaking%
+            try {
+                input = input.replace("%player_sneaking%", String.valueOf(player.isSneaking()));
+            } catch (Exception e) {
+                ServerHandler.sendDebugTrace(e);
+            }
+            // %player_flying%
+            try {
+                input = input.replace("%player_flying%", String.valueOf(player.isFlying()));
             } catch (Exception e) {
                 ServerHandler.sendDebugTrace(e);
             }

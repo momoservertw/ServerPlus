@@ -29,7 +29,7 @@ public class MyPet implements Listener {
                     if (player == null) {
                         player = Bukkit.getPlayer(e.getOwner().getName());
                     }
-                    CustomCommands.executeMultipleCmds(player, command);
+                    CustomCommands.executeMultiCmds(player, command);
                     ServerHandler.sendFeatureMessage("MyPet", e.getOwner().getName(), "skill", "continue", command,
                             new Throwable().getStackTrace()[0]);
                 }

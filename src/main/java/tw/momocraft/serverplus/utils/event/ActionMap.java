@@ -8,8 +8,6 @@ public class ActionMap {
     private String cancel;
     private String kill;
     private String killTarget;
-    private List<String> cleanSlots;
-    private List<String> cleanSlotTarget;
     private String petInfo;
     private List<ActionMap> succeedMap;
     private List<ActionMap> failedMap;
@@ -19,21 +17,14 @@ public class ActionMap {
         return petInfo;
     }
 
-    public String getKillTarget() {
-        return killTarget;
-    }
-
     public String getKill() {
         return kill;
     }
 
-    public List<String> getCleanSlotTarget() {
-        return cleanSlotTarget;
+    public String getKillTarget() {
+        return killTarget;
     }
 
-    public List<String> getCleanSlots() {
-        return cleanSlots;
-    }
 
     public String getCancel() {
         return cancel;
@@ -61,14 +52,6 @@ public class ActionMap {
 
     public void setKill(String kill) {
         this.kill = kill;
-    }
-
-    public void setCleanSlotTarget(List<String> cleanSlotTarget) {
-        this.cleanSlotTarget = cleanSlotTarget;
-    }
-
-    public void setCleanSlots(List<String> cleanSlots) {
-        this.cleanSlots = cleanSlots;
     }
 
     public void setCancel(String cancel) {

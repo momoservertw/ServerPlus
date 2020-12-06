@@ -2,11 +2,8 @@ package tw.momocraft.serverplus.handlers;
 
 import tw.momocraft.serverplus.Commands;
 import tw.momocraft.serverplus.ServerPlus;
-import tw.momocraft.serverplus.listeners.AuthMe;
-import tw.momocraft.serverplus.listeners.MorphTool;
-import tw.momocraft.serverplus.listeners.MyPet;
-import tw.momocraft.serverplus.listeners.SyncComplete;
-import tw.momocraft.serverplus.listeners.event.PlayerJoin;
+import tw.momocraft.serverplus.listeners.*;
+import tw.momocraft.serverplus.listeners.event.*;
 import tw.momocraft.serverplus.utils.TabComplete;
 
 import java.util.Map;
@@ -38,6 +35,10 @@ public class RegisterHandler {
                     new Throwable().getStackTrace()[0]);
         }
 
+            ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new Hotkey(), ServerPlus.getInstance());
+            ServerHandler.sendFeatureMessage("Register-Event", "Hotkey", "Hotkey", "continue",
+                    new Throwable().getStackTrace()[0]);
+
         Map<String, Boolean> eventRegisterProp = ConfigHandler.getConfigPath().getEventRegisterProp();
         for (String event : eventRegisterProp.keySet()) {
             if (!eventRegisterProp.get(event)) {
@@ -47,6 +48,26 @@ public class RegisterHandler {
                 case "PlayerJoinEvent":
                     ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new PlayerJoin(), ServerPlus.getInstance());
                     ServerHandler.sendFeatureMessage("Register-Event", "Event", "PlayerJoin", "continue",
+                            new Throwable().getStackTrace()[0]);
+                    break;
+                case "PlayerQuitEvent":
+                    ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new PlayerQuit(), ServerPlus.getInstance());
+                    ServerHandler.sendFeatureMessage("Register-Event", "Event", "PlayerQuitEvent", "continue",
+                            new Throwable().getStackTrace()[0]);
+                    break;
+                case "PlayerInteractEntityEvent":
+                    ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new PlayerInteractEntity(), ServerPlus.getInstance());
+                    ServerHandler.sendFeatureMessage("Register-Event", "Event", "PlayerInteractEntity", "continue",
+                            new Throwable().getStackTrace()[0]);
+                    break;
+                case "PlayerItemHeldEvent":
+                    ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new PlayerItemHeld(), ServerPlus.getInstance());
+                    ServerHandler.sendFeatureMessage("Register-Event", "Event", "PlayerItemHeld", "continue",
+                            new Throwable().getStackTrace()[0]);
+                    break;
+                case "PlayerSwapHandItemsEvent":
+                    ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new PlayerSwapHandItems(), ServerPlus.getInstance());
+                    ServerHandler.sendFeatureMessage("Register-Event", "Event", "PlayerSwapHandItems", "continue",
                             new Throwable().getStackTrace()[0]);
                     break;
             }

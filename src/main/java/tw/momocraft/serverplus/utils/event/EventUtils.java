@@ -19,43 +19,72 @@ import java.util.*;
 
 public class EventUtils {
 
-    public static boolean checkEvent(String triggerName, Player player, Entity targetEntity, Block targetBlock, Map<String, EventMap> eventProp, String eventName) {
+    /**
+     * @param player       the player who triggered the event.
+     * @param targetPlayer the target Player of the event.
+     * @param targetEntity the target Entity of the event.
+     * @param targetBlock  the target Block of the event.
+     * @param eventProp    the properties of the event.
+     * @param eventName    the name of the event.
+     * @return if cancel the event.
+     */
+    public static boolean checkEvent(Player player, Player targetPlayer, Entity targetEntity, Block targetBlock, Map<String, EventMap> eventProp, String eventName) {
+
+        ServerHandler.sendConsoleMessage("checkEvent");
         EventMap eventMap;
+        boolean conditions;
         for (String group : eventProp.keySet()) {
+            ServerHandler.sendConsoleMessage("group: " + group);
             eventMap = eventProp.get(group);
             // Target
-            if (!EventUtils.checkTargets(targetEntity, targetBlock, eventMap.getTargets())) {
-                ServerHandler.sendFeatureMessage("Event", triggerName, "Targets", "continue", eventName,
+            if (!checkTargets(targetPlayer, targetEntity, targetBlock, eventMap.getTargets())) {
+                ServerHandler.sendFeatureMessage("Event", eventName, "Targets", "continue",
                         new Throwable().getStackTrace()[0]);
                 continue;
             }
-            // Conditions, Actions
+            // Conditions
+            conditions = checkConditions(player, targetPlayer, targetEntity, targetBlock, eventMap.getConditions(), eventName);
+
+            ServerHandler.sendConsoleMessage("conditions: " + conditions);
+            // Actions
             ActionMap actionMap;
-            if (EventUtils.checkConditions(player, targetEntity, targetBlock, eventMap.getConditions(), eventName)) {
+            if (conditions) {
                 actionMap = eventMap.getActions();
             } else {
                 actionMap = eventMap.getActionsFailed();
             }
-            if (executeActions(player, targetEntity, targetBlock, actionMap, eventName)) {
-                return true;
+            if (actionMap != null) {
+                if (executeActions(player, targetPlayer, targetEntity, targetBlock, actionMap, eventName)) {
+                    // Cancel event.
+                    ServerHandler.sendFeatureMessage("Event", eventName, "final", "cancel",
+                            new Throwable().getStackTrace()[0]);
+                    return true;
+                } else {
+                    ServerHandler.sendFeatureMessage("Event", eventName, "final", "return",
+                            new Throwable().getStackTrace()[0]);
+                    return false;
+                }
             }
-            ServerHandler.sendFeatureMessage("Event", triggerName, "final", "cancel", eventName,
+            ServerHandler.sendFeatureMessage("Event", eventName, "final", "continue",
                     new Throwable().getStackTrace()[0]);
-            return false;
         }
         return false;
     }
 
-    public static boolean checkTargets(Entity targetEntity, Block targetBlock, Map<String, List<String>> targetMap) {
+    /**
+     * @param targetPlayer the target Player of the event.
+     * @param targetEntity the target Entity of the event.
+     * @param targetBlock  the target Block of the event.
+     * @param targetMap    the settings of Targets.
+     * @return if the targets matched.
+     */
+    public static boolean checkTargets(Player targetPlayer, Entity targetEntity, Block targetBlock, Map<String, List<String>> targetMap) {
         if (targetMap != null) {
             for (String type : targetMap.keySet()) {
                 switch (type) {
                     case "Player":
-                        if (targetEntity instanceof Player) {
-                            try {
-                                return true;
-                            } catch (Exception ignored) {
-                            }
+                        if (targetPlayer != null) {
+                            return true;
                         }
                         break;
                     case "Blocks":
@@ -83,68 +112,120 @@ public class EventUtils {
 
     /**
      * @param player       the player who triggered the event.
-     * @param targetEntity the target Entity of this event.
-     * @param targetBlock  the target Block of this event.
-     * @param conditionMap the ConditionMap.
+     * @param targetPlayer the target Player of the event.
+     * @param targetEntity the target Entity of the event.
+     * @param targetBlock  the target Block of the event.
+     * @param conditionMap the settings of Conditions.
+     * @param eventName    the name of the event.
      * @return if the conditions are matched.
      */
-    private static boolean checkConditions(Player player, Entity targetEntity, Block targetBlock, ConditionMap conditionMap, String eventName) {
+    private static boolean checkConditions(Player player, Player targetPlayer, Entity targetEntity, Block targetBlock, ConditionMap conditionMap, String eventName) {
         if (conditionMap == null) {
             return true;
         }
-        List<String> placeholderList;
-        if (conditionMap.getHoldingMenu() != null) {
-            if (!checkHoldingMenu(player)) {
+        String playerName = player.getName();
+        // Hand-Slots
+        if (conditionMap.getHandSlots() != null) {
+            if (!conditionMap.getHandSlots().contains(player.getInventory().getHeldItemSlot())) {
+                ServerHandler.sendFeatureMessage("Event", playerName, "Hand-Slots", "return", eventName,
+                        new Throwable().getStackTrace()[0]);
                 return false;
             }
         }
+        // Sneak
+        if (Utils.isEnable(conditionMap.getSneak(), true)) {
+            if (!player.isSneaking()) {
+                ServerHandler.sendFeatureMessage("Event", playerName, "Sneak", "return", eventName,
+                        new Throwable().getStackTrace()[0]);
+                return false;
+            }
+        }
+        // Fly
+        if (Utils.isEnable(conditionMap.getFly(), true)) {
+            if (!player.isFlying()) {
+                ServerHandler.sendFeatureMessage("Event", playerName, "Fly", "return", eventName,
+                        new Throwable().getStackTrace()[0]);
+                return false;
+            }
+        }
+        // Day
+        if (Utils.isEnable(conditionMap.getDay(), true)) {
+            if (!Utils.isDay(player.getWorld().getTime(), conditionMap.getDay())) {
+                ServerHandler.sendFeatureMessage("Event", playerName, "Day", "return", eventName,
+                        new Throwable().getStackTrace()[0]);
+                return false;
+            }
+        }
+        // Liquid
+        if (Utils.isEnable(conditionMap.getLiquid(), true)) {
+            if (!Utils.isLiquid(player.getLocation().getBlock(), conditionMap.getLiquid())) {
+                ServerHandler.sendFeatureMessage("Event", playerName, "Liquid", "return", eventName,
+                        new Throwable().getStackTrace()[0]);
+                return false;
+            }
+        }
+        // Boimes
         if (conditionMap.getBoimes() != null) {
-            String boime = player.getLocation().getBlock().getBiome().name();
-            if (Utils.containValue(boime, conditionMap.getBoimes(), conditionMap.getIgnoreBoimes())) {
-
+            if (!Utils.containIgnoreValue(player.getLocation().getBlock().getBiome().name(), conditionMap.getBoimes(), conditionMap.getIgnoreBoimes())) {
+                ServerHandler.sendFeatureMessage("Event", playerName, "Boimes", "return", eventName,
+                        new Throwable().getStackTrace()[0]);
+                return false;
             }
         }
-        if (conditionMap.getReasons() != null) {
-            String reason = "";
-            if (Utils.containValue(reason, conditionMap.getReasons(), conditionMap.getIgnoreReasons())) {
-
+        // Location
+        if (conditionMap.getLocMaps() != null) {
+            if (!ConfigHandler.getConfigPath().getLocationUtils().checkLocation(player.getLocation(), conditionMap.getLocMaps())) {
+                ServerHandler.sendFeatureMessage("Event", playerName, "Location", "return", eventName,
+                        new Throwable().getStackTrace()[0]);
+                return false;
             }
         }
-        if (conditionMap.getLiquid() != null) {
-            String reason = "";
-            if (Utils.containValue(reason, conditionMap.getReasons(), conditionMap.getIgnoreReasons())) {
-
+        // Block
+        if (conditionMap.getBlocksMaps() != null) {
+            if (!ConfigHandler.getConfigPath().getBlocksUtils().checkBlocks(player.getLocation(), conditionMap.getBlocksMaps())) {
+                ServerHandler.sendFeatureMessage("Event", playerName, "Block", "return", eventName,
+                        new Throwable().getStackTrace()[0]);
+                return false;
             }
         }
-        // Checking the spawn location is "liquid" or not.
-        if (!EntityUtils.isLiquid(block, entityMap.getLiquid())) {
-            ServerHandler.sendFeatureMessage("Spawn", entityType, "Liquid", "continue", groupName,
-                    new Throwable().getStackTrace()[0]);
-            continue;
+        // Holding menu
+        if (conditionMap.getHoldingMenu() != null) {
+            if (!checkHoldingMenu(player)) {
+                ServerHandler.sendFeatureMessage("Event", playerName, "Holding menu", "return", eventName,
+                        new Throwable().getStackTrace()[0]);
+                return false;
+            }
         }
-        // Checking the spawn time is "Day" or not.
-        if (!EntityUtils.isDay(loc.getWorld().getTime(), entityMap.getDay())) {
-            ServerHandler.sendFeatureMessage("Spawn", entityType, "Day", "continue", groupName,
-                    new Throwable().getStackTrace()[0]);
-            continue;
+        // Placeholders
+        if (conditionMap.getPlaceholders() != null) {
+            if (!checkPlaceholders(player, targetPlayer, targetEntity, targetBlock, conditionMap.getPlaceholders(), eventName)) {
+                ServerHandler.sendFeatureMessage("Event", playerName, "Placeholders", "return", eventName,
+                        new Throwable().getStackTrace()[0]);
+                return false;
+            }
         }
-        placeholderList = conditionMap.getPlaceholders();
-        if (placeholderList != null) {
-            return checkPlaceholders(player, targetEntity, targetBlock, placeholderList, eventName);
-        }
-        return false;
+        return true;
     }
 
-    private static boolean checkPlaceholders(Player player, Entity targetEntity, Block targetBlock, List<String> placeholderList, String eventName) {
+    /**
+     * @param player          the player who triggered the event.
+     * @param targetEntity    the target Entity of this event.
+     * @param targetBlock     the target Block of this event.
+     * @param placeholderList the Placeholder list.
+     * @param eventName       the name of event.
+     * @return if the conditions are matched.
+     */
+    private static boolean checkPlaceholders(Player player, Player targetPlayer, Entity targetEntity, Block targetBlock, List<String> placeholderList, String eventName) {
         String[] placeholders;
+        back:
         for (String placeholder : placeholderList) {
-            placeholder = translateEventLayout(placeholder, player, targetEntity, targetBlock, eventName);
+            placeholder = translateEventLayout(placeholder, player, targetPlayer, targetEntity, targetBlock, eventName);
             ServerHandler.sendConsoleMessage(placeholder);
             if (placeholder.contains(";")) {
                 placeholders = placeholder.split(";");
                 for (String value : placeholders) {
-                    if (!checkPlaceholderValue(value)) {
-                        return false;
+                    if (checkPlaceholderValue(value)) {
+                        break back;
                     }
                 }
             } else {
@@ -168,7 +249,13 @@ public class EventUtils {
         } else if (values[1].equals("!=")) {
             return !values[0].equals(values[2]);
         } else {
-            return Utils.getCompare(values[1], Double.parseDouble(values[0]), Double.parseDouble(values[2]));
+            try {
+                return Utils.getCompare(values[1], Double.parseDouble(values[0]), Double.parseDouble(values[2]));
+            } catch (Exception ex) {
+                ServerHandler.sendErrorMessage("There is an error occurred. Please check the \"Event - Conditions\" format.");
+                ServerHandler.sendErrorMessage("Placeholder: " + placeholder);
+                return true;
+            }
         }
     }
 
@@ -179,76 +266,53 @@ public class EventUtils {
      * @param actionMap    the executing Actions.
      * @return if the event canceled.
      */
-    private static boolean executeActions(Player player, Entity targetEntity, Block targetBlock, ActionMap actionMap, String eventName) {
+    private static boolean executeActions(Player player, Player targetPlayer, Entity targetEntity, Block targetBlock, ActionMap actionMap, String eventName) {
         if (actionMap == null) {
+            ServerHandler.sendErrorMessage("There is an error occurred. Please check the \"Event - Actions\".");
+            ServerHandler.sendErrorMessage("Triggered event: " + eventName);
             return false;
         }
-        String playerName = player.getName();
-        if (actionMap.getCommands() != null) {
-            String command;
-            for (String cmd : actionMap.getCommands()) {
-                command = translateEventLayout(cmd, player, targetEntity, targetBlock, eventName);
-                CustomCommands.executeMultipleCmds(player, command);
-                ServerHandler.sendFeatureMessage("Lottery", playerName, "execute", "return", command,
-                        new Throwable().getStackTrace()[0]);
-            }
+        String playerName;
+        try {
+            playerName = player.getName();
+        } catch (Exception ex) {
+            playerName = "CONSOLE";
         }
-        if (actionMap.getCleanSlots() != null) {
-            cleanSlots(player, actionMap.getCleanSlots());
-            ServerHandler.sendFeatureMessage("Lottery", playerName, "cleanSlots", "return",
-                    new Throwable().getStackTrace()[0]);
+        String targetPlayerName;
+        try {
+            targetPlayerName = targetPlayer.getName();
+        } catch (Exception ex) {
+            targetPlayerName = "CONSOLE";
         }
-        return actionMap.getCancel() != null;
-    }
-
-    private static void cleanSlots(Player player, List<String> slots) {
-        for (String slot : slots) {
-            // Inventory
-            if (slot.matches("0-9")) {
-                try {
-                    player.getInventory().setItem(Integer.parseInt(slot), null);
-                } catch (Exception ex) {
-                    ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
+        if (player != null) {
+            if (actionMap.getCommands() != null) {
+                String command;
+                for (String cmd : actionMap.getCommands()) {
+                    command = translateEventLayout(cmd, player, targetPlayer, targetEntity, targetBlock, eventName);
+                    CustomCommands.executeMultiCmds(player, command);
+                    ServerHandler.sendFeatureMessage("Event", playerName, "execute", "return", command,
+                            new Throwable().getStackTrace()[0]);
                 }
             }
-            switch (slot) {
-                // ALL
-                case "ALL":
-                    player.getInventory().clear();
-                    break;
-                // Equipment
-                case "HEAD":
-                    player.getInventory().setHelmet(null);
-                    break;
-                case "CHEST":
-                    player.getInventory().setChestplate(null);
-                    break;
-                case "LEGS":
-                    player.getInventory().setLeggings(null);
-                    break;
-                case "FEET":
-                    player.getInventory().setBoots(null);
-                    break;
-                case "HAND":
-                    player.getInventory().setItemInMainHand(null);
-                    break;
-                case "OFF_HAND":
-                    player.getInventory().setItemInOffHand(null);
-                    break;
-                //
-                case "CRAFTING[1]":
-                case "CRAFTING[2]":
-                case "CRAFTING[3]":
-                case "CRAFTING[4]":
-                    try {
-                        player.getOpenInventory().getTopInventory().setItem(Integer.parseInt(slot.replace("CRAFTING[", "").replace("]", "")), null);
-                    } catch (Exception ex) {
-                        ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
-                    }
-                default:
-                    ServerHandler.sendErrorMessage("Can not find the Slot type: " + slot);
+            if (Utils.isEnable(actionMap.getKill(), false)) {
+                player.setHealth(0);
             }
         }
+        if (targetPlayer != null) {
+            if (actionMap.getCommandsTarget() != null) {
+                String command;
+                for (String cmd : actionMap.getCommandsTarget()) {
+                    command = translateEventLayout(cmd, player, targetPlayer, targetEntity, targetBlock, eventName);
+                    CustomCommands.executeMultiCmds(targetPlayer, command);
+                    ServerHandler.sendFeatureMessage("Event", targetPlayerName, "execute", "return", command,
+                            new Throwable().getStackTrace()[0]);
+                }
+            }
+            if (Utils.isEnable(actionMap.getKillTarget(), false)) {
+                targetPlayer.setHealth(0);
+            }
+        }
+        return actionMap.getCancel() != null && actionMap.getCancel().equals("true");
     }
 
     private static boolean checkHoldingMenu(Player player) {
@@ -278,18 +342,15 @@ public class EventUtils {
         return false;
     }
 
-    private static String translateEventLayout(String input, Player player, Entity targetEntity, Block targetBlock, String eventName) {
+    private static String translateEventLayout(String input, Player player, Player targetPlayer, Entity targetEntity, Block targetBlock, String eventName) {
         if (player != null) {
             input = Utils.translateLayout(input, player);
         }
-        if (targetEntity != null) {
-            if (targetEntity instanceof Player) {
-                Player targetPlayer = (Player) targetEntity;
-                input = translatePlayer(input, targetPlayer);
-            }
+        if (targetPlayer != null) {
+            input = translatePlayer(input, targetPlayer);
+        } else if (targetEntity != null) {
             input = translateEntity(input, targetEntity);
-        }
-        if (targetBlock != null) {
+        } else if (targetBlock != null) {
             input = translateBlock(input, targetBlock);
         }
         // %event%
@@ -305,12 +366,6 @@ public class EventUtils {
             } catch (Exception e) {
                 ServerHandler.sendDebugTrace(e);
             }
-        }
-        // %event%
-        try {
-            input = input.replace("%event%", eventName);
-        } catch (Exception e) {
-            ServerHandler.sendDebugTrace(e);
         }
         // %server_name%
         try {
@@ -431,9 +486,39 @@ public class EventUtils {
     }
 
     private static String translatePlayer(String input, Player targetPlayer) {
+        // %target%
+        try {
+            input = input.replace("%target%", targetPlayer.getName());
+        } catch (Exception e) {
+            ServerHandler.sendDebugTrace(e);
+        }
         // %target_display_name%
         try {
             input = input.replace("%target_display_name%", targetPlayer.getDisplayName());
+        } catch (Exception e) {
+            ServerHandler.sendDebugTrace(e);
+        }
+        // %target_uuid%
+        try {
+            input = input.replace("%target_uuid%", targetPlayer.getUniqueId().toString());
+        } catch (Exception e) {
+            ServerHandler.sendDebugTrace(e);
+        }
+        // %target_type%
+        try {
+            input = input.replace("%target_type%", targetPlayer.getType().name());
+        } catch (Exception e) {
+            ServerHandler.sendDebugTrace(e);
+        }
+        // %target_sneaking%
+        try {
+            input = input.replace("%target_sneaking%", String.valueOf(targetPlayer.isSneaking()));
+        } catch (Exception e) {
+            ServerHandler.sendDebugTrace(e);
+        }
+        // %target_flying%
+        try {
+            input = input.replace("%target_flying%", String.valueOf(targetPlayer.isFlying()));
         } catch (Exception e) {
             ServerHandler.sendDebugTrace(e);
         }
@@ -442,6 +527,47 @@ public class EventUtils {
             input = input.replace("%target_interact%", Utils.getNearbyPlayer(targetPlayer, 3));
         } catch (Exception e) {
             ServerHandler.sendDebugTrace(e);
+        }
+        Location loc = targetPlayer.getLocation();
+        // %target_world%
+        if (input.contains("%target_world%")) {
+            input = input.replace("%target_world%", loc.getWorld().getName());
+        }
+        // %target_loc%
+        // %target_loc_x%, %player_loc_y%, %player_loc_z%
+        // %target_loc_x_NUMBER%, %target_loc_y_NUMBER%, %target_loc_z_NUMBER%
+        if (input.contains("%target_loc")) {
+            try {
+                String loc_x = String.valueOf(loc.getBlockX());
+                String loc_y = String.valueOf(loc.getBlockY());
+                String loc_z = String.valueOf(loc.getBlockZ());
+                String[] arr = input.split("%");
+                for (int i = 0; i < arr.length; i++) {
+                    switch (arr[i]) {
+                        case "target_loc_x":
+                            if (arr[i + 1].matches("^-?[0-9]\\d*(\\.\\d+)?$")) {
+                                input = input.replace("%target_loc_x%" + arr[i + 1] + "%", loc_x + Integer.parseInt(arr[i + 1]));
+                            }
+                            break;
+                        case "target_loc_y":
+                            if (arr[i + 1].matches("^-?[0-9]\\d*(\\.\\d+)?$")) {
+                                input = input.replace("%target_loc_y%" + arr[i + 1] + "%", loc_y + Integer.parseInt(arr[i + 1]));
+                            }
+                            break;
+                        case "target_loc_z":
+                            if (arr[i + 1].matches("^-?[0-9]\\d*(\\.\\d+)?$")) {
+                                input = input.replace("%target_loc_z%" + arr[i + 1] + "%", loc_z + Integer.parseInt(arr[i + 1]));
+                            }
+                            break;
+                    }
+                }
+                input = input.replace("%target_loc%", loc_x + ", " + loc_y + ", " + loc_z);
+                input = input.replace("%target_loc_x%", loc_x);
+                input = input.replace("%target_loc_y%", loc_y);
+                input = input.replace("%target_loc_z%", loc_z);
+            } catch (Exception e) {
+                ServerHandler.sendDebugTrace(e);
+            }
         }
         // %target_money%
         if (ConfigHandler.getDepends().VaultEnabled()) {

@@ -19,7 +19,7 @@ public class Zip {
 
     public boolean zipFiles(File file, String path, String name) {
         String OUTPUT_ZIP_FILE;
-        if (path == null || name.equals("")) {
+        if (path == null || path.equals("")) {
             path =  file.getParentFile().getPath();
         }
         if (name == null || name.equals("")) {
