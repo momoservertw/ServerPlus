@@ -91,6 +91,21 @@
             <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/VaultAPI.jar</systemPath>
             <version>LATEST</version>
         </dependency>
+        <!--PlayerPoints API-->
+        <dependency>
+            <groupId>org.black_ixx</groupId>
+            <artifactId>PlayerPoints</artifactId>
+            <scope>system</scope>
+            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/serverplus/extra/PlayerPoints.jar</systemPath>
+            <version>LEGACY</version>
+        </dependency>
+        <!--PlaceholderAPI API-->
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>LATEST</version>
+            <scope>provided</scope>
+        </dependency>
         <!--CMI API-->
         <dependency>
             <groupId>me.CMI</groupId>
@@ -106,13 +121,6 @@
             <scope>system</scope>
             <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/Residence4.9.2.1.jar</systemPath>
             <version>LEGACY</version>
-        </dependency>
-        <!--PlaceholderAPI API-->
-        <dependency>
-            <groupId>me.clip</groupId>
-            <artifactId>placeholderapi</artifactId>
-            <version>LATEST</version>
-            <scope>provided</scope>
         </dependency>
         <!--MyPet API-->
         <dependency>
@@ -174,14 +182,6 @@
             <artifactId>LangUtils</artifactId>
             <!--Please check the latest version -->
             <version>1.9</version>
-        </dependency>
-        <!--PlayerPoints API-->
-        <dependency>
-            <groupId>org.black_ixx</groupId>
-            <artifactId>PlayerPoints</artifactId>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/serverplus/extra/PlayerPoints.jar</systemPath>
-            <version>LEGACY</version>
         </dependency>
     </dependencies>
 

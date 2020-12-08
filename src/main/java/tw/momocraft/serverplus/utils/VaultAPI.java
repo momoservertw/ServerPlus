@@ -4,8 +4,8 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.RegisteredServiceProvider;
-import tw.momocraft.serverplus.ServerPlus;
-import tw.momocraft.serverplus.handlers.ServerHandler;
+import tw.momocraft.slimechunkplus.SlimeChunkPlus;
+import tw.momocraft.slimechunkplus.handlers.ServerHandler;
 
 public class VaultAPI {
     private Economy econ = null;
@@ -21,7 +21,7 @@ public class VaultAPI {
     }
 
     private boolean setupEconomy() {
-        RegisteredServiceProvider<Economy> rsp = ServerPlus.getInstance().getServer().getServicesManager().getRegistration(Economy.class);
+        RegisteredServiceProvider<Economy> rsp = SlimeChunkPlus.getInstance().getServer().getServicesManager().getRegistration(Economy.class);
         if (rsp == null) {
             return false;
         }
@@ -30,7 +30,7 @@ public class VaultAPI {
     }
 
     private boolean setupPermissions() {
-        RegisteredServiceProvider<Permission> rsp = ServerPlus.getInstance().getServer().getServicesManager().getRegistration(Permission.class);
+        RegisteredServiceProvider<Permission> rsp = SlimeChunkPlus.getInstance().getServer().getServicesManager().getRegistration(Permission.class);
         if (rsp == null) {
             return false;
         }

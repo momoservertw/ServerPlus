@@ -115,6 +115,12 @@ public class ConfigPath {
     //         Setup General.                          //
     //  ============================================== //
     private void setGeneral() {
+        logDefaultZip = ConfigHandler.getConfig("config.yml").getBoolean("General.Custom-Commands.Settings.Log.Default.To-Zip");
+        logDefaultNew = ConfigHandler.getConfig("config.yml").getBoolean("General.Custom-Commands.Settings.Log.Default.New-File");
+        logCustomNew = ConfigHandler.getConfig("config.yml").getBoolean("General.Custom-Commands.Settings.Log.Custom.New-File");
+        logCustomZip = ConfigHandler.getConfig("config.yml").getBoolean("General.Custom-Commands.Settings.Log.Custom.To-Zip");
+        logCustomPath = ConfigHandler.getConfig("config.yml").getString("General.Custom-Commands.Settings.Log.Custom.Path");
+        logCustomName = ConfigHandler.getConfig("config.yml").getString("General.Custom-Commands.Settings.Log.Custom.Name");
         ConfigurationSection cmdConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("General.Custom-Commands");
         if (cmdConfig != null) {
             customCmdProp = new HashMap<>();
@@ -142,10 +148,7 @@ public class ConfigPath {
             hotkeyKeyboard = ConfigHandler.getConfig("config.yml").getBoolean("HotKey.Keyboard.Enable");
         }
         hotkeyCooldown = ConfigHandler.getConfig("config.yml").getBoolean("HotKey.Keyboard.Settings.Cooldown.Enable");
-        hotkeyCooldownInt = ConfigHandler.getConfig("config.yml").getInt("HotKey.Keyboard.Settings.Cooldown.Interval");
-        if (hotkeyCooldownInt <= 5) {
-            hotkeyCooldownInt = 5;
-        }
+        hotkeyCooldownInt = ConfigHandler.getConfig("config.yml").getInt("HotKey.Keyboard.Settings.Cooldown.Interval") * 50;
         hotkeyCooldownMsg = ConfigHandler.getConfig("config.yml").getBoolean("HotKey.Keyboard.Settings.Cooldown.Message");
 
         ConfigurationSection hotkeyMenuConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("HotKey.Menu");

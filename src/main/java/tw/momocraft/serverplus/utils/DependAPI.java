@@ -9,6 +9,7 @@ public class DependAPI {
     private PlayerPointsAPI playerPointsApi;
 
     private boolean Vault = false;
+    private boolean PlayerPoints = false;
     private boolean PlaceHolderAPI = false;
     private boolean Residence = false;
     private boolean CMI = false;
@@ -19,7 +20,6 @@ public class DependAPI {
     private boolean MysqlPlayerDataBridge = false;
     private boolean AuthMe = false;
     private boolean LangUtils = false;
-    private boolean PlayerPoints = false;
 
     public DependAPI() {
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.Vault")) {
@@ -34,11 +34,11 @@ public class DependAPI {
                 setPlayerPointsApi();
             }
         }
-        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.LangUtils")) {
-            this.setLangUtilsStatus(Bukkit.getServer().getPluginManager().getPlugin("LangUtils") != null);
-        }
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.PlaceHolderAPI")) {
             this.setPlaceHolderStatus(Bukkit.getServer().getPluginManager().getPlugin("PlaceHolderAPI") != null);
+        }
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.LangUtils")) {
+            this.setLangUtilsStatus(Bukkit.getServer().getPluginManager().getPlugin("LangUtils") != null);
         }
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.Residence")) {
             this.setResidenceStatus(Bukkit.getServer().getPluginManager().getPlugin("Residence") != null);
@@ -96,6 +96,10 @@ public class DependAPI {
         return this.Vault;
     }
 
+    public boolean PlayerPointsEnabled() {
+        return this.PlayerPoints;
+    }
+
     public boolean PlaceHolderAPIEnabled() {
         return this.PlaceHolderAPI;
     }
@@ -132,21 +136,21 @@ public class DependAPI {
         return this.LangUtils;
     }
 
-    public boolean PlayerPointsEnabled() {
-        return this.PlayerPoints;
-    }
-
 
     public void setVaultStatus(boolean bool) {
         this.Vault = bool;
     }
 
-    public boolean AuthMeEnabled() {
-        return this.AuthMe;
-    }
-
     public void setPlaceHolderStatus(boolean bool) {
         this.PlaceHolderAPI = bool;
+    }
+
+    private void setPlayerPointsStatus(boolean bool) {
+        this.PlayerPoints = bool;
+    }
+
+    public boolean AuthMeEnabled() {
+        return this.AuthMe;
     }
 
     public void setResidenceStatus(boolean bool) {
@@ -183,10 +187,6 @@ public class DependAPI {
 
     private void setLangUtilsStatus(boolean bool) {
         this.LangUtils = bool;
-    }
-
-    private void setPlayerPointsStatus(boolean bool) {
-        this.PlayerPoints = bool;
     }
 
     public VaultAPI getVaultApi() {
