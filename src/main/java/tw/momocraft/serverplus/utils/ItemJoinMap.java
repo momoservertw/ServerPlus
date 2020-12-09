@@ -4,6 +4,7 @@ public class ItemJoinMap {
     private String name;
     private String lore;
     private String itemNode;
+    private boolean onlyOne;
 
     public String getItemNode() {
         return itemNode;

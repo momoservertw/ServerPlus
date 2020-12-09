@@ -22,6 +22,51 @@ General:
         DiscordSRV: true
         AuthMe: true
         LocaleLib: true
+  # The settings for custom commands.
+  # More information: https://github.com/momoservertw/LotteryPlus/wiki/Custom-Command
+  Custom-Commands:
+    Settings:
+      Log:
+        Default:
+          # Creating new file if the modified date is difference.
+          New-File: true
+          To-Zip: true
+        Custom:
+          New-File: false
+          To-Zip: true
+          Path: "plugin//CustomLogs"
+          Name: "latest"
+    # To send frequently used commands with placeholders.
+  Groups:
+    reward: "message: &6&lReward&c✤ &f%cmd_arg1%"
+    awards: "message: &d✧ &f%cmd_arg1% &d✧"
+    cgl: "broadcast: &6Congratulate &e%player% &6use &f%cmd_arg1% &8- &6Get the %cmd_arg2% &7<&f%cmd_arg3%&7>"
+    money: "console: money give %player% %cmd_arg1%"
+  # The settings for custom sounds.
+  # More information: https://github.com/momoservertw/HotkeyPlus/wiki/Custom-Sounds
+  Sounds:
+    Succeed:
+      Type: ENTITY_PLAYER_LEVELUP
+    Failed:
+      Type: ENTITY_SHULKER_HURT
+    SlimeJump:
+      Type: ENTITY_SLIME_JUMP
+      Loop:
+        Times: 8
+        Interval: 20
+  # The settings for custom particles.
+  # More information: https://github.com/momoservertw/HotkeyPlus/wiki/Custom-Particles
+  Particles:
+    Slime:
+      Type: SLIME
+      Amount: 3
+      Times: 8
+      Interval: 20
+    Flame:
+      Type: FLAME
+      Amount: 3
+      Times: 8
+      Interval: 20
   # The menu item for some events like showing blocks or destroying it.
   # If you don't have a menu in your server, you can set Item Name to "" to use a vanilla item.
   # Support: ItemJoin
@@ -55,26 +100,6 @@ General:
         - world_nether
       Area:
         Y: "5 ~ 123"
-  # The settings for custom commands.
-  # More information: https://github.com/momoservertw/LotteryPlus/wiki/Custom-Command
-  Custom-Commands:
-    Settings:
-      Log:
-        Default:
-          # Creating new file if the modified date is difference.
-          New-File: true
-          To-Zip: true
-        Custom:
-          New-File: false
-          To-Zip: true
-          Path: "plugin//CustomLogs"
-          Name: "latest"
-    # To send frequently used commands with placeholders.
-  Groups:
-    reward: "message: &6&lReward&c✤ &f%cmd_arg1%"
-    awards: "message: &d✧ &f%cmd_arg1% &d✧"
-    cgl: "broadcast: &6Congratulate &e%player% &6use &f%cmd_arg1% &8- &6Get the %cmd_arg2% &7<&f%cmd_arg3%&7>"
-    money: "console: money give %player% %cmd_arg1%"
 
 MyPet:
   Enable: true
@@ -374,254 +399,6 @@ AuthMe:
   Enable: true
   Mail-Warning:
     Enable: true
-
-HotKey:
-  Enable: true
-  Menu:
-    Enable: true
-    Crafting1:
-      Enable: true
-      Slot: 0
-      Item:
-        id: ELYTRA
-        name: '&e&lTeleport Menu'
-        lore:
-          - '&7Click to open'
-      Commands:
-        - "console: say command Crafting1"
-    Crafting2:
-      Enable: true
-      Slot: 1
-      Item:
-        id: ENDER_CHEST
-        name: '&e&lEnder Chest'
-        lore:
-          - '&7Click to open'
-      Commands:
-        - "console: say command Crafting2"
-    Crafting3:
-      Enable: true
-      Slot: 2
-      Item:
-        id: IRON_SWORD
-        name: '&e&lPVP'
-        lore:
-          - '&7Click to toggle'
-      Commands:
-        - "console: say command Crafting3"
-    Crafting4:
-      Enable: true
-      Slot: 3
-      Item:
-        id: TROPICAL_FISH
-        name: '&e&lPet Menu'
-        lore:
-          - '&7Click to open'
-      Commands:
-        - "console: say command Crafting4"
-    Crafting5:
-      Enable: true
-      Slot: 4
-      Item:
-        id: FLOWER_POT
-        name: '&e&lCrash Can'
-        lore:
-          - '&7Click to open'
-      Commands:
-        - "console: say command Crafting5"
-  Keyboard:
-    Enable: true
-    Settings:
-      Cooldown:
-        Enable: true
-        Interval: 60
-        Message: false
-    Groups:
-      ShiftF:
-        Enable: true
-        Slot: -1
-        Cancel: true
-        Commands:
-          - "console: say command Shift + F"
-      Shift1:
-        Enable: true
-        Slot: 0
-        Cancel: true
-        Commands:
-          - "console: say command Shift + 1"
-      Shift2:
-        Enable: true
-        Slot: 1
-        Cancel: true
-        Commands:
-          - "console: say command Shift + 2"
-      Shift3:
-        Enable: true
-        Slot: 2
-        Cancel: true
-        Commands:
-          - "console: say command Shift + 3"
-      Shift4:
-        Enable: true
-        Slot: 3
-        Cancel: true
-        Commands:
-          - "console: say command Shift + 4"
-      Shift5:
-        Enable: true
-        Slot: 4
-        Cancel: true
-        Commands:
-          - "console: say command Shift + 5"
-      Shift6:
-        Enable: true
-        Slot: 5
-        Cancel: true
-        Commands:
-          - "console: say command Shift + 6"
-      Shift7:
-        Enable: true
-        Slot: 6
-        Cancel: true
-        Commands:
-          - "console: say command Shift + 7"
-      Shift8:
-        Enable: true
-        Slot: 7
-        Cancel: true
-        Commands:
-          - "console: say command Shift + 8"
-      Shift9:
-        Enable: true
-        Slot: 8
-        Cancel: true
-        Commands:
-          - "console: say command Shift + 9"
-
-Event:
-  Enable: true
-  Settings:
-    Features:
-      # Change these options need to restart the server.
-      Register:
-        PlayerJoinEvent: false
-        PlayerQuitEvent: false
-        PlayerInteractEntityEvent: false
-        PlayerInteractEvent: false
-        PlayerPickupItemEvent: false
-        PlayerToggleSneakEvent: false
-        PlayerChangedMainHandEvent: false
-        PlayerSwapHandItemsEvent: false
-        PlayerBucketFillEvent: false
-        PlayerFishEvent: false
-        PlayerItemConsumeEvent: false
-        PlayerToggleFlightEvent: false
-        ProjectileLaunchEvent: false
-        InventoryInteractEvent: false
-        CMIAfkEnterEvent: false
-        CMIAfkLeaveEvent: false
-        MyPetInteractEvent: false
-    # Command: /serverplus event toggle
-    Toggle:
-      "On":
-        - 'console: lp user %player% permission unset eventplus.events.%event%'
-      "Off":
-        - 'console: lp user %player% permission set eventplus.events.%event% false'
-  Groups:
-    Example:
-      Enable: false
-      Events:
-        - PlayerInteractEntityEvent
-      Targets:
-        Entities:
-          - PIG
-          - SHEEP
-          - COW
-      Conditions:
-        Holding-Menu: true
-        PlaceHolders:
-          - '%money% >= 100'
-      Actions:
-        Commands:
-          - "console: money take %player% 100"
-          - "message: &eYou killed a %target%."
-      Actions-Failed:
-        Cancel: true
-        Commands:
-          - "message: &cYou dont have enough money to interact %target% - Need: $100"
-    Keyboard-Command-F:
-      Enable: false
-      Events:
-        - PlayerSwapHandItemsEvent
-      Conditions:
-        Sneak: true
-        Fly: false
-      Actions:
-        Cancel: true
-        Commands:
-          - "player: shop menu"
-    Keyboard-Command-1:
-      Enable: false
-      Events:
-        - PlayerChangedMainHandEvent
-      Conditions:
-        Hand-Slots:
-          - 0
-        Sneak: true
-        Fly: false
-      Actions:
-        Cancel: true
-        Commands:
-          - "player: shop motw_tp"
-    Keyboard-Command-2:
-      Enable: false
-      Events:
-        - PlayerChangedMainHandEvent
-      Conditions:
-        Hand-Slots:
-          - 1
-        Sneak: true
-        Fly: false
-      Actions:
-        Cancel: true
-        Commands:
-          - "player: pvp toggle"
-    Keyboard-Command-3:
-      Enable: false
-      Events:
-        - PlayerChangedMainHandEvent
-      Conditions:
-        Hand-Slots:
-          - 2
-        Sneak: true
-        Fly: false
-      Actions:
-        Cancel: true
-        Commands:
-          - "player: enderchest"
-    Keyboard-Command-4:
-      Enable: false
-      Events:
-        - PlayerChangedMainHandEvent
-      Conditions:
-        Hand-Slots:
-          - 3
-        Sneak: true
-        Fly: false
-      Actions:
-        Cancel: true
-        Commands:
-          - "player: cmi dispose"
-    Show_Pet_Info:
-      Enable: false
-      Events:
-        - MyPetInteractEvent
-      Conditions:
-        Sneak: true
-        Holing-Menu: true
-      Actions:
-        Cancel: true
-        Show-Pet-Info: true
 
 Donate:
   Enable: true

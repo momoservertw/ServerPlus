@@ -4,11 +4,9 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.EntityType;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
-import tw.momocraft.serverplus.handlers.ServerHandler;
 import tw.momocraft.serverplus.utils.blocksutils.BlocksUtils;
-import tw.momocraft.serverplus.utils.event.ActionMap;
-import tw.momocraft.serverplus.utils.event.ConditionMap;
-import tw.momocraft.serverplus.utils.event.EventMap;
+import tw.momocraft.serverplus.utils.customcommands.ParticleMap;
+import tw.momocraft.serverplus.utils.customcommands.SoundMap;
 import tw.momocraft.serverplus.utils.locationutils.LocationUtils;
 
 import java.util.*;
@@ -22,41 +20,17 @@ public class ConfigPath {
     //         General Settings                        //
     //  ============================================== //
     private Map<String, String> customCmdProp;
+    private final Map<String, SoundMap> soundProp = new HashMap<>();
+    private final Map<String, ParticleMap> particleProp = new HashMap<>();
 
     private LocationUtils locationUtils;
     private BlocksUtils blocksUtils;
-
-    private boolean logDefaultNew;
-    private boolean logDefaultZip;
-    private boolean logCustomNew;
-    private boolean logCustomZip;
-    private String logCustomPath;
-    private String logCustomName;
 
     private String menuIJ;
     private String menuType;
     private String menuName;
 
     private String vanillaTrans;
-
-    //  ============================================== //
-    //         Hotkey Settings                         //
-    //  ============================================== //
-    private boolean hotkey;
-    private boolean hotkeyMenu;
-    private boolean hotkeyKeyboard;
-    private boolean hotkeyCooldown;
-    private int hotkeyCooldownInt;
-    private boolean hotkeyCooldownMsg;
-    private final Map<Integer, MenuMap> hotkeyMenuProp = new HashMap<>();
-    private final Map<Integer, KeyboardMap> hotkeyKeyboardProp = new HashMap<>();
-
-    //  ============================================== //
-    //         Event Settings                        //
-    //  ============================================== //
-    private boolean event;
-    private final Map<String, Boolean> eventRegisterProp = new HashMap<>();
-    private final Map<String, Map<String, EventMap>> eventProp = new HashMap<>();
 
     //  ============================================== //
     //         MyPet Settings                        //
@@ -101,8 +75,6 @@ public class ConfigPath {
     //  ============================================== //
     private void setUp() {
         setGeneral();
-        setHotKey();
-        setEvent();
         setMyPet();
         setMpdb();
         setItemJoin();
@@ -115,17 +87,36 @@ public class ConfigPath {
     //         Setup General.                          //
     //  ============================================== //
     private void setGeneral() {
-        logDefaultZip = ConfigHandler.getConfig("config.yml").getBoolean("General.Custom-Commands.Settings.Log.Default.To-Zip");
-        logDefaultNew = ConfigHandler.getConfig("config.yml").getBoolean("General.Custom-Commands.Settings.Log.Default.New-File");
-        logCustomNew = ConfigHandler.getConfig("config.yml").getBoolean("General.Custom-Commands.Settings.Log.Custom.New-File");
-        logCustomZip = ConfigHandler.getConfig("config.yml").getBoolean("General.Custom-Commands.Settings.Log.Custom.To-Zip");
-        logCustomPath = ConfigHandler.getConfig("config.yml").getString("General.Custom-Commands.Settings.Log.Custom.Path");
-        logCustomName = ConfigHandler.getConfig("config.yml").getString("General.Custom-Commands.Settings.Log.Custom.Name");
         ConfigurationSection cmdConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("General.Custom-Commands");
         if (cmdConfig != null) {
             customCmdProp = new HashMap<>();
             for (String group : cmdConfig.getKeys(false)) {
                 customCmdProp.put(group, ConfigHandler.getConfig("config.yml").getString("General.Custom-Commands." + group));
+            }
+        }
+        ConfigurationSection particleConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("General.Particles");
+        if (particleConfig != null) {
+            ParticleMap particleMap;
+            for (String group : particleConfig.getKeys(false)) {
+                particleMap = new ParticleMap();
+                particleMap.setType(ConfigHandler.getConfig("config.yml").getString("General.Particles." + group + ".Type"));
+                particleMap.setAmount(ConfigHandler.getConfig("config.yml").getInt("General.Particles." + group + ".Amount", 1));
+                particleMap.setTimes(ConfigHandler.getConfig("config.yml").getInt("General.Particles." + group + ".Times", 1));
+                particleMap.setInterval(ConfigHandler.getConfig("config.yml").getInt("General.Particles." + group + ".Interval", 20));
+                particleProp.put(group, particleMap);
+            }
+        }
+        ConfigurationSection soundConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("General.Sounds");
+        if (soundConfig != null) {
+            SoundMap soundMap;
+            for (String group : soundConfig.getKeys(false)) {
+                soundMap = new SoundMap();
+                soundMap.setType(ConfigHandler.getConfig("config.yml").getString("General.Sounds." + group + ".Type"));
+                soundMap.setVolume(ConfigHandler.getConfig("config.yml").getInt("General.Sounds." + group + ".Volume", 1));
+                soundMap.setPitch(ConfigHandler.getConfig("config.yml").getInt("General.Sounds." + group + ".Pitch", 1));
+                soundMap.setTimes(ConfigHandler.getConfig("config.yml").getInt("General.Sounds." + group + ".Loop.Times", 1));
+                soundMap.setInterval(ConfigHandler.getConfig("config.yml").getInt("General.Sounds." + group + ".Loop.Interval", 20));
+                soundProp.put(group, soundMap);
             }
         }
         locationUtils = new LocationUtils();
@@ -136,234 +127,6 @@ public class ConfigPath {
         menuName = ConfigHandler.getConfig("config.yml").getString("General.Menu.Item.Name");
 
         vanillaTrans = ConfigHandler.getConfig("config.yml").getString("General.Vanilla-Translate.Local");
-    }
-
-    //  ============================================== //
-    //         Setup HotKey.                           //
-    //  ============================================== //
-    private void setHotKey() {
-        hotkey = ConfigHandler.getConfig("config.yml").getBoolean("HotKey.Enable");
-        if (hotkey) {
-            hotkeyMenu = ConfigHandler.getConfig("config.yml").getBoolean("HotKey.Menu.Enable");
-            hotkeyKeyboard = ConfigHandler.getConfig("config.yml").getBoolean("HotKey.Keyboard.Enable");
-        }
-        hotkeyCooldown = ConfigHandler.getConfig("config.yml").getBoolean("HotKey.Keyboard.Settings.Cooldown.Enable");
-        hotkeyCooldownInt = ConfigHandler.getConfig("config.yml").getInt("HotKey.Keyboard.Settings.Cooldown.Interval") * 50;
-        hotkeyCooldownMsg = ConfigHandler.getConfig("config.yml").getBoolean("HotKey.Keyboard.Settings.Cooldown.Message");
-
-        ConfigurationSection hotkeyMenuConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("HotKey.Menu");
-        if (hotkeyMenuConfig != null) {
-            MenuMap menuMap;
-            Material id;
-            for (String group : hotkeyMenuConfig.getKeys(false)) {
-                if (!Utils.isEnable(ConfigHandler.getConfig("config.yml").getString("HotKey.Menu." + group + ".Enable"), true)) {
-                    continue;
-                }
-                menuMap = new MenuMap();
-                try {
-                    id = Material.getMaterial(ConfigHandler.getConfig("config.yml").getString("HotKey.Menu." + group + ".Item.id"));
-                } catch (Exception ex) {
-                    id = Material.STONE;
-                }
-                menuMap.setId(id);
-                menuMap.setName(ConfigHandler.getConfig("config.yml").getString("HotKey.Menu." + group + ".Item.name"));
-                menuMap.setLores(ConfigHandler.getConfig("config.yml").getStringList("HotKey.Menu." + group + ".Item.lore"));
-                menuMap.setCommands(ConfigHandler.getConfig("config.yml").getStringList("HotKey.Menu." + group + ".Commands"));
-                hotkeyMenuProp.put(ConfigHandler.getConfig("config.yml").getInt("HotKey.Menu." + group + ".Slot"), menuMap);
-            }
-        }
-        ConfigurationSection hotkeyKeyboardConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("HotKey.Keyboard.Groups");
-        if (hotkeyMenuConfig != null) {
-            KeyboardMap keyboardMap;
-            for (String group : hotkeyKeyboardConfig.getKeys(false)) {
-                if (!Utils.isEnable(ConfigHandler.getConfig("config.yml").getString("HotKey.Keyboard.Groups." + group + ".Enable"), true)) {
-                    continue;
-                }
-                keyboardMap = new KeyboardMap();
-                keyboardMap.setCancel(ConfigHandler.getConfig("config.yml").getBoolean("HotKey.Keyboard.Groups." + group + ".Cancel"));
-                keyboardMap.setCommands(ConfigHandler.getConfig("config.yml").getStringList("HotKey.Keyboard.Groups." + group + ".Commands"));
-                hotkeyKeyboardProp.put(ConfigHandler.getConfig("config.yml").getInt("HotKey.Keyboard.Groups." + group + ".Slot"), keyboardMap);
-            }
-        }
-    }
-
-    //  ============================================== //
-    //         Setup Event.                            //
-    //  ============================================== //
-    private void setEvent() {
-        event = ConfigHandler.getConfig("config.yml").getBoolean("Event.Enable");
-
-        ConfigurationSection eventRegConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Settings.Features.Register");
-        if (eventRegConfig != null) {
-            for (String event : eventRegConfig.getKeys(false)) {
-                eventRegisterProp.put(event, ConfigHandler.getConfig("config.yml").getBoolean("Event.Settings.Features.Register." + event));
-            }
-        }
-        ConfigurationSection eventConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups");
-        if (eventConfig != null) {
-            EventMap eventMap;
-            // Targets
-            ConfigurationSection targetConfig;
-            Map<String, List<String>> targetMap;
-            // Conditions
-            ConfigurationSection conditionConfig;
-            ConditionMap conditionMap;
-            // Actions
-            ConfigurationSection actionConfig;
-            ActionMap actionMap;
-            for (String group : eventConfig.getKeys(false)) {
-                if (!Utils.isEnable(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Enable"), true)) {
-                    continue;
-                }
-                ServerHandler.sendConsoleMessage("for (String group - " + group);
-                eventMap = new EventMap();
-                eventMap.setPriority(ConfigHandler.getConfig("config.yml").getLong("Event.Groups." + group + ".Priority"));
-                eventMap.setEvents(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Events"));
-                // Targets
-                targetConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups." + group + ".Targets");
-                if (targetConfig != null) {
-                    ServerHandler.sendConsoleMessage("targetConfig != null)");
-                    targetMap = new HashMap<>();
-                    for (String key : targetConfig.getKeys(false)) {
-                        targetMap.put(key, ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Targets." + key));
-                    }
-                    eventMap.setTargets(targetMap);
-                }
-                // Conditions
-                conditionConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups." + group + ".Conditions");
-                if (conditionConfig != null) {
-                    ServerHandler.sendConsoleMessage("conditionConfig != null)");
-                    conditionMap = new ConditionMap();
-                    for (String key : conditionConfig.getKeys(false)) {
-                        switch (key) {
-                            case "Placeholders":
-                                conditionMap.setPlaceholders(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Conditions." + key));
-                                break;
-                            case "Holding-Menu":
-                                conditionMap.setHoldingMenu(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Conditions." + key));
-                                break;
-                            case "Hand-Slots":
-                                conditionMap.setHandSlots(ConfigHandler.getConfig("config.yml").getIntegerList("Event.Groups." + group + ".Conditions." + key));
-                                break;
-                            case "Sneak":
-                                conditionMap.setSneak(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Conditions." + key));
-                                break;
-                            case "Fly":
-                                conditionMap.setFly(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Conditions." + key));
-                                break;
-                            case "Boimes":
-                                conditionMap.setBoimes(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Conditions." + key));
-                                break;
-                            case "Ignore-Boimes":
-                                conditionMap.setIgnoreBoimes(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Conditions." + key));
-                                break;
-                            case "Day":
-                                conditionMap.setDay(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Conditions." + key));
-                                break;
-                            case "Liquid":
-                                conditionMap.setLiquid(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Conditions." + key));
-                                break;
-                            case "Location":
-                                conditionMap.setLocMaps(locationUtils.getSpeLocMaps("config.yml", "Event.Groups." + group + ".Conditions." + key));
-                                break;
-                            case "Blocks":
-                                conditionMap.setBlocksMaps(blocksUtils.getSpeBlocksMaps("config.yml", "Event.Groups." + group + ".Conditions." + key));
-                                break;
-                        }
-                    }
-                    eventMap.setConditions(conditionMap);
-                }
-                // Actions
-                actionConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups." + group + ".Actions");
-                if (actionConfig != null) {
-                    ServerHandler.sendConsoleMessage("actionConfig != null");
-                    actionMap = new ActionMap();
-                    for (String key : actionConfig.getKeys(false)) {
-                        switch (key) {
-                            case "Commands":
-                                actionMap.setCommands(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Actions." + key));
-                                break;
-                            case "Cancel":
-                                actionMap.setCancel(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions." + key));
-                                break;
-                            case "Kill":
-                                actionMap.setKill(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions." + key));
-                                break;
-                            case "Kill-Target":
-                                actionMap.setKillTarget(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions." + key));
-                                break;
-                            case "Show-Pet-Info":
-                                actionMap.setPetInfo(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions." + key));
-                                break;
-                        }
-                    }
-                    eventMap.setActions(actionMap);
-                }
-                actionConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Event.Groups." + group + ".Actions-Failed");
-                if (actionConfig != null) {
-                    ServerHandler.sendConsoleMessage("actionConfig != null");
-                    actionMap = new ActionMap();
-                    for (String key : actionConfig.getKeys(false)) {
-                        switch (key) {
-                            case "Commands":
-                                actionMap.setCommands(ConfigHandler.getConfig("config.yml").getStringList("Event.Groups." + group + ".Actions-Failed." + key));
-                                break;
-                            case "Cancel":
-                                actionMap.setCancel(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions-Failed." + key));
-                                break;
-                            case "Kill":
-                                actionMap.setKill(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions-Failed." + key));
-                                break;
-                            case "Kill-Target":
-                                actionMap.setKillTarget(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions-Failed." + key));
-                                break;
-                            case "Show-Pet-Info":
-                                actionMap.setPetInfo(ConfigHandler.getConfig("config.yml").getString("Event.Groups." + group + ".Actions-Failed." + key));
-                                break;
-                        }
-                    }
-                    eventMap.setActionsFailed(actionMap);
-                }
-                ServerHandler.sendConsoleMessage("256");
-                // Add properties to all events.
-                for (String event : eventMap.getEvents()) {
-                    if (eventRegisterProp.get(event) == null) {
-                        continue;
-                    }
-                    try {
-                        ServerHandler.sendConsoleMessage("eventProp.get(event).put(group, eventMap) - " + event + ": " + group);
-                        eventProp.get(event).put(group, eventMap);
-                    } catch (Exception ex) {
-                        eventProp.put(event, new HashMap<>());
-                        ServerHandler.sendConsoleMessage("eventProp.get(event).put(group, eventMap) - " + event + ": " + group);
-                        eventProp.get(event).put(group, eventMap);
-                    }
-                }
-            }
-            ServerHandler.sendConsoleMessage("272 " + eventProp.keySet());
-            Iterator<String> i = eventProp.keySet().iterator();
-            Map<String, Long> sortMap;
-            Map<String, EventMap> newEnMap;
-            String event;
-            while (i.hasNext()) {
-                event = i.next();
-                sortMap = new HashMap<>();
-                newEnMap = new LinkedHashMap<>();
-                for (String group : eventProp.get(event).keySet()) {
-                    sortMap.put(group, eventProp.get(event).get(group).getPriority());
-                    ServerHandler.sendConsoleMessage("sortMap.put(group, eventProp.get(event).get(group).getPriority()) - " + event + ": " + group);
-                }
-                sortMap = Utils.sortByValue(sortMap);
-                ServerHandler.sendConsoleMessage("sortMap.keySet() " + sortMap.keySet());
-                for (String group : sortMap.keySet()) {
-                    ServerHandler.sendFeatureMessage("Event", event, "setup", "continue", group,
-                            new Throwable().getStackTrace()[0]);
-                    newEnMap.put(group, eventProp.get(event).get(group));
-                }
-                eventProp.replace(event, newEnMap);
-            }
-        }
-
     }
 
     //  ============================================== //
@@ -458,29 +221,11 @@ public class ConfigPath {
     public Map<String, String> getCustomCmdProp() {
         return customCmdProp;
     }
-
-    public boolean isLogDefaultNew() {
-        return logDefaultNew;
+    public Map<String, ParticleMap> getParticleProp() {
+        return particleProp;
     }
-
-    public boolean isLogDefaultZip() {
-        return logDefaultZip;
-    }
-
-    public boolean isLogCustomNew() {
-        return logCustomNew;
-    }
-
-    public boolean isLogCustomZip() {
-        return logCustomZip;
-    }
-
-    public String getLogCustomName() {
-        return logCustomName;
-    }
-
-    public String getLogCustomPath() {
-        return logCustomPath;
+    public Map<String, SoundMap> getSoundProp() {
+        return soundProp;
     }
 
     public String getMenuIJ() {
@@ -505,56 +250,6 @@ public class ConfigPath {
 
     public BlocksUtils getBlocksUtils() {
         return blocksUtils;
-    }
-
-    //  ============================================== //
-    //         Hotkey Settings                         //
-    //  ============================================== //
-    public boolean isHotkey() {
-        return hotkey;
-    }
-
-    public boolean isHotkeyMenu() {
-        return hotkeyMenu;
-    }
-
-    public boolean isHotkeyKeyboard() {
-        return hotkeyKeyboard;
-    }
-
-    public boolean getHotkeyCooldown() {
-        return hotkeyCooldown;
-    }
-
-    public boolean isHotkeyCooldownMsg() {
-        return hotkeyCooldownMsg;
-    }
-
-    public int getHotkeyCooldownInt() {
-        return hotkeyCooldownInt;
-    }
-
-    public Map<Integer, MenuMap> getHotkeyMenuProp() {
-        return hotkeyMenuProp;
-    }
-
-    public Map<Integer, KeyboardMap> getHotkeyKeyboardProp() {
-        return hotkeyKeyboardProp;
-    }
-
-    //  ============================================== //
-    //         MyPet Settings                          //
-    //  ============================================== //
-    public boolean isEvent() {
-        return event;
-    }
-
-    public Map<String, Boolean> getEventRegisterProp() {
-        return eventRegisterProp;
-    }
-
-    public Map<String, Map<String, EventMap>> getEventProp() {
-        return eventProp;
     }
 
     //  ============================================== //

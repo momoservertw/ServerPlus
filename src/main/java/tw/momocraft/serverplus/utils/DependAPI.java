@@ -11,6 +11,7 @@ public class DependAPI {
     private boolean Vault = false;
     private boolean PlayerPoints = false;
     private boolean PlaceHolderAPI = false;
+    private boolean LangUtils = false;
     private boolean Residence = false;
     private boolean CMI = false;
     private boolean MyPet = false;
@@ -19,7 +20,6 @@ public class DependAPI {
     private boolean DiscordSRV = false;
     private boolean MysqlPlayerDataBridge = false;
     private boolean AuthMe = false;
-    private boolean LangUtils = false;
 
     public DependAPI() {
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.Vault")) {
@@ -71,17 +71,17 @@ public class DependAPI {
     private void sendUtilityDepends() {
         ServerHandler.sendConsoleMessage("&fHooked [ &e"
                 + (VaultEnabled() ? "Vault, " : "")
+                + (PlayerPointsEnabled() ? "PlayerPoints, " : "")
+                + (PlaceHolderAPIEnabled() ? "PlaceHolderAPI, " : "")
+                + (LangUtilsEnabled() ? "LangUtils, " : "")
                 + (CMIEnabled() ? "CMI, " : "")
                 + (ResidenceEnabled() ? "Residence, " : "")
-                + (PlaceHolderAPIEnabled() ? "PlaceHolderAPI, " : "")
                 + (MyPetEnabled() ? "MyPet, " : "")
                 + (ItemJoinEnabled() ? "ItemJoin, " : "")
                 + (MorphToolEnabled() ? "MorphTool, " : "")
                 + (DiscordSRVEnabled() ? "DiscordSRV, " : "")
                 + (MpdbEnabled() ? "MysqlPlayerDataBridge, " : "")
                 + (AuthMeEnabled() ? "AuthMe, " : "")
-                + (LangUtilsEnabled() ? "LangUtils, " : "")
-                + (PlayerPointsEnabled() ? "PlayerPoints, " : "")
                 + " &f]");
         /*
         if (ResidenceEnabled()) {
@@ -102,6 +102,10 @@ public class DependAPI {
 
     public boolean PlaceHolderAPIEnabled() {
         return this.PlaceHolderAPI;
+    }
+
+    public boolean LangUtilsEnabled() {
+        return this.LangUtils;
     }
 
     public boolean ResidenceEnabled() {
@@ -132,10 +136,6 @@ public class DependAPI {
         return this.MysqlPlayerDataBridge;
     }
 
-    public boolean LangUtilsEnabled() {
-        return this.LangUtils;
-    }
-
 
     public void setVaultStatus(boolean bool) {
         this.Vault = bool;
@@ -147,6 +147,10 @@ public class DependAPI {
 
     private void setPlayerPointsStatus(boolean bool) {
         this.PlayerPoints = bool;
+    }
+
+    private void setLangUtilsStatus(boolean bool) {
+        this.LangUtils = bool;
     }
 
     public boolean AuthMeEnabled() {
@@ -185,9 +189,6 @@ public class DependAPI {
         this.AuthMe = bool;
     }
 
-    private void setLangUtilsStatus(boolean bool) {
-        this.LangUtils = bool;
-    }
 
     public VaultAPI getVaultApi() {
         return this.vaultApi;

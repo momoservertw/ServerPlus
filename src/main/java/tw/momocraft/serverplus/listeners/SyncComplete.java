@@ -5,7 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
-import tw.momocraft.serverplus.utils.CustomCommands;
+import tw.momocraft.serverplus.utils.customcommands.CustomCommands;
 
 
 public class SyncComplete implements Listener {
@@ -18,8 +18,6 @@ public class SyncComplete implements Listener {
         if (!ConfigHandler.getConfigPath().isMpdbSyncComplete()) {
             return;
         }
-        for (String cmd : ConfigHandler.getConfigPath().getMpdbSyncCompleteCmds()) {
-            CustomCommands.executeCommands(e.getPlayer(), cmd);
-        }
+        CustomCommands.executeMultiCmdsList(e.getPlayer(), ConfigHandler.getConfigPath().getMpdbSyncCompleteCmds(), true);
     }
 }
