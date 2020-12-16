@@ -30,7 +30,7 @@ public class MyPet implements Listener {
                         player = Bukkit.getPlayer(e.getOwner().getName());
                     }
                     CustomCommands.executeMultipleCmds(player, command, true);
-                    ServerHandler.sendFeatureMessage("MyPet", e.getOwner().getName(), "skill", "continue", command,
+                    CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(),"MyPet", e.getOwner().getName(), "skill", "continue", command,
                             new Throwable().getStackTrace()[0]);
                 }
             }

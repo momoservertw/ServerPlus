@@ -77,7 +77,7 @@ public class ItemJoin {
                     hasMenu = true;
                 }
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ij get " + itemNode + " " + player.getName() + " " + amount);
-                ServerHandler.sendFeatureMessage("ItemJoin", itemNode, "give", "continue",
+                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(),"ItemJoin", itemNode, "give", "continue",
                         new Throwable().getStackTrace()[0]);
             }
         }

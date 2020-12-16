@@ -3,6 +3,7 @@ package tw.momocraft.serverplus.handlers;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.serverplus.ServerPlus;
 import tw.momocraft.serverplus.utils.*;
 
@@ -13,37 +14,26 @@ import java.time.format.DateTimeFormatter;
 public class ConfigHandler {
 
     private static YamlConfiguration configYAML;
-    private static YamlConfiguration spigotYAML;
     private static DependAPI depends;
-    private static ConfigPath configPath;
-    private static UpdateHandler updater;
-    private static Logger logger;
-    private static Zip ziper;
+    private static ConfigPath configPaths;
 
     public static void generateData(boolean reload) {
         genConfigFile("config.yml");
         setDepends(new DependAPI());
         setConfigPath(new ConfigPath());
         if (!reload) {
-            setUpdater(new UpdateHandler());
+            CorePlusAPI.getUpdateManager().check(getPrefix(), Bukkit.getConsoleSender(),
+                    ServerPlus.getInstance().getDescription().getName(), ServerPlus.getInstance().getDescription().getVersion());
         }
-        setLogger(new Logger());
-        setZip(new Zip());
     }
+
 
     public static FileConfiguration getConfig(String fileName) {
         File filePath = ServerPlus.getInstance().getDataFolder();
         File file;
         switch (fileName) {
             case "config.yml":
-                filePath = Bukkit.getWorldContainer();
                 if (configYAML == null) {
-                    getConfigData(filePath, fileName);
-                }
-                break;
-            case "spigot.yml":
-                filePath = Bukkit.getServer().getWorldContainer();
-                if (spigotYAML == null) {
                     getConfigData(filePath, fileName);
                 }
                 break;
@@ -60,7 +50,7 @@ public class ConfigHandler {
             try {
                 ServerPlus.getInstance().saveResource(fileName, false);
             } catch (Exception e) {
-                ServerHandler.sendErrorMessage("&cCannot save " + fileName + " to disk!");
+                CorePlusAPI.getLangManager().sendErrorMsg(ConfigHandler.getPrefix(), "&cCannot save " + fileName + " to disk!");
                 return;
             }
         }
@@ -74,27 +64,22 @@ public class ConfigHandler {
                     configYAML = YamlConfiguration.loadConfiguration(file);
                 }
                 return configYAML;
-            case "spigot.yml":
-                if (saveData) {
-                    spigotYAML = YamlConfiguration.loadConfiguration(file);
-                }
-                return spigotYAML;
         }
         return null;
     }
 
     private static void genConfigFile(String fileName) {
         String[] fileNameSlit = fileName.split("\\.(?=[^\\.]+$)");
-        int configVersion = 0;
+        int configVer = 0;
         File filePath = ServerPlus.getInstance().getDataFolder();
         switch (fileName) {
             case "config.yml":
-                configVersion = 1;
+                configVer = 1;
                 break;
         }
         getConfigData(filePath, fileName);
-        File file = new File(filePath, fileName);
-        if (file.exists() && getConfig(fileName).getInt("Config-Version") != configVersion) {
+        File File = new File(filePath, fileName);
+        if (File.exists() && getConfig(fileName).getInt("Config-Version") != configVer) {
             if (ServerPlus.getInstance().getResource(fileName) != null) {
                 LocalDateTime currentDate = LocalDateTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss");
@@ -102,15 +87,27 @@ public class ConfigHandler {
                 String newGen = fileNameSlit[0] + " " + currentTime + "." + fileNameSlit[0];
                 File newFile = new File(filePath, newGen);
                 if (!newFile.exists()) {
-                    file.renameTo(newFile);
+                    File.renameTo(newFile);
                     File configFile = new File(filePath, fileName);
                     configFile.delete();
                     getConfigData(filePath, fileName);
-                    ServerHandler.sendConsoleMessage("&4The file \"" + fileName + "\" is out of date, generating a new one!");
+                    CorePlusAPI.getLangManager().sendConsoleMsg(getPrefix(), "&4The file \"" + fileName + "\" is out of date, generating a new one!");
                 }
             }
         }
         getConfig(fileName).options().copyDefaults(false);
+    }
+
+    private static void setConfigPath(ConfigPath configPath) {
+        configPaths = configPath;
+    }
+
+    public static ConfigPath getConfigPath() {
+        return configPaths;
+    }
+
+    public static String getPrefix() {
+        return getConfig("config.yml").getString("Message.prefix");
     }
 
     public static DependAPI getDepends() {
@@ -121,40 +118,4 @@ public class ConfigHandler {
         depends = depend;
     }
 
-
-    private static void setConfigPath(ConfigPath configPath) {
-        ConfigHandler.configPath = configPath;
-    }
-
-    public static ConfigPath getConfigPath() {
-        return configPath;
-    }
-
-    public static boolean isDebugging() {
-        return ConfigHandler.getConfig("config.yml").getBoolean("Debugging");
-    }
-
-    public static UpdateHandler getUpdater() {
-        return updater;
-    }
-
-    private static void setUpdater(UpdateHandler update) {
-        updater = update;
-    }
-
-    private static void setLogger(Logger log) {
-        logger = log;
-    }
-
-    public static Logger getLogger() {
-        return logger;
-    }
-
-    private static void setZip(Zip zip) {
-        ziper = zip;
-    }
-
-    public static Zip getZip() {
-        return ziper;
-    }
 }

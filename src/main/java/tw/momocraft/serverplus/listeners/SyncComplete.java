@@ -4,8 +4,8 @@ import net.craftersland.data.bridge.api.events.SyncCompleteEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
-import tw.momocraft.serverplus.utils.customcommands.CustomCommands;
 
 
 public class SyncComplete implements Listener {
@@ -18,6 +18,6 @@ public class SyncComplete implements Listener {
         if (!ConfigHandler.getConfigPath().isMpdbSyncComplete()) {
             return;
         }
-        CustomCommands.executeMultiCmdsList(e.getPlayer(), ConfigHandler.getConfigPath().getMpdbSyncCompleteCmds(), true);
+        CorePlusAPI.getCommandManager().executeMultiCmdsList(ConfigHandler.getPrefix(), e.getPlayer(), ConfigHandler.getConfigPath().getMpdbSyncCompleteCmds(), true);
     }
 }

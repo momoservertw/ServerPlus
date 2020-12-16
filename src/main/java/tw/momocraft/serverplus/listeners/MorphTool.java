@@ -62,7 +62,7 @@ public class MorphTool implements Listener {
                 }
                 addCD(player);
                 Language.sendLangMessage("Message.ServerPlus.MorphToolNetherite", player);
-                ServerHandler.sendFeatureMessage("MorphTool", player.getName(), "update", "cancel",
+                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(),"MorphTool", player.getName(), "update", "cancel",
                         new Throwable().getStackTrace()[0]);
             }
         } catch (Exception ignored) {
@@ -107,7 +107,7 @@ public class MorphTool implements Listener {
                 }
                 addCD(player);
                 Language.sendLangMessage("Message.ServerPlus.MorphToolRename", player);
-                ServerHandler.sendFeatureMessage("MorphTool", player.getName(), "rename", "cancel",
+                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(),"MorphTool", player.getName(), "rename", "cancel",
                         new Throwable().getStackTrace()[0]);
             }
         } catch (Exception ex) {
@@ -117,7 +117,7 @@ public class MorphTool implements Listener {
             }
             addCD(player);
             Language.sendLangMessage("Message.ServerPlus.MorphToolRename", player);
-            ServerHandler.sendFeatureMessage("MorphTool", player.getName(), "rename", "cancel",
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(),"MorphTool", player.getName(), "rename", "cancel",
                     new Throwable().getStackTrace()[0]);
         }
     }

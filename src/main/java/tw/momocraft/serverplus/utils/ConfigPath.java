@@ -1,13 +1,8 @@
 package tw.momocraft.serverplus.utils;
 
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.EntityType;
+import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
-import tw.momocraft.serverplus.utils.blocksutils.BlocksUtils;
-import tw.momocraft.serverplus.utils.customcommands.ParticleMap;
-import tw.momocraft.serverplus.utils.customcommands.SoundMap;
-import tw.momocraft.serverplus.utils.locationutils.LocationUtils;
 
 import java.util.*;
 
@@ -17,19 +12,16 @@ public class ConfigPath {
     }
 
     //  ============================================== //
+    //         Message Variables                       //
+    //  ============================================== //
+    private String msgTitle;
+    private String msgHelp;
+    private String msgReload;
+    private String msgVersion;
+
+    //  ============================================== //
     //         General Settings                        //
     //  ============================================== //
-    private Map<String, String> customCmdProp;
-    private final Map<String, SoundMap> soundProp = new HashMap<>();
-    private final Map<String, ParticleMap> particleProp = new HashMap<>();
-
-    private LocationUtils locationUtils;
-    private BlocksUtils blocksUtils;
-
-    private String menuIJ;
-    private String menuType;
-    private String menuName;
-
     private String vanillaTrans;
 
     //  ============================================== //
@@ -74,6 +66,7 @@ public class ConfigPath {
     //         Setup all configuration.                //
     //  ============================================== //
     private void setUp() {
+        setupMsg();
         setGeneral();
         setMyPet();
         setMpdb();
@@ -82,55 +75,26 @@ public class ConfigPath {
         setAuthMe();
     }
 
+    //  ============================================== //
+    //         Message Setter                          //
+    //  ============================================== //
+    private void setupMsg() {
+        msgTitle = ConfigHandler.getConfig("config.yml").getString("Message.Commands.title");
+        msgHelp = ConfigHandler.getConfig("config.yml").getString("Message.Commands.help");
+        msgReload = ConfigHandler.getConfig("config.yml").getString("Message.Commands.reload");
+        msgVersion = ConfigHandler.getConfig("config.yml").getString("Message.Commands.version");
+    }
+
 
     //  ============================================== //
-    //         Setup General.                          //
+    //         General Setter                          //
     //  ============================================== //
     private void setGeneral() {
-        ConfigurationSection cmdConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("General.Custom-Commands");
-        if (cmdConfig != null) {
-            customCmdProp = new HashMap<>();
-            for (String group : cmdConfig.getKeys(false)) {
-                customCmdProp.put(group, ConfigHandler.getConfig("config.yml").getString("General.Custom-Commands." + group));
-            }
-        }
-        ConfigurationSection particleConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("General.Particles");
-        if (particleConfig != null) {
-            ParticleMap particleMap;
-            for (String group : particleConfig.getKeys(false)) {
-                particleMap = new ParticleMap();
-                particleMap.setType(ConfigHandler.getConfig("config.yml").getString("General.Particles." + group + ".Type"));
-                particleMap.setAmount(ConfigHandler.getConfig("config.yml").getInt("General.Particles." + group + ".Amount", 1));
-                particleMap.setTimes(ConfigHandler.getConfig("config.yml").getInt("General.Particles." + group + ".Times", 1));
-                particleMap.setInterval(ConfigHandler.getConfig("config.yml").getInt("General.Particles." + group + ".Interval", 20));
-                particleProp.put(group, particleMap);
-            }
-        }
-        ConfigurationSection soundConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("General.Sounds");
-        if (soundConfig != null) {
-            SoundMap soundMap;
-            for (String group : soundConfig.getKeys(false)) {
-                soundMap = new SoundMap();
-                soundMap.setType(ConfigHandler.getConfig("config.yml").getString("General.Sounds." + group + ".Type"));
-                soundMap.setVolume(ConfigHandler.getConfig("config.yml").getInt("General.Sounds." + group + ".Volume", 1));
-                soundMap.setPitch(ConfigHandler.getConfig("config.yml").getInt("General.Sounds." + group + ".Pitch", 1));
-                soundMap.setTimes(ConfigHandler.getConfig("config.yml").getInt("General.Sounds." + group + ".Loop.Times", 1));
-                soundMap.setInterval(ConfigHandler.getConfig("config.yml").getInt("General.Sounds." + group + ".Loop.Interval", 20));
-                soundProp.put(group, soundMap);
-            }
-        }
-        locationUtils = new LocationUtils();
-        blocksUtils = new BlocksUtils();
-
-        menuIJ = ConfigHandler.getConfig("config.yml").getString("General.Menu.ItemJoin");
-        menuType = ConfigHandler.getConfig("config.yml").getString("General.Menu.Item.Type");
-        menuName = ConfigHandler.getConfig("config.yml").getString("General.Menu.Item.Name");
-
         vanillaTrans = ConfigHandler.getConfig("config.yml").getString("General.Vanilla-Translate.Local");
     }
 
     //  ============================================== //
-    //         Setup MyPet.                            //
+    //         MyPet Setter                            //
     //  ============================================== //
     private void setMyPet() {
         myPet = ConfigHandler.getConfig("config.yml").getBoolean("MyPet.Enable");
@@ -139,13 +103,11 @@ public class ConfigPath {
         if (skillConfig != null) {
             skillProp = new HashMap<>();
             List<String> commands;
-            String groupEnable;
             for (String group : skillConfig.getKeys(false)) {
                 if (group.equals("Enable")) {
                     continue;
                 }
-                groupEnable = ConfigHandler.getConfig("config.yml").getString("MyPet.Skilltree-Auto-Select.Groups." + group + ".Enable");
-                if (Utils.isEnable(groupEnable, true)) {
+                if (ConfigHandler.getConfig("config.yml").getBoolean("MyPet.Skilltree-Auto-Select.Groups." + group + ".Enable", true)) {
                     commands = ConfigHandler.getConfig("config.yml").getStringList("MyPet.Skilltree-Auto-Select.Groups." + group + ".Commands");
                     if (group.equals("Default")) {
                         skillProp.put("Default", commands);
@@ -159,7 +121,7 @@ public class ConfigPath {
     }
 
     //  ============================================== //
-    //         MySQLPlayerDataBridge Settings          //
+    //         MySQLPlayerDataBridge Setter            //
     //  ============================================== //
     private void setMpdb() {
         mpdb = ConfigHandler.getConfig("config.yml").getBoolean("MySQLPlayerDataBridge.Enable");
@@ -168,7 +130,7 @@ public class ConfigPath {
     }
 
     //  ============================================== //
-    //         ItemJoin Settings                       //
+    //         ItemJoin Setter                         //
     //  ============================================== //
     private void setItemJoin() {
         itemjoin = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Enable");
@@ -185,7 +147,7 @@ public class ConfigPath {
             for (String group : ijConfig.getKeys(false)) {
                 ijMap = new ItemJoinMap();
                 ijMap.setItemNode(group);
-                ijMap.setName(Utils.translateColorCode(ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Name")));
+                ijMap.setName(CorePlusAPI.getUtilsManager().translateColorCode(ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Name")));
                 itemType = ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Type");
                 //ijMap.setLore(Utils.translateColorCode(ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Lore")));
                 try {
@@ -199,61 +161,51 @@ public class ConfigPath {
     }
 
     //  ============================================== //
-    //         MorphTool Settings                      //
+    //         MorphTool Setter                        //
     //  ============================================== //
     private void setMorphTool() {
         morphtool = ConfigHandler.getConfig("config.yml").getBoolean("MorphTool.Enable");
         morphtoolNetherite = ConfigHandler.getConfig("config.yml").getBoolean("MorphTool.Prvent-Update-Netherite");
-        morphtoolName = Utils.translateColorCode(ConfigHandler.getConfig("config.yml").getString("MorphTool.ToolName"));
+        morphtoolName = CorePlusAPI.getUtilsManager().translateColorCode(ConfigHandler.getConfig("config.yml").getString("MorphTool.ToolName"));
     }
 
     //  ============================================== //
-    //         AuthMe Settings          //
+    //         AuthMe Setter                           //
     //  ============================================== //
     private void setAuthMe() {
         authMe = ConfigHandler.getConfig("config.yml").getBoolean("AuthMe.Enable");
         authMeMail = ConfigHandler.getConfig("config.yml").getBoolean("AuthMe.Mail-Warning.Enable");
     }
 
+
     //  ============================================== //
-    //         General Settings                        //
+    //         Message Getter                          //
     //  ============================================== //
-    public Map<String, String> getCustomCmdProp() {
-        return customCmdProp;
-    }
-    public Map<String, ParticleMap> getParticleProp() {
-        return particleProp;
-    }
-    public Map<String, SoundMap> getSoundProp() {
-        return soundProp;
+    public String getMsgTitle() {
+        return msgTitle;
     }
 
-    public String getMenuIJ() {
-        return menuIJ;
+    public String getMsgHelp() {
+        return msgHelp;
     }
 
-    public String getMenuName() {
-        return menuName;
+    public String getMsgReload() {
+        return msgReload;
     }
 
-    public String getMenuType() {
-        return menuType;
+    public String getMsgVersion() {
+        return msgVersion;
     }
 
+    //  ============================================== //
+    //         General Getter                          //
+    //  ============================================== //
     public String getVanillaTrans() {
         return vanillaTrans;
     }
 
-    public LocationUtils getLocationUtils() {
-        return locationUtils;
-    }
-
-    public BlocksUtils getBlocksUtils() {
-        return blocksUtils;
-    }
-
     //  ============================================== //
-    //         MyPet Settings                          //
+    //         MyPet Getter                            //
     //  ============================================== //
     public boolean isMyPet() {
         return myPet;
@@ -268,7 +220,7 @@ public class ConfigPath {
     }
 
     //  ============================================== //
-    //         MySQLPlayerDataBridge Settings          //
+    //         MySQLPlayerDataBridge Getter            //
     //  ============================================== //
     public boolean isMpdb() {
         return mpdb;
@@ -283,7 +235,7 @@ public class ConfigPath {
     }
 
     //  ============================================== //
-    //         ItemJoin Settings                       //
+    //         ItemJoin Getter                         //
     //  ============================================== //
     public boolean isItemjoin() {
         return itemjoin;
@@ -314,7 +266,7 @@ public class ConfigPath {
     }
 
     //  ============================================== //
-    //         MorphTool Settings                      //
+    //         MorphTool Getter                        //
     //  ============================================== //
     public boolean isMorphtool() {
         return morphtool;
@@ -329,7 +281,7 @@ public class ConfigPath {
     }
 
     //  ============================================== //
-    //         AuthMe Settings                      //
+    //         AuthMe Getter                           //
     //  ============================================== //
     public boolean isAuthMe() {
         return authMe;
@@ -337,39 +289,5 @@ public class ConfigPath {
 
     public boolean isAuthMeMail() {
         return authMeMail;
-    }
-
-    //  ============================================== //
-    //         Others                                  //
-    //  ============================================== //
-    public List<String> getTypeList(String file, String path, String listType) {
-        List<String> list = new ArrayList<>();
-        List<String> customList;
-        for (String type : ConfigHandler.getConfig(file).getStringList(path)) {
-            try {
-                if (listType.equals("Entities")) {
-                    list.add(EntityType.valueOf(type).name());
-                } else if (listType.equals("Materials")) {
-                    list.add(Material.valueOf(type).name());
-                }
-            } catch (Exception e) {
-                customList = ConfigHandler.getConfig("groups.yml").getStringList(listType + "." + type);
-                if (customList.isEmpty()) {
-                    continue;
-                }
-                // Add Custom Group.
-                for (String customType : customList) {
-                    try {
-                        if (listType.equals("Entities")) {
-                            list.add(EntityType.valueOf(customType).name());
-                        } else if (listType.equals("Materials")) {
-                            list.add(Material.valueOf(customType).name());
-                        }
-                    } catch (Exception ex) {
-                    }
-                }
-            }
-        }
-        return list;
     }
 }

@@ -22,84 +22,6 @@ General:
         DiscordSRV: true
         AuthMe: true
         LocaleLib: true
-  # The settings for custom commands.
-  # More information: https://github.com/momoservertw/LotteryPlus/wiki/Custom-Command
-  Custom-Commands:
-    Settings:
-      Log:
-        Default:
-          # Creating new file if the modified date is difference.
-          New-File: true
-          To-Zip: true
-        Custom:
-          New-File: false
-          To-Zip: true
-          Path: "plugin//CustomLogs"
-          Name: "latest"
-    # To send frequently used commands with placeholders.
-  Groups:
-    reward: "message: &6&lReward&c✤ &f%cmd_arg1%"
-    awards: "message: &d✧ &f%cmd_arg1% &d✧"
-    cgl: "broadcast: &6Congratulate &e%player% &6use &f%cmd_arg1% &8- &6Get the %cmd_arg2% &7<&f%cmd_arg3%&7>"
-    money: "console: money give %player% %cmd_arg1%"
-  # The settings for custom sounds.
-  # More information: https://github.com/momoservertw/HotkeyPlus/wiki/Custom-Sounds
-  Sounds:
-    Succeed:
-      Type: ENTITY_PLAYER_LEVELUP
-    Failed:
-      Type: ENTITY_SHULKER_HURT
-    SlimeJump:
-      Type: ENTITY_SLIME_JUMP
-      Loop:
-        Times: 8
-        Interval: 20
-  # The settings for custom particles.
-  # More information: https://github.com/momoservertw/HotkeyPlus/wiki/Custom-Particles
-  Particles:
-    Slime:
-      Type: SLIME
-      Amount: 3
-      Times: 8
-      Interval: 20
-    Flame:
-      Type: FLAME
-      Amount: 3
-      Times: 8
-      Interval: 20
-  # The menu item for some events like showing blocks or destroying it.
-  # If you don't have a menu in your server, you can set Item Name to "" to use a vanilla item.
-  # Support: ItemJoin
-  Menu:
-    ItemJoin: ""
-    Item:
-      Type: "PLAYER_HEAD"
-      Name: "&e&lMy &6&lMenu"
-  Location:
-    NormalWorlds:
-      Worlds:
-        - world
-    NetherWorlds:
-      Worlds:
-        - world_nether
-    EndWorlds:
-      Worlds:
-        - world_the_end
-    NormalBorder:
-      Worlds:
-        - world
-      Area:
-        S: 10000
-    Bedrock_World:
-      Worlds:
-        - world
-      Area:
-        Y: ">= 5"
-    Bedrock_Nether:
-      Worlds:
-        - world_nether
-      Area:
-        Y: "5 ~ 123"
 
 MyPet:
   Enable: true
@@ -439,53 +361,25 @@ Donate:
         - "message: &7解鎖："
         - "message: &7- 特效✷ 永恆愛戀、愛心 (MVP專屬)"
         - "message: &7- 暱稱顏色： 紫色(d)"
-    #支付GOD
-    buy_god:
-      command: /motw buy god
-      type: RUN_CONSOLE
-      runcmd:
-        - '$Script$%if%$PlayerData%mointsall%<8000'
-        - '$text$&d茉茉&c&o♥ &f累計贊助還不足喔！'
-        - '$Script$%elseif%%luckperms_in_group_mvp%==yes'
-        - '/lp user $player parent settrack donate god'
-        - '$delay$'
-        - '/mos 203'
-        - '$delay$'
-        - '$broadcasttext$&6冒險者 &e&l$player &6成為了 &e&lGOD玩家&6， 謝謝你&4&o♥'
-        - '$delay$'
-        - '$text$&d茉茉&c&o♥ &e你現在是伺服器榮譽的玩家！！'
-        - '$delay$'
-        - '$text$&c&l個人特效&f✷ &f解鎖GOD專屬特效: &e&l尊爵不凡 &4&l地獄鬼步 &e&l遊&a&l戲&b&l舞&d&l台'
-        - '$delay$'
-        - '$text$&e&l個人檔案&4&o♥ &f解鎖暱稱顏色: &e&l黃色'
-        - '$Script$%elseif%%luckperms_in_group_general%==yes<or>%luckperms_in_group_default%==yes'
-        - '$text$&d茉茉&c&o♥ &e請先升級為MB玩家！ &8- &f選單->贊助系統->升級MB'
-        - '$delay$'
-        - '$Script$%elseif%%luckperms_in_group_mb%==yes'
-        - '$text$&d茉茉&c&o♥ &e請先升級為VIP玩家！ &8- &f選單->贊助系統->升級VIP'
-        - '$delay$'
-        - '$Script$%elseif%%luckperms_in_group_vip%==yes'
-        - '$text$&d茉茉&c&o♥ &e請先升級為MVP玩家！ &8- &f選單->贊助系統->升級MVP'
-        - '$delay$'
-        - '$Script$%else%'
-        - '$text$&e你已經升級過囉！'
-      delaytimer: 10
-      delaytimer_format: TICKS
-      permission-required: false
+    god:
+      Enable: true
+      Commands:
+        - 'console: lp user %player% parent settrack donate god'
+        - "broadcast: &6玩家 &e&l$player &6成為了 &e&lGOD&6， 謝謝你&4&o♥"
+        - "message: &d&l茉茉&c&o♥ &f你現在是伺服器榮譽的玩家！！"
+        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
+        - "message: &7解鎖："
+        - "message: &7- 特效✷ 尊爵不凡、地獄鬼步、遊戲舞台 (GOD專屬)"
+        - "message: &7- 暱稱顏色： 黃色(e)"
 
 Message:
   prefix: '&f'
-  noPermission: '&cYou do not have permission to use that command!'
-  configReload: '&aConfiguration(s) Reloaded!'
-  unknownCommand: '&cUnknown command, See &e/ServerPlus help &cfor a list of commands.'
-  cooldown: '&fPlease try it again later.'
-  ServerPlus:
-    Commands:
-      title: "&8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩ &d&lServerPlus &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
-      help: "&a/serverplus help &8- &7This help menu."
-      reload: "&a/serverplus reload &8- &7Reloads config file."
-      version: "&f/serverplus version &8- &7Checks the plugin version and updates."
-    ItemJoinFix: "&f成功掃描身上所有物品 - 修復 %amount% 個物品"
-    MorphToolRename: "&c這個物品不能更改名字"
-    MorphToolNetherite: "&c這個物品不能升級"
-    AuthMeMailEmpty: "&c請設置 Email 用於取回密碼， 輸入/email add 信箱 信箱"
+  Commands:
+    title: "&8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩ &d&lServerPlus &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
+    help: "&a/serverplus help &8- &7This help menu."
+    reload: "&a/serverplus reload &8- &7Reloads config file."
+    version: "&f/serverplus version &8- &7Checks the plugin version and updates."
+  ItemJoinFix: "&f成功掃描身上所有物品 - 修復 %amount% 個物品"
+  MorphToolRename: "&c這個物品不能更改名字"
+  MorphToolNetherite: "&c這個物品不能升級"
+  AuthMeMailEmpty: "&c請設置 Email 用於取回密碼， 輸入/email add 信箱 信箱"
