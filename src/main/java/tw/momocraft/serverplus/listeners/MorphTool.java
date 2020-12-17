@@ -9,9 +9,8 @@ import org.bukkit.event.inventory.PrepareAnvilEvent;
 import org.bukkit.event.inventory.PrepareSmithingEvent;
 import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.SmithingInventory;
+import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
-import tw.momocraft.serverplus.handlers.ServerHandler;
-import tw.momocraft.serverplus.utils.Language;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,8 +60,8 @@ public class MorphTool implements Listener {
                     return;
                 }
                 addCD(player);
-                Language.sendLangMessage("Message.ServerPlus.MorphToolNetherite", player);
-                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(),"MorphTool", player.getName(), "update", "cancel",
+                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.MorphToolNetherite", player);
+                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "MorphTool", player.getName(), "update", "cancel",
                         new Throwable().getStackTrace()[0]);
             }
         } catch (Exception ignored) {
@@ -106,8 +105,8 @@ public class MorphTool implements Listener {
                     return;
                 }
                 addCD(player);
-                Language.sendLangMessage("Message.ServerPlus.MorphToolRename", player);
-                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(),"MorphTool", player.getName(), "rename", "cancel",
+                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.MorphToolRename", player);
+                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "MorphTool", player.getName(), "rename", "cancel",
                         new Throwable().getStackTrace()[0]);
             }
         } catch (Exception ex) {
@@ -116,8 +115,8 @@ public class MorphTool implements Listener {
                 return;
             }
             addCD(player);
-            Language.sendLangMessage("Message.ServerPlus.MorphToolRename", player);
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(),"MorphTool", player.getName(), "rename", "cancel",
+            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.MorphToolRename", player);
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "MorphTool", player.getName(), "rename", "cancel",
                     new Throwable().getStackTrace()[0]);
         }
     }

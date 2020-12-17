@@ -1,17 +1,10 @@
 package tw.momocraft.serverplus.utils;
 
 import org.bukkit.Bukkit;
+import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
-import tw.momocraft.serverplus.handlers.ServerHandler;
 
-public class DependAPI {
-    private VaultAPI vaultApi;
-    private PlayerPointsAPI playerPointsApi;
-
-    private boolean Vault = false;
-    private boolean PlayerPoints = false;
-    private boolean PlaceHolderAPI = false;
-    private boolean LangUtils = false;
+public class Depend {
     private boolean Residence = false;
     private boolean CMI = false;
     private boolean MyPet = false;
@@ -21,25 +14,7 @@ public class DependAPI {
     private boolean MysqlPlayerDataBridge = false;
     private boolean AuthMe = false;
 
-    public DependAPI() {
-        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.Vault")) {
-            this.setVaultStatus(Bukkit.getServer().getPluginManager().getPlugin("Vault") != null);
-            if (Vault) {
-                setVaultApi();
-            }
-        }
-        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.PlayerPoints")) {
-            this.setPlayerPointsStatus(Bukkit.getServer().getPluginManager().getPlugin("PlayerPoints") != null);
-            if (PlayerPoints) {
-                setPlayerPointsApi();
-            }
-        }
-        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.PlaceHolderAPI")) {
-            this.setPlaceHolderStatus(Bukkit.getServer().getPluginManager().getPlugin("PlaceHolderAPI") != null);
-        }
-        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.LangUtils")) {
-            this.setLangUtilsStatus(Bukkit.getServer().getPluginManager().getPlugin("LangUtils") != null);
-        }
+    public Depend() {
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.Residence")) {
             this.setResidenceStatus(Bukkit.getServer().getPluginManager().getPlugin("Residence") != null);
         }
@@ -69,11 +44,7 @@ public class DependAPI {
     }
 
     private void sendUtilityDepends() {
-        ServerHandler.sendConsoleMessage("&fHooked [ &e"
-                + (VaultEnabled() ? "Vault, " : "")
-                + (PlayerPointsEnabled() ? "PlayerPoints, " : "")
-                + (PlaceHolderAPIEnabled() ? "PlaceHolderAPI, " : "")
-                + (LangUtilsEnabled() ? "LangUtils, " : "")
+        String hookMsg = "&fHooked [ &e"
                 + (CMIEnabled() ? "CMI, " : "")
                 + (ResidenceEnabled() ? "Residence, " : "")
                 + (MyPetEnabled() ? "MyPet, " : "")
@@ -82,7 +53,11 @@ public class DependAPI {
                 + (DiscordSRVEnabled() ? "DiscordSRV, " : "")
                 + (MpdbEnabled() ? "MysqlPlayerDataBridge, " : "")
                 + (AuthMeEnabled() ? "AuthMe, " : "")
-                + " &f]");
+                + " &f]";
+        try {
+            CorePlusAPI.getLangManager().sendConsoleMsg(tw.momocraft.coreplus.handlers.ConfigHandler.getPrefix(), hookMsg.substring(0, hookMsg.lastIndexOf(", ")) + " &f]");
+        } catch (Exception ignored) {
+        }
         /*
         if (ResidenceEnabled()) {
             if (ConfigHandler.getConfigPath().isSpawnResFlag()) {
@@ -92,21 +67,6 @@ public class DependAPI {
          */
     }
 
-    public boolean VaultEnabled() {
-        return this.Vault;
-    }
-
-    public boolean PlayerPointsEnabled() {
-        return this.PlayerPoints;
-    }
-
-    public boolean PlaceHolderAPIEnabled() {
-        return this.PlaceHolderAPI;
-    }
-
-    public boolean LangUtilsEnabled() {
-        return this.LangUtils;
-    }
 
     public boolean ResidenceEnabled() {
         return this.Residence;
@@ -136,22 +96,6 @@ public class DependAPI {
         return this.MysqlPlayerDataBridge;
     }
 
-
-    public void setVaultStatus(boolean bool) {
-        this.Vault = bool;
-    }
-
-    public void setPlaceHolderStatus(boolean bool) {
-        this.PlaceHolderAPI = bool;
-    }
-
-    private void setPlayerPointsStatus(boolean bool) {
-        this.PlayerPoints = bool;
-    }
-
-    private void setLangUtilsStatus(boolean bool) {
-        this.LangUtils = bool;
-    }
 
     public boolean AuthMeEnabled() {
         return this.AuthMe;
@@ -187,22 +131,5 @@ public class DependAPI {
 
     private void setAuthMeStatus(boolean bool) {
         this.AuthMe = bool;
-    }
-
-
-    public VaultAPI getVaultApi() {
-        return this.vaultApi;
-    }
-
-    private void setVaultApi() {
-        vaultApi = new VaultAPI();
-    }
-
-    public PlayerPointsAPI getPlayerPointsApi() {
-        return this.playerPointsApi;
-    }
-
-    private void setPlayerPointsApi() {
-        playerPointsApi = new PlayerPointsAPI();
     }
 }

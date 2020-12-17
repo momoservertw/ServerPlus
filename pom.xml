@@ -73,13 +73,6 @@
             <version>LATEST</version>
             <scope>provided</scope>
         </dependency>
-        <!--LangUtils API-->
-        <dependency>
-            <groupId>com.meowj</groupId>
-            <artifactId>LangUtils</artifactId>
-            <!--Please check the latest version -->
-            <version>1.9</version>
-        </dependency>
         <!--CMI API-->
         <dependency>
             <groupId>me.CMI</groupId>

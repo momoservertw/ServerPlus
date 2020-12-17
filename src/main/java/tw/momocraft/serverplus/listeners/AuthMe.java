@@ -7,9 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
-import tw.momocraft.serverplus.handlers.ServerHandler;
-import tw.momocraft.serverplus.utils.Language;
 
 public class AuthMe implements Listener {
 
@@ -26,8 +25,8 @@ public class AuthMe implements Listener {
         String email = AuthMeApi.getInstance().getPlayerInfo(playerName).
                 flatMap(AuthMePlayer::getEmail).orElse("EMPTY");
         if (email.equals("EMPTY")) {
-            Language.sendLangMessage("Message.ServerPlus.AuthMeMailEmpty", player);
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(),"AuthMe", playerName, "mail", "warning",
+            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.AuthMeMailEmpty", player);
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "AuthMe", playerName, "mail", "warning",
                     new Throwable().getStackTrace()[0]);
         }
     }

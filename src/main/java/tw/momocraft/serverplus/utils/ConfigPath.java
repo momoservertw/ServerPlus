@@ -20,7 +20,7 @@ public class ConfigPath {
     private String msgVersion;
 
     //  ============================================== //
-    //         General Settings                        //
+    //         General Variables                       //
     //  ============================================== //
     private String vanillaTrans;
 
@@ -32,14 +32,14 @@ public class ConfigPath {
     private Map<String, List<String>> skillProp;
 
     //  ============================================== //
-    //         MySQLPlayerDataBridge Settings          //
+    //         MySQLPlayerDataBridge Variables         //
     //  ============================================== //
     private boolean mpdb;
     private boolean mpdbSyncComplete;
     private List<String> mpdbSyncCompleteCmds;
 
     //  ============================================== //
-    //         ItemJoin Settings                        //
+    //         ItemJoin Variables                      //
     //  ============================================== //
     private boolean itemjoin;
     private boolean ijFixOldItem;
@@ -50,20 +50,20 @@ public class ConfigPath {
     private Map<String, List<ItemJoinMap>> ijProp;
 
     //  ============================================== //
-    //         MorphTool Settings                        //
+    //         MorphTool Variables                     //
     //  ============================================== //
     private boolean morphtool;
     private boolean morphtoolNetherite;
     private String morphtoolName;
 
     //  ============================================== //
-    //         AuthMe Settings                        //
+    //         AuthMe Variables                        //
     //  ============================================== //
     private boolean authMe;
     private boolean authMeMail;
 
     //  ============================================== //
-    //         Setup all configuration.                //
+    //         Setup all configuration                 //
     //  ============================================== //
     private void setUp() {
         setupMsg();
@@ -107,14 +107,15 @@ public class ConfigPath {
                 if (group.equals("Enable")) {
                     continue;
                 }
-                if (ConfigHandler.getConfig("config.yml").getBoolean("MyPet.Skilltree-Auto-Select.Groups." + group + ".Enable", true)) {
-                    commands = ConfigHandler.getConfig("config.yml").getStringList("MyPet.Skilltree-Auto-Select.Groups." + group + ".Commands");
-                    if (group.equals("Default")) {
-                        skillProp.put("Default", commands);
-                    }
-                    for (String type : ConfigHandler.getConfig("config.yml").getStringList("MyPet.Skilltree-Auto-Select.Groups." + group + ".Types")) {
-                        skillProp.put(type, commands);
-                    }
+                if (!ConfigHandler.getConfig("config.yml").getBoolean("MyPet.Skilltree-Auto-Select.Groups." + group + ".Enable", true)) {
+                    continue;
+                }
+                commands = ConfigHandler.getConfig("config.yml").getStringList("MyPet.Skilltree-Auto-Select.Groups." + group + ".Commands");
+                if (group.equals("Default")) {
+                    skillProp.put("Default", commands);
+                }
+                for (String type : ConfigHandler.getConfig("config.yml").getStringList("MyPet.Skilltree-Auto-Select.Groups." + group + ".Types")) {
+                    skillProp.put(type, commands);
                 }
             }
         }

@@ -1,6 +1,5 @@
 package tw.momocraft.serverplus.handlers;
 
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import tw.momocraft.coreplus.api.CorePlusAPI;
@@ -14,17 +13,13 @@ import java.time.format.DateTimeFormatter;
 public class ConfigHandler {
 
     private static YamlConfiguration configYAML;
-    private static DependAPI depends;
+    private static Depend depends;
     private static ConfigPath configPaths;
 
     public static void generateData(boolean reload) {
         genConfigFile("config.yml");
-        setDepends(new DependAPI());
+        setDepends(new Depend());
         setConfigPath(new ConfigPath());
-        if (!reload) {
-            CorePlusAPI.getUpdateManager().check(getPrefix(), Bukkit.getConsoleSender(),
-                    ServerPlus.getInstance().getDescription().getName(), ServerPlus.getInstance().getDescription().getVersion());
-        }
     }
 
 
@@ -110,11 +105,11 @@ public class ConfigHandler {
         return getConfig("config.yml").getString("Message.prefix");
     }
 
-    public static DependAPI getDepends() {
+    public static Depend getDepends() {
         return depends;
     }
 
-    private static void setDepends(DependAPI depend) {
+    private static void setDepends(Depend depend) {
         depends = depend;
     }
 

@@ -327,6 +327,9 @@ Donate:
   Groups:
     mb:
       Enable: true
+      LuckPerms:
+        Stack: "donate"
+        group: "mb"
       Commands:
         - "console: lp user %player% parent settrack donate mb"
 
@@ -340,6 +343,9 @@ Donate:
         - "message: &7- 遠端打開終界箱 /ender"
     vip:
       Enable: true
+      LuckPerms:
+        Stack: "donate"
+        group: "vip"
       Commands:
         - "console: lp user %player% parent settrack donate vip"
         - "console: petadmin create -f %player% sheep baby"
@@ -350,9 +356,12 @@ Donate:
         - "message: &7解鎖："
         - "message: &7- 特效✷ 自由藍天、火焰 (VIP專屬)"
         - "message: &7- 暱稱顏色： 藍色(b)"
-        -
     mvp:
       Enable: true
+      LuckPerms:
+        Stack: "donate"
+        group:
+          Next: "mvp"
       Commands:
         - 'console: lp user %player% parent settrack donate mvp'
         - "broadcast: &6玩家 &e&l$player &6成為了 &d&lMVP&6， 謝謝你&4&o♥"

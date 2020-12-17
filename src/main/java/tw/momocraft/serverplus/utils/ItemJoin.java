@@ -5,8 +5,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
-import tw.momocraft.serverplus.handlers.ServerHandler;
 
 import java.util.List;
 import java.util.Map;
@@ -77,14 +77,14 @@ public class ItemJoin {
                     hasMenu = true;
                 }
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ij get " + itemNode + " " + player.getName() + " " + amount);
-                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(),"ItemJoin", itemNode, "give", "continue",
+                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "ItemJoin", itemNode, "give", "continue",
                         new Throwable().getStackTrace()[0]);
             }
         }
-        String[] placeHolders = Language.newString();
-        placeHolders[6] = String.valueOf(fixAmount);
+        String[] placeHolders = CorePlusAPI.getLangManager().newString();
+        placeHolders[8] = String.valueOf(fixAmount); // %amount%
         if (msg) {
-            Language.sendLangMessage("Message.ServerPlus.ItemJoinFix", player, placeHolders);
+            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.ItemJoinFix", player, placeHolders);
         }
     }
 }

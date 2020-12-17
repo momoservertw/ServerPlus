@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.util.StringUtil;
-import tw.momocraft.serverplus.handlers.PermissionsHandler;
+import tw.momocraft.coreplus.api.CorePlusAPI;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,22 +39,22 @@ public class TabComplete implements TabCompleter {
          */
         switch (args.length) {
             case 1:
-                if (PermissionsHandler.hasPermission(sender, "barrierplus.use")) {
+                if (CorePlusAPI.getPermManager().hasPermission(sender, "barrierplus.use")) {
                     commands.add("help");
                 }
-                if (PermissionsHandler.hasPermission(sender, "barrierplus.command.reload")) {
+                if (CorePlusAPI.getPermManager().hasPermission(sender, "barrierplus.command.reload")) {
                     commands.add("reload");
                 }
-                if (PermissionsHandler.hasPermission(sender, "barrierplus.command.version")) {
+                if (CorePlusAPI.getPermManager().hasPermission(sender, "barrierplus.command.version")) {
                     commands.add("version");
                 }
-                if (PermissionsHandler.hasPermission(sender, "barrierplus.command.buy")) {
+                if (CorePlusAPI.getPermManager().hasPermission(sender, "barrierplus.command.buy")) {
                     commands.add("buy");
                 }
-                if (PermissionsHandler.hasPermission(sender, "barrierplus.command.give")) {
+                if (CorePlusAPI.getPermManager().hasPermission(sender, "barrierplus.command.give")) {
                     commands.add("give");
                 }
-                if (PermissionsHandler.hasPermission(sender, "barrierplus.command.itemjoinfix")) {
+                if (CorePlusAPI.getPermManager().hasPermission(sender, "barrierplus.command.itemjoinfix")) {
                     commands.add("itemjoinfix");
                 }
                 break;

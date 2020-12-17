@@ -6,9 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
-import tw.momocraft.serverplus.handlers.ServerHandler;
-import tw.momocraft.serverplus.utils.customcommands.CustomCommands;
 
 import java.util.List;
 import java.util.Random;
@@ -29,8 +28,8 @@ public class MyPet implements Listener {
                     if (player == null) {
                         player = Bukkit.getPlayer(e.getOwner().getName());
                     }
-                    CustomCommands.executeMultipleCmds(player, command, true);
-                    CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(),"MyPet", e.getOwner().getName(), "skill", "continue", command,
+                    CorePlusAPI.getCommandManager().executeMultipleCmds(ConfigHandler.getPrefix(), player, command, true);
+                    CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "MyPet", e.getOwner().getName(), "skill", "continue", command,
                             new Throwable().getStackTrace()[0]);
                 }
             }
