@@ -84,7 +84,7 @@ public class ItemJoin {
         String[] placeHolders = CorePlusAPI.getLangManager().newString();
         placeHolders[8] = String.valueOf(fixAmount); // %amount%
         if (msg) {
-            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.ItemJoinFix", player, placeHolders);
+            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgItemJoinFix(), player, placeHolders);
         }
     }
 }

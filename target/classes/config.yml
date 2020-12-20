@@ -327,59 +327,63 @@ Donate:
   Groups:
     mb:
       Enable: true
-      LuckPerms:
-        Stack: "donate"
-        group: "mb"
+      Group: "general"
+      Next-Group: "mb"
       Commands:
-        - "console: lp user %player% parent settrack donate mb"
-
-        - "broadcast: &6玩家 &e&l$player &6成為了 &a&lMB&6， 謝謝你&4&o♥"
+        - "console: lp user %player% promote donate"
+        - "broadcast: &6玩家 &e%player_display_name% &6成為了 &a&lMB&6， 謝謝你&4&o♥"
+        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
         - "message: &d&l茉茉&c&o♥ &f歡迎加入大家庭！ 你現在是永久的居民囉 :)"
-        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
         - "message: &7解鎖："
         - "message: &7- 傳送點 +1"
         - "message: &7- 特效✷ 喜悅 (MB專屬)"
         - "message: &7- 戴帽子 /hat"
         - "message: &7- 遠端打開終界箱 /ender"
+      Failed-Commands:
+        - "message: &c出現錯誤請聯絡服主 - 升級MB"
     vip:
       Enable: true
-      LuckPerms:
-        Stack: "donate"
-        group: "vip"
+      Group: "mb"
+      Next-Group: "vip"
       Commands:
-        - "console: lp user %player% parent settrack donate vip"
-        - "console: petadmin create -f %player% sheep baby"
-
-        - "broadcast: &6玩家 &e&l$player &6成為了 &b&lVIP玩家&6， 謝謝你&4&o♥"
+        - "console: lp user %player% promote donate"
+        - "broadcast: &6玩家 &e%player_display_name% &6成為了 &b&lVIP&6， 謝謝你&4&o♥"
+        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
         - "message: &d&l茉茉&c&o♥ &f謝謝你們的付出！ 期待伺服器能變得更好 :)"
-        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
         - "message: &7解鎖："
         - "message: &7- 特效✷ 自由藍天、火焰 (VIP專屬)"
         - "message: &7- 暱稱顏色： 藍色(b)"
+        - "custom: cgl, 贊助, 限定寵物, 吉祥物羊咩;custom: pet, sheep"
+      Failed-Commands:
+        - "message: &c你必須是MB， 才可以升級VIP！"
     mvp:
       Enable: true
-      LuckPerms:
-        Stack: "donate"
-        group:
-          Next: "mvp"
+      Group: "vip"
+      Next-Group: "mvp"
       Commands:
-        - 'console: lp user %player% parent settrack donate mvp'
-        - "broadcast: &6玩家 &e&l$player &6成為了 &d&lMVP&6， 謝謝你&4&o♥"
+        - "console: lp user %player% promote donate"
+        - "broadcast: &6玩家 &e%player_display_name% &6成為了 &d&lMVP&6， 謝謝你&4&o♥"
+        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
         - "message: &d&l茉茉&c&o♥ &f你現在擁有更多社區管理權限"
-        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
         - "message: &7解鎖："
         - "message: &7- 特效✷ 永恆愛戀、愛心 (MVP專屬)"
         - "message: &7- 暱稱顏色： 紫色(d)"
+      Failed-Commands:
+        - "message: &c你必須是VIP， 才可以升級MVP！"
     god:
       Enable: true
+      Group: "mvp"
+      Next-Group: "god"
       Commands:
-        - 'console: lp user %player% parent settrack donate god'
-        - "broadcast: &6玩家 &e&l$player &6成為了 &e&lGOD&6， 謝謝你&4&o♥"
+        - "console: lp user %player% promote donate"
+        - "broadcast: &6玩家 &e%player_display_name% &6成為了 &e&lGOD&6， 謝謝你&4&o♥"
+        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
         - "message: &d&l茉茉&c&o♥ &f你現在是伺服器榮譽的玩家！！"
-        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
         - "message: &7解鎖："
         - "message: &7- 特效✷ 尊爵不凡、地獄鬼步、遊戲舞台 (GOD專屬)"
         - "message: &7- 暱稱顏色： 黃色(e)"
+      Failed-Commands:
+        - "message: &c你必須是MVP， 才可以升級GOD！"
 
 Message:
   prefix: '&f'
@@ -392,3 +396,4 @@ Message:
   MorphToolRename: "&c這個物品不能更改名字"
   MorphToolNetherite: "&c這個物品不能升級"
   AuthMeMailEmpty: "&c請設置 Email 用於取回密碼， 輸入/email add 信箱 信箱"
+  donateGroupNotFound: "&c找不到升級的贊助用戶組"

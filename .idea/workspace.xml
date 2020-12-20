@@ -5,41 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="db9de2ae-2a97-4e0b-968d-c3ef6fdf69c0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/extra/CorePlus-1.0.0.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/DonateMap.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/Commands.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/Commands.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/Donate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/Donate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/extra/CorePlus-1.0.0.jar" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/extra/CorePlus-1.0.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/handlers/ConfigHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/handlers/ConfigHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/handlers/PermissionsHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/handlers/RegisterHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/handlers/RegisterHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/handlers/ServerHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/handlers/UpdateHandler.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/listeners/AuthMe.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/listeners/AuthMe.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/listeners/MorphTool.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/listeners/MorphTool.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/listeners/MyPet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/listeners/MyPet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/listeners/SyncComplete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/listeners/SyncComplete.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/BungeeCord.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/ConfigPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/ConfigPath.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/Depend.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/Depend.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/ItemJoin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/ItemJoin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/LangUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/Language.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/Logger.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/PlayerPointsAPI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/ResidenceUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/Utils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/VaultAPI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/Zip.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/blocksutils/BlocksMap.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/blocksutils/BlocksUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/customcommands/CustomCommands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/customcommands/ParticleMap.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/customcommands/SoundMap.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/locationutils/LocationMap.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tw/momocraft/serverplus/utils/locationutils/LocationUtils.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/config.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/plugin.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +88,7 @@
       <recent name="C:\Users\sayuri\IdeaProjects\GuardianPlus\src\main\java\tw\momocraft\guardianplus\listeners" />
     </key>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -132,9 +110,10 @@
       <screen x="0" y="0" width="1707" height="920" />
     </state>
     <state x="480" y="139" key="#Inspections/2560.10.1707.920/0.0.1707.920@0.0.1707.920" timestamp="1604472271612" />
-    <state x="659" y="166" key="#com.intellij.ide.util.MemberChooser" timestamp="1605801725872">
-      <screen x="0" y="0" width="1707" height="920" />
+    <state x="494" y="92" key="#com.intellij.ide.util.MemberChooser" timestamp="1608318571206">
+      <screen x="0" y="0" width="1280" height="689" />
     </state>
+    <state x="494" y="92" key="#com.intellij.ide.util.MemberChooser/0.0.1280.689@0.0.1280.689" timestamp="1608318571206" />
     <state x="659" y="166" key="#com.intellij.ide.util.MemberChooser/2560.10.1707.920/0.0.1707.920@0.0.1707.920" timestamp="1605801725872" />
     <state x="95" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1607085816816">
       <screen x="0" y="0" width="1707" height="920" />
@@ -149,28 +128,28 @@
     </state>
     <state x="475" y="162" key="FileChooserDialogImpl/0.0.1280.689@0.0.1280.689" timestamp="1606872843822" />
     <state x="634" y="216" key="FileChooserDialogImpl/2560.10.1707.920/0.0.1707.920@0.0.1707.920" timestamp="1606910289789" />
-    <state width="1663" height="129" key="GridCell.Tab.0.bottom" timestamp="1608202911347">
-      <screen x="0" y="0" width="1707" height="920" />
+    <state width="1237" height="211" key="GridCell.Tab.0.bottom" timestamp="1608385904229">
+      <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1237" height="211" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1606878725299" />
+    <state width="1237" height="211" key="GridCell.Tab.0.bottom/0.0.1280.689@0.0.1280.689" timestamp="1608385904229" />
     <state width="1663" height="129" key="GridCell.Tab.0.bottom/2560.10.1707.920/0.0.1707.920@0.0.1707.920" timestamp="1608202911347" />
     <state width="1663" height="189" key="GridCell.Tab.0.bottom/2560.10.1707.920/0.0.1707.920@2560.10.1707.920" timestamp="1605610012014" />
-    <state width="1663" height="129" key="GridCell.Tab.0.center" timestamp="1608202911347">
-      <screen x="0" y="0" width="1707" height="920" />
+    <state width="1237" height="211" key="GridCell.Tab.0.center" timestamp="1608385904228">
+      <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1237" height="211" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1606878725299" />
+    <state width="1237" height="211" key="GridCell.Tab.0.center/0.0.1280.689@0.0.1280.689" timestamp="1608385904228" />
     <state width="1663" height="129" key="GridCell.Tab.0.center/2560.10.1707.920/0.0.1707.920@0.0.1707.920" timestamp="1608202911347" />
     <state width="1663" height="189" key="GridCell.Tab.0.center/2560.10.1707.920/0.0.1707.920@2560.10.1707.920" timestamp="1605610012014" />
-    <state width="1663" height="129" key="GridCell.Tab.0.left" timestamp="1608202911347">
-      <screen x="0" y="0" width="1707" height="920" />
+    <state width="1237" height="211" key="GridCell.Tab.0.left" timestamp="1608385904228">
+      <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1237" height="211" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1606878725299" />
+    <state width="1237" height="211" key="GridCell.Tab.0.left/0.0.1280.689@0.0.1280.689" timestamp="1608385904228" />
     <state width="1663" height="129" key="GridCell.Tab.0.left/2560.10.1707.920/0.0.1707.920@0.0.1707.920" timestamp="1608202911347" />
     <state width="1663" height="189" key="GridCell.Tab.0.left/2560.10.1707.920/0.0.1707.920@2560.10.1707.920" timestamp="1605610012013" />
-    <state width="1663" height="129" key="GridCell.Tab.0.right" timestamp="1608202911347">
-      <screen x="0" y="0" width="1707" height="920" />
+    <state width="1237" height="211" key="GridCell.Tab.0.right" timestamp="1608385904228">
+      <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state width="1237" height="211" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1606878725299" />
+    <state width="1237" height="211" key="GridCell.Tab.0.right/0.0.1280.689@0.0.1280.689" timestamp="1608385904228" />
     <state width="1663" height="129" key="GridCell.Tab.0.right/2560.10.1707.920/0.0.1707.920@0.0.1707.920" timestamp="1608202911347" />
     <state width="1663" height="189" key="GridCell.Tab.0.right/2560.10.1707.920/0.0.1707.920@2560.10.1707.920" timestamp="1605610012014" />
     <state x="142" y="0" key="SettingsEditor" timestamp="1606878717730">
@@ -181,10 +160,10 @@
       <screen x="0" y="0" width="1280" height="689" />
     </state>
     <state x="326" y="169" key="com.intellij.ide.util.TipDialog/0.0.1280.689@0.0.1280.689" timestamp="1603852864974" />
-    <state x="493" y="5" width="1026" height="891" key="find.popup" timestamp="1608200265712">
-      <screen x="0" y="0" width="1707" height="920" />
+    <state x="370" y="4" width="770" height="668" key="find.popup" timestamp="1608362979263">
+      <screen x="0" y="0" width="1280" height="689" />
     </state>
-    <state x="370" y="4" width="770" height="668" key="find.popup/0.0.1280.689@0.0.1280.689" timestamp="1608139952861" />
+    <state x="370" y="4" width="770" height="668" key="find.popup/0.0.1280.689@0.0.1280.689" timestamp="1608362979263" />
     <state x="493" y="5" width="1026" height="891" key="find.popup/2560.10.1707.920/0.0.1707.920@0.0.1707.920" timestamp="1608200265712" />
     <state x="2901" y="39" width="1026" height="891" key="find.popup/2560.10.1707.920/0.0.1707.920@2560.10.1707.920" timestamp="1604480748431" />
     <state x="551" y="206" key="refactoring.ChangeSignatureDialog" timestamp="1604062531792">
@@ -195,9 +174,10 @@
       <screen x="0" y="0" width="1707" height="920" />
     </state>
     <state x="510" y="211" key="run.anything.popup/2560.10.1707.920/0.0.1707.920@0.0.1707.920" timestamp="1603732834433" />
-    <state x="516" y="195" key="search.everywhere.popup" timestamp="1605799455822">
-      <screen x="0" y="0" width="1707" height="920" />
+    <state x="387" y="146" width="672" height="678" key="search.everywhere.popup" timestamp="1608317183535">
+      <screen x="0" y="0" width="1280" height="689" />
     </state>
+    <state x="387" y="146" width="672" height="678" key="search.everywhere.popup/0.0.1280.689@0.0.1280.689" timestamp="1608317183535" />
     <state x="516" y="195" key="search.everywhere.popup/2560.10.1707.920/0.0.1707.920@0.0.1707.920" timestamp="1605799455822" />
   </component>
   <component name="antWorkspaceConfiguration">

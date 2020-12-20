@@ -62,6 +62,7 @@ public class Commands implements CommandExecutor {
                         CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.noPermission", sender);
                     }
                     return true;
+                    // serverplus itemjoinfix
                 } else if (args[0].equalsIgnoreCase("itemjoinfix")) {
                     if (CorePlusAPI.getPermManager().hasPermission(sender, "serverplus.command.itemjoinfix")) {
                         if (!ConfigHandler.getConfigPath().isItemjoin()) {
@@ -86,7 +87,9 @@ public class Commands implements CommandExecutor {
                     }
                     return true;
                 }
+                break;
             case 2:
+                // serverplus itemjoinfix <player>
                 if (args[0].equalsIgnoreCase("itemjoinfix")) {
                     if (CorePlusAPI.getPermManager().hasPermission(sender, "serverplus.command.itemjoinfix")) {
                         if (!ConfigHandler.getConfigPath().isItemjoin()) {
@@ -117,9 +120,37 @@ public class Commands implements CommandExecutor {
                     }
                     return true;
                 }
-            default:
-                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.unknownCommand", sender);
-                return true;
+                break;
+            case 3:
+                // serverplus donate <player> <group>
+                if (args[0].equalsIgnoreCase("donate")) {
+                    if (CorePlusAPI.getPermManager().hasPermission(sender, "serverplus.command.donate")) {
+                        if (!ConfigHandler.getConfigPath().isDonate()) {
+                            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.featureDisabled", sender);
+                            return true;
+                        }
+                        if (!CorePlusAPI.getDependManager().LuckPermsEnabled()) {
+                            String[] placeHolders = CorePlusAPI.getLangManager().newString();
+                            placeHolders[13] = args[1]; // %plugin%
+                            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.dependNotFound", sender);
+                            return true;
+                        }
+                        Player player = CorePlusAPI.getPlayerManager().getPlayerString(args[1]);
+                        String[] placeHolders = CorePlusAPI.getLangManager().newString();
+                        placeHolders[2] = args[1]; // %targetplayer%
+                        if (player == null) {
+                            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.targetNotFound", sender, placeHolders);
+                            return true;
+                        }
+                        Donate.promote(sender, player, args[2]);
+                    } else {
+                        CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.noPermission", sender);
+                    }
+                    return true;
+                }
+                break;
         }
+        CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.unknownCommand", sender);
+        return true;
     }
 }

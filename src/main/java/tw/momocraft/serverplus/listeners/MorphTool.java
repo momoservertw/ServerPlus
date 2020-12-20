@@ -60,7 +60,7 @@ public class MorphTool implements Listener {
                     return;
                 }
                 addCD(player);
-                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.MorphToolNetherite", player);
+                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgMorphToolNetherite(), player);
                 CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "MorphTool", player.getName(), "update", "cancel",
                         new Throwable().getStackTrace()[0]);
             }
@@ -105,7 +105,7 @@ public class MorphTool implements Listener {
                     return;
                 }
                 addCD(player);
-                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.MorphToolRename", player);
+                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgMorphToolRename(), player);
                 CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "MorphTool", player.getName(), "rename", "cancel",
                         new Throwable().getStackTrace()[0]);
             }
@@ -115,7 +115,7 @@ public class MorphTool implements Listener {
                 return;
             }
             addCD(player);
-            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.MorphToolRename", player);
+            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgMorphToolRename(), player);
             CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "MorphTool", player.getName(), "rename", "cancel",
                     new Throwable().getStackTrace()[0]);
         }

@@ -31,11 +31,6 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
-        <!--LangUtils Repo-->
-        <repository>
-            <id>lang-utils-repo</id>
-            <url>https://raw.github.com/MascusJeoraly/LanguageUtils/mvn-repo/</url>
-        </repository>
         <!--CraftationGaming Repository-->
         <repository>
             <id>CraftationGaming</id>

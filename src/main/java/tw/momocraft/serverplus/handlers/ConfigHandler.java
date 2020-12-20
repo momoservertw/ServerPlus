@@ -71,6 +71,9 @@ public class ConfigHandler {
             case "config.yml":
                 configVer = 1;
                 break;
+            case "groups.yml":
+                configVer = 1;
+                break;
         }
         getConfigData(filePath, fileName);
         File File = new File(filePath, fileName);

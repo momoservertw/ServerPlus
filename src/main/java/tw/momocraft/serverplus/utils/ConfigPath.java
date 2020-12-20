@@ -18,6 +18,11 @@ public class ConfigPath {
     private String msgHelp;
     private String msgReload;
     private String msgVersion;
+    private String msgItemJoinFix;
+    private String msgMorphToolRename;
+    private String msgMorphToolNetherite;
+    private String msgAuthMeMailEmpty;
+    private String msgDonateGroupNotFound;
 
     //  ============================================== //
     //         General Variables                       //
@@ -63,6 +68,12 @@ public class ConfigPath {
     private boolean authMeMail;
 
     //  ============================================== //
+    //         Donate Variables                        //
+    //  ============================================== //
+    private boolean donate;
+    private final Map<String, DonateMap> donateProp = new HashMap<>();
+
+    //  ============================================== //
     //         Setup all configuration                 //
     //  ============================================== //
     private void setUp() {
@@ -73,6 +84,7 @@ public class ConfigPath {
         setItemJoin();
         setMorphTool();
         setAuthMe();
+        setDonate();
     }
 
     //  ============================================== //
@@ -83,6 +95,11 @@ public class ConfigPath {
         msgHelp = ConfigHandler.getConfig("config.yml").getString("Message.Commands.help");
         msgReload = ConfigHandler.getConfig("config.yml").getString("Message.Commands.reload");
         msgVersion = ConfigHandler.getConfig("config.yml").getString("Message.Commands.version");
+        msgItemJoinFix = ConfigHandler.getConfig("config.yml").getString("Message.itemJoinFix");
+        msgMorphToolRename = ConfigHandler.getConfig("config.yml").getString("Message.morphToolRename");
+        msgMorphToolNetherite = ConfigHandler.getConfig("config.yml").getString("Message.morphToolNetherite");
+        msgAuthMeMailEmpty = ConfigHandler.getConfig("config.yml").getString("Message.authMeMailEmpty");
+        msgDonateGroupNotFound = ConfigHandler.getConfig("config.yml").getString("Message.donateGroupNotFound");
     }
 
 
@@ -178,6 +195,26 @@ public class ConfigPath {
         authMeMail = ConfigHandler.getConfig("config.yml").getBoolean("AuthMe.Mail-Warning.Enable");
     }
 
+    //  ============================================== //
+    //         MorphTool Setter                        //
+    //  ============================================== //
+    private void setDonate() {
+        donate = ConfigHandler.getConfig("config.yml").getBoolean("Donate.Enable");
+        ConfigurationSection donateConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("Donate.Groups");
+        if (donateConfig == null)
+            return;
+        DonateMap donateMap;
+        for (String group : donateConfig.getKeys(false)) {
+            if (!ConfigHandler.getConfig("config.yml").getBoolean("Donate.Groups." + group + ".Enable", true))
+                continue;
+            donateMap = new DonateMap();
+            donateMap.setGroup(ConfigHandler.getConfig("config.yml").getString("Donate.Groups." + group + ".Group"));
+            donateMap.setNextGroup(ConfigHandler.getConfig("config.yml").getString("Donate.Groups." + group + ".Next-Group"));
+            donateMap.setCommands(ConfigHandler.getConfig("config.yml").getStringList("Donate.Groups." + group + ".Commands"));
+            donateMap.setFailedCommands(ConfigHandler.getConfig("config.yml").getStringList("Donate.Groups." + group + ".Failed-Commands"));
+            donateProp.put(group, donateMap);
+        }
+    }
 
     //  ============================================== //
     //         Message Getter                          //
@@ -196,6 +233,26 @@ public class ConfigPath {
 
     public String getMsgVersion() {
         return msgVersion;
+    }
+
+    public String getMsgItemJoinFix() {
+        return msgItemJoinFix;
+    }
+
+    public String getMsgMorphToolRename() {
+        return msgMorphToolRename;
+    }
+
+    public String getMsgMorphToolNetherite() {
+        return msgMorphToolNetherite;
+    }
+
+    public String getMsgAuthMeMailEmpty() {
+        return msgAuthMeMailEmpty;
+    }
+
+    public String getMsgDonateGroupNotFound() {
+        return msgDonateGroupNotFound;
     }
 
     //  ============================================== //
@@ -290,5 +347,16 @@ public class ConfigPath {
 
     public boolean isAuthMeMail() {
         return authMeMail;
+    }
+
+    //  ============================================== //
+    //         Donate Getter                           //
+    //  ============================================== //
+    public boolean isDonate() {
+        return donate;
+    }
+
+    public Map<String, DonateMap> getDonateProp() {
+        return donateProp;
     }
 }

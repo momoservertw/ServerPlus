@@ -55,7 +55,7 @@ public class Depend {
                 + (AuthMeEnabled() ? "AuthMe, " : "")
                 + " &f]";
         try {
-            CorePlusAPI.getLangManager().sendConsoleMsg(tw.momocraft.coreplus.handlers.ConfigHandler.getPrefix(), hookMsg.substring(0, hookMsg.lastIndexOf(", ")) + " &f]");
+            CorePlusAPI.getLangManager().sendConsoleMsg(ConfigHandler.getPrefix(), hookMsg.substring(0, hookMsg.lastIndexOf(", ")) + " &f]");
         } catch (Exception ignored) {
         }
         /*
