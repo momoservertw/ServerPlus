@@ -5,7 +5,6 @@ import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
 
 public class Depend {
-    private boolean Residence = false;
     private boolean CMI = false;
     private boolean MyPet = false;
     private boolean ItemJoin = false;
@@ -15,9 +14,6 @@ public class Depend {
     private boolean AuthMe = false;
 
     public Depend() {
-        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.Residence")) {
-            this.setResidenceStatus(Bukkit.getServer().getPluginManager().getPlugin("Residence") != null);
-        }
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.CMI")) {
             this.setCMIStatus(Bukkit.getServer().getPluginManager().getPlugin("CMI") != null);
         }
@@ -46,7 +42,6 @@ public class Depend {
     private void sendUtilityDepends() {
         String hookMsg = "&fHooked [ &e"
                 + (CMIEnabled() ? "CMI, " : "")
-                + (ResidenceEnabled() ? "Residence, " : "")
                 + (MyPetEnabled() ? "MyPet, " : "")
                 + (ItemJoinEnabled() ? "ItemJoin, " : "")
                 + (MorphToolEnabled() ? "MorphTool, " : "")
@@ -65,11 +60,6 @@ public class Depend {
             }
         }
          */
-    }
-
-
-    public boolean ResidenceEnabled() {
-        return this.Residence;
     }
 
     public boolean CMIEnabled() {
@@ -99,10 +89,6 @@ public class Depend {
 
     public boolean AuthMeEnabled() {
         return this.AuthMe;
-    }
-
-    public void setResidenceStatus(boolean bool) {
-        this.Residence = bool;
     }
 
     public void setCMIStatus(boolean bool) {

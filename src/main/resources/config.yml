@@ -1,4 +1,4 @@
-# --{ =-=-=-=-=-=-=-=-=-= ServerPlus's Configuration Settings, by Momocraft =-=-=-=-=-=-=-=-=-= }--
+# --{ =-=-=-=-=-=-=-=-=-= ServerPlus"s Configuration Settings, by Momocraft =-=-=-=-=-=-=-=-=-= }--
 # Wiki: https://github.com/momoservertw/ServerPlus/wiki
 Config-Version: 1
 Check-Updates: true
@@ -82,7 +82,7 @@ ItemJoin:
   Fix-Old-Item:
     Enable: true
     Settings:
-      # The multiple menu item in player's inventory will be removed.
+      # The multiple menu item in player"s inventory will be removed.
       One-Menu:
         Enable: true
         ItemNode: "menu5"
@@ -331,7 +331,13 @@ Donate:
       Next-Group: "mb"
       Commands:
         - "console: lp user %player% promote donate"
-        - "all-sound: "
+        - "all-sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "delay: 10"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
+        - "delay: 10"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
+        - "delay: 10"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
         - "broadcast: &6玩家 &e%player_display_name% &6成為了 &a&lMB&6， 謝謝你&4&o♥"
         - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
         - "message: &d&l茉茉&c&o♥ &f歡迎加入大家庭！ 你現在是永久的居民囉 :)"
@@ -341,7 +347,7 @@ Donate:
         - "message: &7- 戴帽子 /hat"
         - "message: &7- 遠端打開終界箱 /ender"
       Failed-Commands:
-        - "message: &c出現錯誤請聯絡服主 - 升級MB"
+        - "message: &c你必須是一般玩家， 才可以升級MB！"
     vip:
       Enable: true
       Group: "mb"
@@ -387,7 +393,7 @@ Donate:
         - "message: &c你必須是MVP， 才可以升級GOD！"
 
 Message:
-  prefix: '&f'
+  prefix: "&f"
   Commands:
     title: "&8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩ &d&lServerPlus &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
     help: "&a/serverplus help &8- &7This help menu."

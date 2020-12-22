@@ -76,14 +76,6 @@
             <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/CMIAPI7.6.2.0.jar</systemPath>
             <version>LATEST</version>
         </dependency>
-        <!--Residence API-->
-        <dependency>
-            <groupId>me.Residence</groupId>
-            <artifactId>Residence</artifactId>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/ServerPlus/extra/Residence4.9.2.1.jar</systemPath>
-            <version>LEGACY</version>
-        </dependency>
         <!--MyPet API-->
         <dependency>
             <groupId>me.MyPet</groupId>
