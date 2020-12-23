@@ -4,7 +4,7 @@ import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.serverplus.Commands;
 import tw.momocraft.serverplus.ServerPlus;
 import tw.momocraft.serverplus.listeners.*;
-import tw.momocraft.serverplus.utils.TabComplete;
+import tw.momocraft.serverplus.TabComplete;
 
 public class RegisterHandler {
 
@@ -30,6 +30,11 @@ public class RegisterHandler {
         if (ConfigHandler.getDepends().AuthMeEnabled()) {
             ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new AuthMe(), ServerPlus.getInstance());
             CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "Register-Event", "AuthMe", "LoginEvent", "continue",
+                    new Throwable().getStackTrace()[0]);
+        }
+        if (ConfigHandler.getDepends().PvPManagerEnabled()) {
+            ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new PvPManager(), ServerPlus.getInstance());
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "Register-Event", "PvPManager", "PlayerTagEvent", "continue",
                     new Throwable().getStackTrace()[0]);
         }
     }

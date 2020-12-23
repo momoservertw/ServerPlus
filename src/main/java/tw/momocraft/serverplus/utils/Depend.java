@@ -12,6 +12,7 @@ public class Depend {
     private boolean DiscordSRV = false;
     private boolean MysqlPlayerDataBridge = false;
     private boolean AuthMe = false;
+    private boolean PvPManager = false;
 
     public Depend() {
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.CMI")) {
@@ -35,6 +36,9 @@ public class Depend {
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.AuthMe")) {
             this.setAuthMeStatus(Bukkit.getServer().getPluginManager().getPlugin("AuthMe") != null);
         }
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.PvPManager")) {
+            this.setPvPManagerStatus(Bukkit.getServer().getPluginManager().getPlugin("PvPManager") != null);
+        }
 
         sendUtilityDepends();
     }
@@ -48,6 +52,7 @@ public class Depend {
                 + (DiscordSRVEnabled() ? "DiscordSRV, " : "")
                 + (MpdbEnabled() ? "MysqlPlayerDataBridge, " : "")
                 + (AuthMeEnabled() ? "AuthMe, " : "")
+                + (PvPManagerEnabled() ? "PvPManager, " : "")
                 + " &f]";
         try {
             CorePlusAPI.getLangManager().sendConsoleMsg(ConfigHandler.getPrefix(), hookMsg.substring(0, hookMsg.lastIndexOf(", ")) + " &f]");
@@ -86,6 +91,10 @@ public class Depend {
         return this.MysqlPlayerDataBridge;
     }
 
+    public boolean PvPManagerEnabled() {
+        return this.PvPManager;
+    }
+
 
     public boolean AuthMeEnabled() {
         return this.AuthMe;
@@ -117,5 +126,9 @@ public class Depend {
 
     private void setAuthMeStatus(boolean bool) {
         this.AuthMe = bool;
+    }
+
+    private void setPvPManagerStatus(boolean bool) {
+        this.PvPManager = bool;
     }
 }

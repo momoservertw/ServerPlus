@@ -1,19 +1,13 @@
-# --{ =-=-=-=-=-=-=-=-=-= ServerPlus"s Configuration Settings, by Momocraft =-=-=-=-=-=-=-=-=-= }--
-# Wiki: https://github.com/momoservertw/ServerPlus/wiki
+# ░░░░░░░░░░░░░░░   LotteryPlus, By Momocraft♥   ░░░░░░░░░░░░░░░
+##  Wiki: https://github.com/momoservertw/ServerPlus/wiki
+## ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 Config-Version: 1
-Check-Updates: true
-Debugging: false
 
 General:
   Settings:
-    # Translating the placeholder of vanilla Items, Entities, Enchantments name.
-    Vanilla-Translate:
-      Local: "en_us"
     Features:
       # Changed these options need to restart the server.
       Hook:
-        Vault: true
-        PlaceHolderAPI: true
         Residence: true
         CMI: true
         MyPet: true
@@ -21,7 +15,6 @@ General:
         ItemJoin: true
         DiscordSRV: true
         AuthMe: true
-        LocaleLib: true
 
 MyPet:
   Enable: true
@@ -399,8 +392,8 @@ Message:
     help: "&a/serverplus help &8- &7This help menu."
     reload: "&a/serverplus reload &8- &7Reloads config file."
     version: "&f/serverplus version &8- &7Checks the plugin version and updates."
-  ItemJoinFix: "&f成功掃描身上所有物品 - 修復 %amount% 個物品"
-  MorphToolRename: "&c這個物品不能更改名字"
-  MorphToolNetherite: "&c這個物品不能升級"
-  AuthMeMailEmpty: "&c請設置 Email 用於取回密碼， 輸入/email add 信箱 信箱"
+  itemJoinFix: "&f成功掃描身上所有物品 - 修復 %amount% 個物品"
+  morphToolRename: "&c這個物品不能更改名字"
+  morphToolNetherite: "&c這個物品不能升級"
+  authMeMailEmpty: "&c請設置 Email 用於取回密碼， 輸入/email add 信箱 信箱"
   donateGroupNotFound: "&c找不到升級的贊助用戶組"

@@ -23,6 +23,8 @@ public class ConfigPath {
     private String msgMorphToolNetherite;
     private String msgAuthMeMailEmpty;
     private String msgDonateGroupNotFound;
+    private String msgPvpOn;
+    private String msgPvpOff;
 
     //  ============================================== //
     //         General Variables                       //
@@ -100,6 +102,8 @@ public class ConfigPath {
         msgMorphToolNetherite = ConfigHandler.getConfig("config.yml").getString("Message.morphToolNetherite");
         msgAuthMeMailEmpty = ConfigHandler.getConfig("config.yml").getString("Message.authMeMailEmpty");
         msgDonateGroupNotFound = ConfigHandler.getConfig("config.yml").getString("Message.donateGroupNotFound");
+        msgPvpOn = ConfigHandler.getConfig("config.yml").getString("Message.pvpOn");
+        msgPvpOff = ConfigHandler.getConfig("config.yml").getString("Message.pvpOff");
     }
 
 
@@ -253,6 +257,14 @@ public class ConfigPath {
 
     public String getMsgDonateGroupNotFound() {
         return msgDonateGroupNotFound;
+    }
+
+    public String getMsgPvpOff() {
+        return msgPvpOff;
+    }
+
+    public String getMsgPvpOn() {
+        return msgPvpOn;
     }
 
     //  ============================================== //

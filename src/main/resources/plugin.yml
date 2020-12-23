@@ -5,7 +5,7 @@ api-version: 1.13
 version: 1.0.3
 description: Server utils.
 depend: [CorePlus]
-softdepend: [MythicMobs, CMI, Residence, MyPet, ItemJoin, MorphTool, DiscordSRV]
+softdepend: [MythicMobs, CMI, Residence, MyPet, ItemJoin, MorphTool, DiscordSRV, PvPManager, NameTagEdit]
 
 commands:
   serverplus:
@@ -37,4 +37,10 @@ permissions:
     default: op
   ServerPlus.command.version:
     description: Allows use of command /ServerPlus version.
+    default: op
+  ServerPlus.command.itemjoinfix:
+    description: Allows use of command /ServerPlus itemjoinfix.
+    default: op
+  ServerPlus.command.update:
+    description: Allows use of command /ServerPlus update.
     default: op

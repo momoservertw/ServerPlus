@@ -122,16 +122,16 @@ public class Commands implements CommandExecutor {
                 }
                 break;
             case 3:
-                // serverplus donate <player> <group>
-                if (args[0].equalsIgnoreCase("donate")) {
-                    if (CorePlusAPI.getPermManager().hasPermission(sender, "serverplus.command.donate")) {
+                // serverplus update <player> <group>
+                if (args[0].equalsIgnoreCase("update")) {
+                    if (CorePlusAPI.getPermManager().hasPermission(sender, "serverplus.command.update")) {
                         if (!ConfigHandler.getConfigPath().isDonate()) {
                             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.featureDisabled", sender);
                             return true;
                         }
                         if (!CorePlusAPI.getDependManager().LuckPermsEnabled()) {
                             String[] placeHolders = CorePlusAPI.getLangManager().newString();
-                            placeHolders[13] = args[1]; // %plugin%
+                            placeHolders[13] = "LuckPerms"; // %plugin%
                             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.dependNotFound", sender);
                             return true;
                         }

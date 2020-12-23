@@ -38,3 +38,9 @@ permissions:
   ServerPlus.command.version:
     description: Allows use of command /ServerPlus version.
     default: op
+  ServerPlus.command.itemjoinfix:
+    description: Allows use of command /ServerPlus itemjoinfix.
+    default: op
+  ServerPlus.command.update:
+    description: Allows use of command /ServerPlus update.
+    default: op
