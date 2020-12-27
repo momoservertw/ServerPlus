@@ -17,7 +17,6 @@ public class ItemJoin {
         Map<String, List<ItemJoinMap>> ijProp = ConfigHandler.getConfigPath().getIjProp();
         Set<String> ijKeys = ijProp.keySet();
 
-        ItemJoinAPI itemJoinAPI = new ItemJoinAPI();
         ItemStack slotItem;
         String itemType;
         ItemMeta itemMeta;
@@ -25,8 +24,6 @@ public class ItemJoin {
         String itemNode;
         int amount;
         boolean oneMenu = ConfigHandler.getConfigPath().isIjOneMenu();
-        String oneMenuName = ConfigHandler.getConfigPath().getIjOneMenuName();
-        String oneMenuType = ConfigHandler.getConfigPath().getIjOneMenuType();
         boolean hasMenu = false;
         for (int i = 0; i <= 35; i++) {
             slotItem = player.getInventory().getItem(i);
@@ -37,23 +34,23 @@ public class ItemJoin {
             }
             itemType = slotItem.getType().name();
             // If itemJoin is available.
-            if (itemJoinAPI.isCustom(slotItem)) {
-                if (oneMenu) {
-                    try {
-                        if (itemType.equals(oneMenuType)) {
-                            if (itemMeta.getDisplayName().equals(oneMenuName)) {
+            if (CorePlusAPI.getDependManager().ItemJoinEnabled()) {
+                if (CorePlusAPI.getUtilsManager().isCustomItem(slotItem)) {
+                    if (oneMenu) {
+                        if (CorePlusAPI.getUtilsManager().isMenu(slotItem)) {
+                            try {
                                 if (hasMenu) {
                                     player.getInventory().setItem(i, null);
                                     continue;
                                 }
                                 hasMenu = true;
+                            } catch (Exception ex) {
+                                continue;
                             }
                         }
-                    } catch (Exception ex) {
                         continue;
                     }
                 }
-                continue;
             }
             // Contains replace itemType.
             if (!ijKeys.contains(slotItem.getType().name())) {
@@ -73,7 +70,11 @@ public class ItemJoin {
                 // Remove item and get the new item again.
                 player.getInventory().setItem(i, null);
                 itemNode = ijMap.getItemNode();
-                if (itemNode.equals(ConfigHandler.getConfigPath().getIjOneMenuNode())) {
+                if (CorePlusAPI.getUtilsManager().isMenuNode(itemNode)) {
+                    if (hasMenu) {
+                        player.getInventory().setItem(i, null);
+                        continue;
+                    }
                     hasMenu = true;
                 }
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ij get " + itemNode + " " + player.getName() + " " + amount);

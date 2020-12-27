@@ -9,6 +9,7 @@ import tw.momocraft.serverplus.handlers.ConfigHandler;
 
 public class PvPManager implements Listener {
 
+    /*
     @EventHandler(priority = EventPriority.HIGH)
     private void onPlayerTagEvent(PlayerTagEvent e) {
         CorePlusAPI.getLangManager().sendBroadcastMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgPvpOff());
@@ -21,5 +22,5 @@ public class PvPManager implements Listener {
             return;
         }
         CorePlusAPI.getCommandManager().executeCmdList(ConfigHandler.getPrefix(), e.getPlayer(), ConfigHandler.getConfigPath().getMpdbSyncCompleteCmds(), true);
-    }
+    }*/
 }

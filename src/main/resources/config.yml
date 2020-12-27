@@ -72,15 +72,12 @@ MySQLPlayerDataBridge:
 # Command: /serverplus itemjoinfix
 ItemJoin:
   Enable: true
+  # The multiple menu item in player"s inventory will be removed.
+  One-Menu:
+    Enable: true
   Fix-Old-Item:
     Enable: true
     Settings:
-      # The multiple menu item in player"s inventory will be removed.
-      One-Menu:
-        Enable: true
-        ItemNode: "menu5"
-        Type: "PLAYER_HEAD"
-        Name: "&d&l茉茉選單&f㍿ &7剉冰"
     Groups:
       points:
         Type: "PINK_DYE"

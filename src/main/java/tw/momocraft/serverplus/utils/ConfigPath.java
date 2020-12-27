@@ -51,9 +51,6 @@ public class ConfigPath {
     private boolean itemjoin;
     private boolean ijFixOldItem;
     private boolean ijOneMenu;
-    private String ijOneMenuNode;
-    private String ijOneMenuName;
-    private String ijOneMenuType;
     private Map<String, List<ItemJoinMap>> ijProp;
 
     //  ============================================== //
@@ -157,10 +154,7 @@ public class ConfigPath {
     private void setItemJoin() {
         itemjoin = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Enable");
         ijFixOldItem = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Fix-Old-Item.Enable");
-        ijOneMenu = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Fix-Old-Item.Settings.One-Menu.Enable");
-        ijOneMenuNode = ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Settings.One-Menu.ItemNode");
-        ijOneMenuName = ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Settings.One-Menu.Name");
-        ijOneMenuType = ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Settings.One-Menu.Type");
+        ijOneMenu = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.One-Menu.Enable");
         ConfigurationSection ijConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("ItemJoin.Fix-Old-Item.Groups");
         if (ijConfig != null) {
             ijProp = new HashMap<>();
@@ -317,18 +311,6 @@ public class ConfigPath {
 
     public boolean isIjOneMenu() {
         return ijOneMenu;
-    }
-
-    public String getIjOneMenuNode() {
-        return ijOneMenuNode;
-    }
-
-    public String getIjOneMenuName() {
-        return ijOneMenuName;
-    }
-
-    public String getIjOneMenuType() {
-        return ijOneMenuType;
     }
 
     public Map<String, List<ItemJoinMap>> getIjProp() {
