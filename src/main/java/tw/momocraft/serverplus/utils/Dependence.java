@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
 
-public class Depend {
+public class Dependence {
     private boolean CMI = false;
     private boolean MyPet = false;
     private boolean ItemJoin = false;
@@ -14,7 +14,7 @@ public class Depend {
     private boolean AuthMe = false;
     private boolean PvPManager = false;
 
-    public Depend() {
+    public Dependence() {
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.CMI")) {
             this.setCMIStatus(Bukkit.getServer().getPluginManager().getPlugin("CMI") != null);
         }
@@ -44,7 +44,7 @@ public class Depend {
     }
 
     private void sendUtilityDepends() {
-        String hookMsg = "&fHooked [ &e"
+        String hookMsg = "&fHooked ["
                 + (CMIEnabled() ? "CMI, " : "")
                 + (MyPetEnabled() ? "MyPet, " : "")
                 + (ItemJoinEnabled() ? "ItemJoin, " : "")
@@ -53,9 +53,9 @@ public class Depend {
                 + (MpdbEnabled() ? "MysqlPlayerDataBridge, " : "")
                 + (AuthMeEnabled() ? "AuthMe, " : "")
                 + (PvPManagerEnabled() ? "PvPManager, " : "")
-                + " &f]";
+                ;
         try {
-            CorePlusAPI.getLangManager().sendConsoleMsg(ConfigHandler.getPrefix(), hookMsg.substring(0, hookMsg.lastIndexOf(", ")) + " &f]");
+            CorePlusAPI.getLangManager().sendConsoleMsg(ConfigHandler.getPlugin(), hookMsg.substring(0, hookMsg.lastIndexOf(", ")) + "]");
         } catch (Exception ignored) {
         }
         /*

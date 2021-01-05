@@ -73,6 +73,11 @@ public class ConfigPath {
     private final Map<String, DonateMap> donateProp = new HashMap<>();
 
     //  ============================================== //
+    //         Other Variables                         //
+    //  ============================================== //
+    private boolean bankReturn;
+
+    //  ============================================== //
     //         Setup all configuration                 //
     //  ============================================== //
     private void setUp() {
@@ -84,6 +89,7 @@ public class ConfigPath {
         setMorphTool();
         setAuthMe();
         setDonate();
+        setOthers();
     }
 
     //  ============================================== //
@@ -212,6 +218,13 @@ public class ConfigPath {
             donateMap.setFailedCommands(ConfigHandler.getConfig("config.yml").getStringList("Donate.Groups." + group + ".Failed-Commands"));
             donateProp.put(group, donateMap);
         }
+    }
+
+    //  ============================================== //
+    //         Others Setter                           //
+    //  ============================================== //
+    private void setOthers() {
+        bankReturn = ConfigHandler.getConfig("config.yml").getBoolean("Bank-Return.Enable");
     }
 
     //  ============================================== //
@@ -352,5 +365,12 @@ public class ConfigPath {
 
     public Map<String, DonateMap> getDonateProp() {
         return donateProp;
+    }
+
+    //  ============================================== //
+    //         Others Getter                           //
+    //  ============================================== //
+    public boolean isBankReturn() {
+        return bankReturn;
     }
 }

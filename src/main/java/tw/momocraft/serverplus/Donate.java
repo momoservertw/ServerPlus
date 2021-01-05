@@ -23,14 +23,14 @@ public class Donate {
             player = (Player) sender;
         }
         UUID uuid = player.getUniqueId();
-        if (!donateMap.getGroup().equals(CorePlusAPI.getPermManager().getPlayerPrimaryGroup(uuid))) {
+        if (!donateMap.getGroup().equals(CorePlusAPI.getPlayerManager().getPlayerPrimaryGroup(uuid))) {
             CorePlusAPI.getCommandManager().executeCmdList(ConfigHandler.getPrefix(), player, donateMap.getFailedCommands(), true);
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "Donate", player.getName(), "group", "fail", updateGroup,
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "Donate", player.getName(), "group", "fail", updateGroup,
                     new Throwable().getStackTrace()[0]);
             return;
         }
         CorePlusAPI.getCommandManager().executeCmdList(ConfigHandler.getPrefix(), player, donateMap.getCommands(), true);
-        CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "Donate", player.getName(), "group", "success", updateGroup,
+        CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "Donate", player.getName(), "group", "success", updateGroup,
                 new Throwable().getStackTrace()[0]);
     }
 }

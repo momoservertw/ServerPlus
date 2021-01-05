@@ -14,27 +14,27 @@ public class RegisterHandler {
 
         if (ConfigHandler.getDepends().MyPetEnabled()) {
             ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new MyPet(), ServerPlus.getInstance());
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "Register-Event", "MyPet", "MyPet", "continue",
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "Register-Event", "MyPet", "MyPet", "continue",
                     new Throwable().getStackTrace()[0]);
         }
         if (ConfigHandler.getDepends().MorphToolEnabled()) {
             ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new MorphTool(), ServerPlus.getInstance());
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "Register-Event", "MorphTool", "PrepareSmithingEvent", "continue",
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "Register-Event", "MorphTool", "PrepareSmithingEvent", "continue",
                     new Throwable().getStackTrace()[0]);
         }
         if (ConfigHandler.getDepends().MpdbEnabled()) {
             ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new SyncComplete(), ServerPlus.getInstance());
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "Register-Event", "ItemJoin", "SyncCompleteEvent", "continue",
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "Register-Event", "ItemJoin", "SyncCompleteEvent", "continue",
                     new Throwable().getStackTrace()[0]);
         }
         if (ConfigHandler.getDepends().AuthMeEnabled()) {
             ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new AuthMe(), ServerPlus.getInstance());
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "Register-Event", "AuthMe", "LoginEvent", "continue",
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "Register-Event", "AuthMe", "LoginEvent", "continue",
                     new Throwable().getStackTrace()[0]);
         }
         if (ConfigHandler.getDepends().PvPManagerEnabled()) {
             ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new PvPManager(), ServerPlus.getInstance());
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "Register-Event", "PvPManager", "PlayerTagEvent", "continue",
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "Register-Event", "PvPManager", "PlayerTagEvent", "continue",
                     new Throwable().getStackTrace()[0]);
         }
     }

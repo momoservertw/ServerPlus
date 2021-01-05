@@ -18,25 +18,22 @@ public class TabComplete implements TabCompleter {
         final List<String> commands = new ArrayList<>();
         switch (args.length) {
             case 1:
-                if (CorePlusAPI.getPermManager().hasPermission(sender, "barrierplus.use")) {
+                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.use")) {
                     commands.add("help");
                 }
-                if (CorePlusAPI.getPermManager().hasPermission(sender, "barrierplus.command.reload")) {
+                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.reload")) {
                     commands.add("reload");
                 }
-                if (CorePlusAPI.getPermManager().hasPermission(sender, "barrierplus.command.version")) {
-                    commands.add("version");
-                }
-                if (CorePlusAPI.getPermManager().hasPermission(sender, "barrierplus.command.buy")) {
+                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.buy")) {
                     commands.add("buy");
                 }
-                if (CorePlusAPI.getPermManager().hasPermission(sender, "barrierplus.command.give")) {
+                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.give")) {
                     commands.add("give");
                 }
-                if (CorePlusAPI.getPermManager().hasPermission(sender, "barrierplus.command.itemjoinfix")) {
+                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.itemjoinfix")) {
                     commands.add("itemjoinfix");
                 }
-                if (CorePlusAPI.getPermManager().hasPermission(sender, "barrierplus.command.update")) {
+                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.update")) {
                     commands.add("update");
                 }
                 break;

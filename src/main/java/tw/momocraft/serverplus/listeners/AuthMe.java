@@ -1,5 +1,6 @@
 package tw.momocraft.serverplus.listeners;
 
+import com.spawnchunk.auctionhouse.events.AuctionItemEvent;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.api.v3.AuthMePlayer;
 import fr.xephi.authme.events.LoginEvent;
@@ -26,7 +27,7 @@ public class AuthMe implements Listener {
                 flatMap(AuthMePlayer::getEmail).orElse("EMPTY");
         if (email.equals("EMPTY")) {
             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgAuthMeMailEmpty(), player);
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "AuthMe", playerName, "mail", "warning",
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "AuthMe", playerName, "mail", "warning",
                     new Throwable().getStackTrace()[0]);
         }
     }

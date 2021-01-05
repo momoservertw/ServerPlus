@@ -2,10 +2,10 @@ name: ServerPlus
 main: tw.momocraft.serverplus.ServerPlus
 author: Momocraft
 api-version: 1.13
-version: 1.0.3
+version: 1.0.4
 description: Server utils.
 depend: [CorePlus]
-softdepend: [MythicMobs, CMI, Residence, MyPet, ItemJoin, MorphTool, DiscordSRV]
+softdepend: [MythicMobs, CMI, Residence, MyPet, ItemJoin, MorphTool, DiscordSRV, PvPManager, NameTagEdit]
 
 commands:
   serverplus:
@@ -21,26 +21,23 @@ permissions:
     default: op
     children:
       serverplus.use: true
-      ServerPlus.command.*: true
-      ServerPlus.bypass.*: true
+      serverplus.command.*: true
   ServerPlus.use:
     description: Allows use of basic commands.
     default: true
-  ServerPlus.command.*:
+  serverplus.command.*:
     description: Allows use all commands.
     default: op
     children:
-      ServerPlus.command.reload: true
-      ServerPlus.command.version: true
-  ServerPlus.command.reload:
+      serverplus.command.reload: true
+      serverplus.command.itemjoinfix: true
+      serverplus.command.update: true
+  serverplus.command.reload:
     description: Allows use of /ServerPlus command reload.
     default: op
-  ServerPlus.command.version:
-    description: Allows use of command /ServerPlus version.
-    default: op
-  ServerPlus.command.itemjoinfix:
+  serverplus.command.itemjoinfix:
     description: Allows use of command /ServerPlus itemjoinfix.
     default: op
-  ServerPlus.command.update:
+  serverplus.command.update:
     description: Allows use of command /ServerPlus update.
     default: op

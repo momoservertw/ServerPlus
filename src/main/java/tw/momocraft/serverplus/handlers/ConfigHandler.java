@@ -13,13 +13,17 @@ import java.time.format.DateTimeFormatter;
 public class ConfigHandler {
 
     private static YamlConfiguration configYAML;
-    private static Depend depends;
+    private static YamlConfiguration tempYAML;
+    private static Dependence depends;
     private static ConfigPath configPaths;
+    private static MySQLAPI mySQLApi;
 
     public static void generateData(boolean reload) {
         genConfigFile("config.yml");
-        setDepends(new Depend());
+        genConfigFile("temporary.yml");
+        setDepends(new Dependence());
         setConfigPath(new ConfigPath());
+        setMySQLApi(new MySQLAPI());
     }
 
 
@@ -32,7 +36,10 @@ public class ConfigHandler {
                     getConfigData(filePath, fileName);
                 }
                 break;
-            default:
+            case "temporary.yml":
+                if (tempYAML == null) {
+                    getConfigData(filePath, fileName);
+                }
                 break;
         }
         file = new File(filePath, fileName);
@@ -59,6 +66,11 @@ public class ConfigHandler {
                     configYAML = YamlConfiguration.loadConfiguration(file);
                 }
                 return configYAML;
+            case "temporary.yml":
+                if (saveData) {
+                    tempYAML = YamlConfiguration.loadConfiguration(file);
+                }
+                return tempYAML;
         }
         return null;
     }
@@ -69,9 +81,6 @@ public class ConfigHandler {
         File filePath = ServerPlus.getInstance().getDataFolder();
         switch (fileName) {
             case "config.yml":
-                configVer = 1;
-                break;
-            case "groups.yml":
                 configVer = 1;
                 break;
         }
@@ -104,16 +113,28 @@ public class ConfigHandler {
         return configPaths;
     }
 
+    public static Dependence getDepends() {
+        return depends;
+    }
+
+    private static void setDepends(Dependence depend) {
+        depends = depend;
+    }
+
     public static String getPrefix() {
         return getConfig("config.yml").getString("Message.prefix");
     }
 
-    public static Depend getDepends() {
-        return depends;
+    public static String getPlugin() {
+        return "[" + ServerPlus.getInstance().getDescription().getName() + "] ";
     }
 
-    private static void setDepends(Depend depend) {
-        depends = depend;
+
+    private static void setMySQLApi(MySQLAPI mysql) {
+        mySQLApi = mysql;
     }
 
+    public static MySQLAPI getMySQLApi() {
+        return mySQLApi;
+    }
 }

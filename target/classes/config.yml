@@ -16,6 +16,37 @@ General:
         DiscordSRV: true
         AuthMe: true
 
+MySQL-Utils:
+  Enable: false
+  Settings:
+    MySQL:
+      username: root
+      password: ''
+      hostname: localhost
+      port: 3306
+      database: bank
+
+Bank-Return:
+  Enable: true
+
+MySQLPlayerDataBridge:
+  Enable: false
+  SyncComplete:
+    Enable: true
+    Commands:
+      - "player: lotteryplus itemjoinfix false"
+      - "player: zlogin"
+
+MorphTool:
+  Enable: true
+  ToolName: "&c&l巨&6&l大&e&lな&a&lス&b&lラ&9&lイ&d&lム"
+  Prvent-Update-Netherite: true
+
+AuthMe:
+  Enable: true
+  Mail-Warning:
+    Enable: true
+
 MyPet:
   Enable: true
   Skilltree-Auto-Select:
@@ -60,22 +91,218 @@ MyPet:
         Commands:
           - "op: serverplus lottery petskill_fire"
 
-MySQLPlayerDataBridge:
+Donate:
   Enable: true
-  SyncComplete:
-    Enable: true
-    Commands:
-      - "player: lotteryplus itemjoinfix false"
-      - "player: zlogin"
+  Groups:
+    mb:
+      Enable: true
+      Group: "general"
+      Next-Group: "mb"
+      Commands:
+        - "console: lp user %player% promote donate"
+        - "all-sound: ENTITY_WITHER_SPAWN, 1, 1"
+        - "delay: 20"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
+        - "delay: 20"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
+        - "delay: 30"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
+        - "delay: 30"
+        - "all-sound: UI_TOAST_CHALLENGE_COMPLETE, 1, 1"
+        - "broadcast: &6玩家 &e%player_display_name% &6成為了 &a&lMB&6， 謝謝你&4&o♥"
+        - "delay: 60;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "delay: 5;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "message: &d&l茉茉&c&o♥ &f歡迎加入大家庭！ 你現在是永久的居民囉 :)"
+        - "delay: 60;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: "
+        - "message: &7《&e&l解鎖&7》"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f帳號永久保留 (即使有問題， 茉茉也會盡力救回)"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f傳送點:&7    3個 +1⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f茉茉彩蛋:&7 150個 +50⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f領地格數:&7 14,400格 +4,400⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f特效:&7      喜悅、璀璨青春(綠色翅膀)"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f戴帽子:&7    /hat"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f終界箱:&7    /ender"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f每週禮物:&7 飛行券 x2、糖果包 x1"
+        - "message: "
+        - "delay: 60;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "delay: 5;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "message: &c&l禮物女孩&e&o♥ &f來找我領禮物！"
+      Failed-Commands:
+        - "message: &c你必須是一般玩家， 才可以升級MB！"
+    vip:
+      Enable: true
+      Group: "mb"
+      Next-Group: "vip"
+      Commands:
+        - "console: lp user %player% promote donate"
+        - "all-sound: ENTITY_WITHER_SPAWN, 1, 1"
+        - "delay: 20"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
+        - "delay: 20"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
+        - "delay: 30"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
+        - "delay: 30"
+        - "all-sound: UI_TOAST_CHALLENGE_COMPLETE, 1, 1"
+        - "broadcast: &6玩家 &e%player_display_name% &6成為了 &b&lVIP&6， 謝謝你&4&o♥"
+        - "delay: 60;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "delay: 5;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "message: &d&l茉茉&c&o♥ &f謝謝你們的付出！ 期待伺服器能變得更好 :)"
+        - "delay: 60;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: "
+        - "message: &7《&e&l解鎖&7》"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f優先加入遊戲 (滿人直接加入)"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f新版本封測資格，並獲得限定禮物"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f傳送點:&7   3個 +1⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f任務:&7     6個 +1⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f商城上架:&7 27個 +9⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f茉茉彩蛋:&7 200個 +100⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f好友:&7     18個 +9⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f領地格數:&7 25,000格 +15,000⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f領地費用:&7 9元 -1⇩"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f領地權限:&7 限制移動、防止生怪、防止飛行、避免田地毀壞、村民交易等"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f特效:&7      火焰、雪花隨風飄II、自由藍天(藍色翅膀)"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f暱稱顏色:&7 藍色(b)"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f騎人:&7      /ride"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f每週禮物:&7 飛行券 x4、糖果包 x2"
+        - "message: "
+        - "delay: 60;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "delay: 5;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "message: &c&l禮物女孩&e&o♥ &f來找我領禮物！"
+      Failed-Commands:
+        - "message: &c你必須是MB， 才可以升級VIP！"
+    mvp:
+      Enable: true
+      Group: "vip"
+      Next-Group: "mvp"
+      Commands:
+        - "console: lp user %player% promote donate"
+        - "all-sound: ENTITY_WITHER_SPAWN, 1, 1"
+        - "delay: 20"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
+        - "delay: 20"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
+        - "delay: 30"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
+        - "delay: 30"
+        - "all-sound: UI_TOAST_CHALLENGE_COMPLETE, 1, 1"
+        - "broadcast: &6玩家 &e%player_display_name% &6成為了 &d&lMVP&6， 謝謝你&4&o♥"
+        - "delay: 60;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "delay: 5;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "message: &d&l茉茉&c&o♥ &f你現在擁有更多社區管理權限"
+        - "delay: 60;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: "
+        - "message: &7《&e&l解鎖&7》"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f傳送點:&7   7個 +5⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f任務:&7     7個 +2⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f商城上架:&7 36個 +18⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f茉茉彩蛋:&7 300個 +200⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f好友:&7     45個 +36⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f領地格數:&7 115,200格 11倍⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f領地費用:&7 8元 -2⇩"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f領地權限:&7 放置、破壞、爆炸、PVP、鐵砧毀壞"
+        - "message: &7          樹葉枯萎、自然怪物生成、開門、按鈕、拉桿等"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f特效:&7     愛心、粉紅色翅膀(粉紅翅膀)"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f暱稱顏色:&7 紫色(d)"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f每週禮物:&7 飛行券 x4、糖果包 x2"
+        - "message: "
+        - "delay: 60;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "delay: 5;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "message: &c&l禮物女孩&e&o♥ &f來找我領禮物！"
+      Failed-Commands:
+        - "message: &c你必須是VIP， 才可以升級MVP！"
+    god:
+      Enable: true
+      Group: "mvp"
+      Next-Group: "god"
+      Commands:
+        - "console: lp user %player% promote donate"
+        - "all-sound: ENTITY_WITHER_SPAWN, 1, 1"
+        - "delay: 20"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
+        - "delay: 20"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
+        - "delay: 30"
+        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
+        - "delay: 30"
+        - "all-sound: UI_TOAST_CHALLENGE_COMPLETE, 1, 1"
+        - "broadcast: &6玩家 &e%player_display_name% &6成為了 &e&lGOD&6， 謝謝你&4&o♥"
+        - "delay: 60;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "delay: 5;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "message: &d&l茉茉&c&o♥ &f你現在是伺服器榮譽的玩家！"
+        - "delay: 60;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: "
+        - "message: &7《&e&l解鎖&7》"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f傳送點:&7   10個 +5⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f任務:&7      8個 +3⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f商城上架:&7 45個 +27⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f茉茉彩蛋:&7 400個 +300⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f好友:&7      無限制"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f領地格數:&7 270,000格 27x⇪"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f領地費用:&7 7元 -3⇩"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f領地權限:&7 飛行、身體發光、自動重生、"
+        - "message: &7           工具不會消耗耐久、改變時間、改變天氣、跳更高"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f特效:&7      地獄鬼步、遊戲人生、尊爵不凡(金色翅膀)"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f暱稱顏色:&7 黃色(e)"
+        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+        - "message: &f每週禮物:&7 飛行券 x10、糖果包 x6、神秘禮物"
+        - "message: "
+        - "delay: 60;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "delay: 5;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "message: &c&l禮物女孩&e&o♥ &f來找我領禮物！"
+      Failed-Commands:
+        - "message: &c你必須是MVP， 才可以升級GOD！"
 
-# A simple ItemJoin item convertor for broken Items.
-# Command: /serverplus itemjoinfix
+
 ItemJoin:
   Enable: true
   Fix-Old-Item:
     Enable: true
     Settings:
-      # The multiple menu item in player"s inventory will be removed.
       One-Menu:
         Enable: true
         ItemNode: "menu5"
@@ -302,89 +529,6 @@ ItemJoin:
         Type: "BOOK"
         Name: "&c&l特效&f✷ &c&l抱抱你 &f&l學習書"
 
-# Prevent player change the MorphTool to identify the MorphTool.
-# The diamond MorphTool will be broken if it update to Netherite tools.
-MorphTool:
-  Enable: true
-  ToolName: "&c&l巨&6&l大&e&lな&a&lス&b&lラ&9&lイ&d&lム"
-  Prvent-Update-Netherite: true
-
-# Warning player to set their email.
-AuthMe:
-  Enable: true
-  Mail-Warning:
-    Enable: true
-
-Donate:
-  Enable: true
-  Groups:
-    mb:
-      Enable: true
-      Group: "general"
-      Next-Group: "mb"
-      Commands:
-        - "console: lp user %player% promote donate"
-        - "all-sound: ENTITY_PLAYER_LEVELUP, 1, 1"
-        - "delay: 10"
-        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
-        - "delay: 10"
-        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
-        - "delay: 10"
-        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
-        - "broadcast: &6玩家 &e%player_display_name% &6成為了 &a&lMB&6， 謝謝你&4&o♥"
-        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
-        - "message: &d&l茉茉&c&o♥ &f歡迎加入大家庭！ 你現在是永久的居民囉 :)"
-        - "message: &7解鎖："
-        - "message: &7- 傳送點 +1"
-        - "message: &7- 特效✷ 喜悅 (MB專屬)"
-        - "message: &7- 戴帽子 /hat"
-        - "message: &7- 遠端打開終界箱 /ender"
-      Failed-Commands:
-        - "message: &c你必須是一般玩家， 才可以升級MB！"
-    vip:
-      Enable: true
-      Group: "mb"
-      Next-Group: "vip"
-      Commands:
-        - "console: lp user %player% promote donate"
-        - "broadcast: &6玩家 &e%player_display_name% &6成為了 &b&lVIP&6， 謝謝你&4&o♥"
-        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
-        - "message: &d&l茉茉&c&o♥ &f謝謝你們的付出！ 期待伺服器能變得更好 :)"
-        - "message: &7解鎖："
-        - "message: &7- 特效✷ 自由藍天、火焰 (VIP專屬)"
-        - "message: &7- 暱稱顏色： 藍色(b)"
-        - "custom: cgl, 贊助, 限定寵物, 吉祥物羊咩;custom: pet, sheep"
-      Failed-Commands:
-        - "message: &c你必須是MB， 才可以升級VIP！"
-    mvp:
-      Enable: true
-      Group: "vip"
-      Next-Group: "mvp"
-      Commands:
-        - "console: lp user %player% promote donate"
-        - "broadcast: &6玩家 &e%player_display_name% &6成為了 &d&lMVP&6， 謝謝你&4&o♥"
-        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
-        - "message: &d&l茉茉&c&o♥ &f你現在擁有更多社區管理權限"
-        - "message: &7解鎖："
-        - "message: &7- 特效✷ 永恆愛戀、愛心 (MVP專屬)"
-        - "message: &7- 暱稱顏色： 紫色(d)"
-      Failed-Commands:
-        - "message: &c你必須是VIP， 才可以升級MVP！"
-    god:
-      Enable: true
-      Group: "mvp"
-      Next-Group: "god"
-      Commands:
-        - "console: lp user %player% promote donate"
-        - "broadcast: &6玩家 &e%player_display_name% &6成為了 &e&lGOD&6， 謝謝你&4&o♥"
-        - "message: &8▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩▩"
-        - "message: &d&l茉茉&c&o♥ &f你現在是伺服器榮譽的玩家！！"
-        - "message: &7解鎖："
-        - "message: &7- 特效✷ 尊爵不凡、地獄鬼步、遊戲舞台 (GOD專屬)"
-        - "message: &7- 暱稱顏色： 黃色(e)"
-      Failed-Commands:
-        - "message: &c你必須是MVP， 才可以升級GOD！"
-
 Message:
   prefix: "&f"
   Commands:
@@ -397,3 +541,5 @@ Message:
   morphToolNetherite: "&c這個物品不能升級"
   authMeMailEmpty: "&c請設置 Email 用於取回密碼， 輸入/email add 信箱 信箱"
   donateGroupNotFound: "&c找不到升級的贊助用戶組"
+  pvpOn: "%player_display_name% 開啟PVP模式"
+  pvpOff: "%player_display_name% 關閉PVP模式"

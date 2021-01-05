@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class MorphTool implements Listener {
 
-    private Map<String, Long> cdList = new HashMap<>();
+    private final Map<String, Long> cdList = new HashMap<>();
 
     /**
      * Update the MorphTool.
@@ -61,7 +61,7 @@ public class MorphTool implements Listener {
                 }
                 addCD(player);
                 CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgMorphToolNetherite(), player);
-                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "MorphTool", player.getName(), "update", "cancel",
+                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "MorphTool", player.getName(), "update", "cancel",
                         new Throwable().getStackTrace()[0]);
             }
         } catch (Exception ignored) {
@@ -106,7 +106,7 @@ public class MorphTool implements Listener {
                 }
                 addCD(player);
                 CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgMorphToolRename(), player);
-                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "MorphTool", player.getName(), "rename", "cancel",
+                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "MorphTool", player.getName(), "rename", "cancel",
                         new Throwable().getStackTrace()[0]);
             }
         } catch (Exception ex) {
@@ -116,7 +116,7 @@ public class MorphTool implements Listener {
             }
             addCD(player);
             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgMorphToolRename(), player);
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "MorphTool", player.getName(), "rename", "cancel",
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "MorphTool", player.getName(), "rename", "cancel",
                     new Throwable().getStackTrace()[0]);
         }
     }

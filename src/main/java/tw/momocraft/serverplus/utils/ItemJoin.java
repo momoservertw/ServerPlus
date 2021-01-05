@@ -78,12 +78,12 @@ public class ItemJoin {
                     hasMenu = true;
                 }
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ij get " + itemNode + " " + player.getName() + " " + amount);
-                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "ItemJoin", itemNode, "give", "continue",
+                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "ItemJoin", itemNode, "give", "continue",
                         new Throwable().getStackTrace()[0]);
             }
         }
         String[] placeHolders = CorePlusAPI.getLangManager().newString();
-        placeHolders[8] = String.valueOf(fixAmount); // %amount%
+        placeHolders[6] = String.valueOf(fixAmount); // %amount%
         if (msg) {
             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgItemJoinFix(), player, placeHolders);
         }

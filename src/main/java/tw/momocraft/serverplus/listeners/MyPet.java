@@ -16,23 +16,26 @@ public class MyPet implements Listener {
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onMyPetCallEvent(MyPetCallEvent e) {
-        if (ConfigHandler.getConfigPath().isMyPet()) {
-            if (ConfigHandler.getConfigPath().isMypetSkillAuto()) {
-                if (e.getMyPet().getSkilltree() == null) {
-                    List<String> skillList = ConfigHandler.getConfigPath().getSkillProp().get(e.getMyPet().getPetType().name());
-                    if (skillList == null) {
-                        skillList = ConfigHandler.getConfigPath().getSkillProp().get("Default");
-                    }
-                    String command = skillList.get(new Random().nextInt(skillList.size()));
-                    Player player = e.getOwner().getPlayer();
-                    if (player == null) {
-                        player = Bukkit.getPlayer(e.getOwner().getName());
-                    }
-                    CorePlusAPI.getCommandManager().executeCmd(ConfigHandler.getPrefix(), player, command, true);
-                    CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPrefix(), "MyPet", e.getOwner().getName(), "skill", "continue", command,
-                            new Throwable().getStackTrace()[0]);
-                }
-            }
+        if (!ConfigHandler.getConfigPath().isMyPet()) {
+            return;
         }
+        if (!ConfigHandler.getConfigPath().isMypetSkillAuto()) {
+            return;
+        }
+        if (e.getMyPet().getSkilltree() != null) {
+            return;
+        }
+        List<String> skillList = ConfigHandler.getConfigPath().getSkillProp().get(e.getMyPet().getPetType().name());
+        if (skillList == null) {
+            skillList = ConfigHandler.getConfigPath().getSkillProp().get("Default");
+        }
+        String command = skillList.get(new Random().nextInt(skillList.size()));
+        Player player = e.getOwner().getPlayer();
+        if (player == null) {
+            player = Bukkit.getPlayer(e.getOwner().getName());
+        }
+        CorePlusAPI.getCommandManager().executeCmd(ConfigHandler.getPrefix(), player, command, true);
+        CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "MyPet", e.getOwner().getName(), "skill", "continue", command,
+                new Throwable().getStackTrace()[0]);
     }
 }
