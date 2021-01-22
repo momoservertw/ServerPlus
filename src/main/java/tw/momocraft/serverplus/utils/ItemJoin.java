@@ -1,6 +1,5 @@
 package tw.momocraft.serverplus.utils;
 
-import me.RockinChaos.itemjoin.api.ItemJoinAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -78,8 +77,8 @@ public class ItemJoin {
                     hasMenu = true;
                 }
                 Bukkit.getServer().dispatchCommand(Bukkit.getConsoleSender(), "ij get " + itemNode + " " + player.getName() + " " + amount);
-                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "ItemJoin", itemNode, "give", "continue",
-                        new Throwable().getStackTrace()[0]);
+                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
+                        "ItemJoin", itemNode, "give", "continue", new Throwable().getStackTrace()[0]);
             }
         }
         String[] placeHolders = CorePlusAPI.getLangManager().newString();

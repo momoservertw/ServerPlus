@@ -16,7 +16,7 @@ public class Commands implements CommandExecutor {
     public boolean onCommand(final CommandSender sender, Command c, String l, String[] args) {
         switch (args.length) {
             case 0:
-                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.use")) {
+                if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.use")) {
                     CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender, "");
                     CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgTitle(), sender);
                     CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender, "&f " + ServerPlus.getInstance().getDescription().getName()
@@ -29,15 +29,15 @@ public class Commands implements CommandExecutor {
                 return true;
             case 1:
                 if (args[0].equalsIgnoreCase("help")) {
-                    if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.use")) {
+                    if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.use")) {
                         CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgTitle(), sender);
                         CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender, "&f " + ServerPlus.getInstance().getDescription().getName()
                                 + " &ev" + ServerPlus.getInstance().getDescription().getVersion() + "  &8by Momocraft");
                         CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgHelp(), sender);
-                        if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.reload")) {
+                        if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.reload")) {
                             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgReload(), sender);
                         }
-                        if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.version")) {
+                        if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.version")) {
                             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgVersion(), sender);
                         }
                         CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender, "");
@@ -46,16 +46,9 @@ public class Commands implements CommandExecutor {
                     }
                     return true;
                 } else if (args[0].equalsIgnoreCase("reload")) {
-                    if (CorePlusAPI.getPlayerManager().hasPermission(sender, "entityplus.command.reload")) {
+                    if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "entityplus.command.reload")) {
                         ConfigHandler.generateData(true);
                         CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.configReload", sender);
-                    } else {
-                        CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.noPermission", sender);
-                    }
-                    return true;
-                } else if (args[0].equalsIgnoreCase("bankcreate")) {
-                    if (CorePlusAPI.getPlayerManager().hasPermission(sender, "entityplus.command.bankcreate")) {
-                        BankReturn.createFile();
                     } else {
                         CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.noPermission", sender);
                     }
@@ -64,7 +57,7 @@ public class Commands implements CommandExecutor {
                 break;
             case 2:
                 if (args[0].equalsIgnoreCase("bankreturn")) {
-                    if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.bankreturn")) {
+                    if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.bankreturn")) {
                         if (!ConfigHandler.getConfigPath().isBankReturn()) {
                             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.featureDisabled", sender);
                             return true;
@@ -86,7 +79,7 @@ public class Commands implements CommandExecutor {
             case 3:
                 // serverplus itemjoinfix <player> [true/false]
                 if (args[0].equalsIgnoreCase("itemjoinfix")) {
-                    if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.itemjoinfix")) {
+                    if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.itemjoinfix")) {
                         if (!ConfigHandler.getConfigPath().isItemjoin()) {
                             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.featureDisabled", sender);
                             return true;
@@ -118,7 +111,7 @@ public class Commands implements CommandExecutor {
                     }
                     return true;
                 } else if (args[0].equalsIgnoreCase("update")) {
-                    if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.update")) {
+                    if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.update")) {
                         if (!ConfigHandler.getConfigPath().isDonate()) {
                             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.featureDisabled", sender);
                             return true;

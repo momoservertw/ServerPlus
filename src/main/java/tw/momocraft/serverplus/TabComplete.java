@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.util.StringUtil;
 import tw.momocraft.coreplus.api.CorePlusAPI;
+import tw.momocraft.serverplus.handlers.ConfigHandler;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,22 +19,22 @@ public class TabComplete implements TabCompleter {
         final List<String> commands = new ArrayList<>();
         switch (args.length) {
             case 1:
-                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.use")) {
+                if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.use")) {
                     commands.add("help");
                 }
-                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.reload")) {
+                if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.reload")) {
                     commands.add("reload");
                 }
-                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.buy")) {
+                if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.buy")) {
                     commands.add("buy");
                 }
-                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.give")) {
+                if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.give")) {
                     commands.add("give");
                 }
-                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.itemjoinfix")) {
+                if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.itemjoinfix")) {
                     commands.add("itemjoinfix");
                 }
-                if (CorePlusAPI.getPlayerManager().hasPermission(sender, "serverplus.command.update")) {
+                if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.update")) {
                     commands.add("update");
                 }
                 break;

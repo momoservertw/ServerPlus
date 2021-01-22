@@ -27,8 +27,8 @@ public class AuthMe implements Listener {
                 flatMap(AuthMePlayer::getEmail).orElse("EMPTY");
         if (email.equals("EMPTY")) {
             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgAuthMeMailEmpty(), player);
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "AuthMe", playerName, "mail", "warning",
-                    new Throwable().getStackTrace()[0]);
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
+                    "AuthMe", playerName, "mail", "warning",                    new Throwable().getStackTrace()[0]);
         }
     }
 }

@@ -18,6 +18,7 @@ public class SyncComplete implements Listener {
         if (!ConfigHandler.getConfigPath().isMpdbSyncComplete()) {
             return;
         }
-        CorePlusAPI.getCommandManager().executeCmdList(ConfigHandler.getPrefix(), e.getPlayer(), ConfigHandler.getConfigPath().getMpdbSyncCompleteCmds(), true);
+        CorePlusAPI.getCommandManager().executeCmdList(ConfigHandler.getPrefix(), e.getPlayer(),
+                ConfigHandler.getConfigPath().getMpdbSyncCompleteCmds(), true);
     }
 }

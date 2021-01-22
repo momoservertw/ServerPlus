@@ -16,16 +16,6 @@ General:
         DiscordSRV: true
         AuthMe: true
 
-MySQL-Utils:
-  Enable: false
-  Settings:
-    MySQL:
-      username: root
-      password: ''
-      hostname: localhost
-      port: 3306
-      database: bank
-
 Bank-Return:
   Enable: true
 

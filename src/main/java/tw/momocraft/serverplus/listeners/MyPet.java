@@ -35,7 +35,7 @@ public class MyPet implements Listener {
             player = Bukkit.getPlayer(e.getOwner().getName());
         }
         CorePlusAPI.getCommandManager().executeCmd(ConfigHandler.getPrefix(), player, command, true);
-        CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.getPlugin(), "MyPet", e.getOwner().getName(), "skill", "continue", command,
-                new Throwable().getStackTrace()[0]);
+        CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
+                "MyPet", e.getOwner().getName(), "skill", "continue", command, new Throwable().getStackTrace()[0]);
     }
 }

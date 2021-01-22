@@ -2,6 +2,7 @@ package tw.momocraft.serverplus.handlers;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import tw.momocraft.coreplus.CorePlus;
 import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.serverplus.ServerPlus;
 import tw.momocraft.serverplus.utils.*;
@@ -16,14 +17,12 @@ public class ConfigHandler {
     private static YamlConfiguration tempYAML;
     private static Dependence depends;
     private static ConfigPath configPaths;
-    private static MySQLAPI mySQLApi;
 
     public static void generateData(boolean reload) {
         genConfigFile("config.yml");
         genConfigFile("temporary.yml");
         setDepends(new Dependence());
         setConfigPath(new ConfigPath());
-        setMySQLApi(new MySQLAPI());
     }
 
 
@@ -52,7 +51,7 @@ public class ConfigHandler {
             try {
                 ServerPlus.getInstance().saveResource(fileName, false);
             } catch (Exception e) {
-                CorePlusAPI.getLangManager().sendErrorMsg(ConfigHandler.getPrefix(), "&cCannot save " + fileName + " to disk!");
+                CorePlusAPI.getLangManager().sendErrorMsg(ConfigHandler.getPluginName(), "&cCannot save " + fileName + " to disk!");
                 return;
             }
         }
@@ -129,12 +128,11 @@ public class ConfigHandler {
         return "[" + ServerPlus.getInstance().getDescription().getName() + "] ";
     }
 
-
-    private static void setMySQLApi(MySQLAPI mysql) {
-        mySQLApi = mysql;
+    public static String getPluginName() {
+        return CorePlus.getInstance().getDescription().getName();
     }
 
-    public static MySQLAPI getMySQLApi() {
-        return mySQLApi;
+    public static boolean isDebugging() {
+        return ConfigHandler.getConfig("config.yml").getBoolean("Debugging");
     }
 }

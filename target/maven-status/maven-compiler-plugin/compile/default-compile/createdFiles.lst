@@ -10,7 +10,6 @@ tw\momocraft\serverplus\utils\DonateMap.class
 tw\momocraft\serverplus\listeners\AuthMe.class
 tw\momocraft\serverplus\listeners\SyncComplete.class
 tw\momocraft\serverplus\ServerPlus.class
-tw\momocraft\serverplus\utils\MySQLAPI.class
 tw\momocraft\serverplus\Donate.class
 tw\momocraft\serverplus\listeners\MyPet.class
 tw\momocraft\serverplus\utils\ConfigPath.class

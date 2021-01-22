@@ -18,9 +18,6 @@ public class ServerPlus extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (ConfigHandler.getConfig("config.yml").getBoolean("MySQL-Utils.Enable")) {
-            ConfigHandler.getMySQLApi().disabledConnect();
-        }
         CorePlusAPI.getLangManager().sendConsoleMsg(ConfigHandler.getPlugin(), "&fhas been Disabled.");
     }
 
