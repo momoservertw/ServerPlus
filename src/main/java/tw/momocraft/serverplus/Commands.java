@@ -53,6 +53,14 @@ public class Commands implements CommandExecutor {
                         CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.noPermission", sender);
                     }
                     return true;
+                } else if (args[0].equalsIgnoreCase("itemjoincreate")) {
+                    if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "entityplus.command.itemjoincreate")) {
+                        ConfigHandler.generateData(true);
+                        CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.configReload", sender);
+                    } else {
+                        CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.noPermission", sender);
+                    }
+                    return true;
                 }
                 break;
             case 2:

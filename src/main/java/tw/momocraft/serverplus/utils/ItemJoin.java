@@ -1,5 +1,6 @@
 package tw.momocraft.serverplus.utils;
 
+import me.RockinChaos.itemjoin.api.ItemJoinAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -12,6 +13,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class ItemJoin {
+
+
     public static void itemJoinFix(Player player, boolean msg) {
         Map<String, List<ItemJoinMap>> ijProp = ConfigHandler.getConfigPath().getIjProp();
         Set<String> ijKeys = ijProp.keySet();
@@ -47,8 +50,8 @@ public class ItemJoin {
                                 continue;
                             }
                         }
-                        continue;
                     }
+                    continue;
                 }
             }
             // Contains replace itemType.

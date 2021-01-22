@@ -16,6 +16,9 @@ General:
         DiscordSRV: true
         AuthMe: true
 
+Restart:
+  Enable: true
+
 Bank-Return:
   Enable: true
 
@@ -287,8 +290,23 @@ Donate:
       Failed-Commands:
         - "message: &c你必須是MVP， 才可以升級GOD！"
 
-
 ItemJoin:
+  Enable: false
+  # To create the current item list from ItemJoin.
+  # Copy the ItemJoin config.yml to ServerPlus folder and rename it to
+  # Create currency item list: /srp itemjoincreate
+  Fix-Old-Item:
+    Enable: true
+    Settings:
+    Group:
+      points:
+        ItemNode: "point"
+        Type: "PINK_DYE"
+        Names:
+          - "&d&l茉茉代幣&8❦ &7x1"
+
+
+ItemJoin2:
   Enable: true
   Fix-Old-Item:
     Enable: true
@@ -300,6 +318,7 @@ ItemJoin:
         Name: "&d&l茉茉選單&f㍿ &7剉冰"
     Groups:
       points:
+        Node: point
         Type: "PINK_DYE"
         Name: "&d&l茉茉代幣&8❦ &7x1"
       easter_ticket:
@@ -343,7 +362,7 @@ ItemJoin:
         Name: "§b§l淨化猙之刃"
       blade2:
         Type: "END_ROD"
-        Name: "§f§l猙之刃"
+        Name: "&f&l猙之刃"
       petbuy0:
         Type: "PLAYER_HEAD"
         Name: "&f&l初新手 &6&l寵物轉蛋"
@@ -517,7 +536,7 @@ ItemJoin:
         Name: "&e&l心情&4ღ &f表情III &f&l學習書"
       p_carnation:
         Type: "BOOK"
-        Name: "&c&l特效&f✷ &c&l抱抱你 &f&l學習書"
+      Name: "&c&l特效&f✷ &c&l抱抱你 &f&l學習書"
 
 Message:
   prefix: "&f"
