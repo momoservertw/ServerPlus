@@ -2,6 +2,7 @@
 ##  Wiki: https://github.com/momoservertw/ServerPlus/wiki
 ## ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 Config-Version: 1
+  Debugging: false
 
 General:
   Settings:
@@ -17,7 +18,7 @@ General:
         AuthMe: true
 
 Restart:
-  Enable: true
+  Enable: false
 
 Bank-Return:
   Enable: true
@@ -36,7 +37,7 @@ MorphTool:
   Prvent-Update-Netherite: true
 
 AuthMe:
-  Enable: true
+  Enable: false
   Mail-Warning:
     Enable: true
 
@@ -291,252 +292,416 @@ Donate:
         - "message: &c你必須是MVP， 才可以升級GOD！"
 
 ItemJoin:
-  Enable: false
-  # To create the current item list from ItemJoin.
-  # Copy the ItemJoin config.yml to ServerPlus folder and rename it to
-  # Create currency item list: /srp itemjoincreate
-  Fix-Old-Item:
-    Enable: true
-    Settings:
-    Group:
-      points:
-        ItemNode: "point"
-        Type: "PINK_DYE"
-        Names:
-          - "&d&l茉茉代幣&8❦ &7x1"
-
-
-ItemJoin2:
   Enable: true
   Fix-Old-Item:
     Enable: true
-    Settings:
-      One-Menu:
-        Enable: true
-        ItemNode: "menu5"
-        Type: "PLAYER_HEAD"
-        Name: "&d&l茉茉選單&f㍿ &7剉冰"
     Groups:
       points:
-        Node: point
-        Type: "PINK_DYE"
-        Name: "&d&l茉茉代幣&8❦ &7x1"
+        ItemNode: points
+        Type: PINK_DYE
+        Names:
+          - "&d&l茉茉代幣&8? &7x1"
+      points10:
+        ItemNode: points10
+        Type: PINK_DYE
+        Names:
+          - "&d&l茉茉代幣&8? &7x10"
+      points100:
+        ItemNode: points100
+        Type: PINK_DYE
+        Names:
+          - "&d&l茉茉代幣&8? &7x100"
       easter_ticket:
-        Type: "EGG"
-        Name: "&c&l彩&6&l蛋&e&l兌&a&l換&b&l券"
+        ItemNode: easter_ticket
+        Type: EGG
+        Names:
+          - "&c&l彩&6&l蛋&e&l兌&a&l換&b&l券"
+      shop_random:
+        ItemNode: shop_random
+        Type: PLAYER_HEAD
+        Names:
+          - "&b&l商&a&l城&e&l隨&6&l機&c&l物&9&l品 &f&l兌換券"
       menu:
-        Type: "COMPASS"
-        Name: "&d&l茉茉選單2.0"
+        ItemNode: menu
+        Type: COMPASS
+        Names:
+          - "&d&l茉茉選單2.0"
       menu2:
-        Type: "PLAYER_HEAD"
-        Name: "&d&l茉茉選單3.0"
+        ItemNode: menu2
+        Type: PLAYER_HEAD
+        Names:
+          - "&d&l茉茉選單3.0"
       menu4:
-        Type: "PLAYER_HEAD"
-        Name: "&d&l茉茉選單&f㍿ &c&l4.0"
+        ItemNode: menu4
+        Type: PLAYER_HEAD
+        Names:
+          - "&d&l茉茉選單&f? &c&l4.0"
       menu5:
-        Type: "PLAYER_HEAD"
-        Name: "&d&l茉茉選單&f㍿ &7剉冰"
+        ItemNode: menu5
+        Type: PLAYER_HEAD
+        Names:
+          - "&d&l茉茉選單&f? &7剉冰"
       easter_egg:
-        Type: "PLAYER_HEAD"
-        Name: "&e&l黃金彩蛋"
+        ItemNode: easter_egg
+        Type: PLAYER_HEAD
+        Names:
+          - "&e&l黃金彩蛋"
+      test:
+        ItemNode: test
+        Type: stone
+        Names:
+          - "test233"
       GP1:
-        Type: "BRICK"
-        Name: "&d&l茉茉禮包&a&lI"
+        ItemNode: GP1
+        Type: BRICK
+        Names:
+          - "&d&l茉茉禮包&a&lI"
       GP2:
-        Type: "NETHER_BRICK"
-        Name: "&d&l茉茉禮包&b&lII"
+        ItemNode: GP2
+        Type: NETHER_BRICK
+        Names:
+          - "&d&l茉茉禮包&b&lII"
       GP3:
-        Type: "IRON_INGOT"
-        Name: "&d&l茉茉禮包&e&lIII"
+        ItemNode: GP3
+        Type: IRON_INGOT
+        Names:
+          - "&d&l茉茉禮包&e&lIII"
       carnation:
-        Type: "BRAIN_CORAL_FAN"
-        Name: "&d&l康乃馨&c&o?"
+        ItemNode: carnation
+        Type: BRAIN_CORAL_FAN
+        Names:
+          - "&d&l康乃馨&c&o?"
+      enderchest:
+        ItemNode: enderchest
+        Type: PAPER
+        Names:
+          - "&2&l遙控終界箱券(30天) &f&l兌換券"
       head_random:
-        Type: "PAPER"
-        Name: "&c&l隨機頭顱 &f&l兌換券"
+        ItemNode: head_random
+        Type: PAPER
+        Names:
+          - "&c&l隨機頭顱 &f&l兌換券"
       fly:
-        Type: "PAPER"
-        Name: "&b&l飛行券"
+        ItemNode: fly
+        Type: PAPER
+        Names:
+          - "&b&l飛行券"
+      angel:
+        ItemNode: angel
+        Type: PAPER
+        Names:
+          - "&b&l天使券"
       blade1:
-        Type: "END_ROD"
-        Name: "§b§l淨化猙之刃"
+        ItemNode: blade1
+        Type: END_ROD
+        Names:
+          - "§b§l淨化猙之刃"
       blade2:
-        Type: "END_ROD"
-        Name: "&f&l猙之刃"
+        ItemNode: blade2
+        Type: END_ROD
+        Names:
+          - "§f§l猙之刃"
       petbuy0:
-        Type: "PLAYER_HEAD"
-        Name: "&f&l初新手 &6&l寵物轉蛋"
+        ItemNode: petbuy0
+        Type: PLAYER_HEAD
+        Names:
+          - "&f&l初新手 &6&l寵物轉蛋"
       petbuy1:
-        Type: "PLAYER_HEAD"
-        Name: "&f&l第1系列 &6&l寵物轉蛋"
+        ItemNode: petbuy1
+        Type: PLAYER_HEAD
+        Names:
+          - "&f&l第1系列 &6&l寵物轉蛋"
       petbuy2:
-        Type: "PLAYER_HEAD"
-        Name: "&f&l第2系列 &6&l寵物轉蛋"
+        ItemNode: petbuy2
+        Type: PLAYER_HEAD
+        Names:
+          - "&f&l第2系列 &6&l寵物轉蛋"
       petskill:
-        Type: "PLAYER_HEAD"
-        Name: "&a&l寵物技能 &f&l學習書"
+        ItemNode: petskill
+        Type: PLAYER_HEAD
+        Names:
+          - "&a&l寵物技能 &f&l學習書"
       petskill_fire:
-        Type: "PLAYER_HEAD"
-        Name: "&4&l烈焰 &a&l寵物技能 &f&l學習書"
+        ItemNode: petskill_fire
+        Type: PLAYER_HEAD
+        Names:
+          - "&4&l烈焰 &a&l寵物技能 &f&l學習書"
       petskill_arrowexp:
-        Type: "PLAYER_HEAD"
-        Name: "&b&l妖精 &a&l寵物技能 &f&l學習書"
+        ItemNode: petskill_arrowexp
+        Type: PLAYER_HEAD
+        Names:
+          - "&b&l妖精 &a&l寵物技能 &f&l學習書"
       petskill_decay:
-        Type: "PLAYER_HEAD"
-        Name: "&6&l腐化 &a&l寵物技能 &f&l學習書"
+        ItemNode: petskill_decay
+        Type: PLAYER_HEAD
+        Names:
+          - "&6&l腐化 &a&l寵物技能 &f&l學習書"
       petskill_mount:
-        Type: "PLAYER_HEAD"
-        Name: "&e&l溫馴 &a&l寵物技能 &f&l學習書"
+        ItemNode: petskill_mount
+        Type: PLAYER_HEAD
+        Names:
+          - "&e&l溫馴 &a&l寵物技能 &f&l學習書"
       petskill_lithe:
-        Type: "PLAYER_HEAD"
-        Name: "&f&l輕盈 &a&l寵物技能 &f&l學習書"
+        ItemNode: petskill_lithe
+        Type: PLAYER_HEAD
+        Names:
+          - "&f&l輕盈 &a&l寵物技能 &f&l學習書"
       petexp1:
-        Type: "MUSIC_DISC_WARD"
-        Name: "&a&l寵物經驗包I"
+        ItemNode: petexp1
+        Type: MUSIC_DISC_WARD
+        Names:
+          - "&a&l寵物經驗包I"
       petexp2:
-        Type: "MUSIC_DISC_MALL"
-        Name: "&e&l寵物經驗包II"
+        ItemNode: petexp2
+        Type: MUSIC_DISC_MALL
+        Names:
+          - "&e&l寵物經驗包II"
       petexp3:
-        Type: "MUSIC_DISC_FAR"
-        Name: "&c&l寵物經驗包III"
+        ItemNode: petexp3
+        Type: MUSIC_DISC_FAR
+        Names:
+          - "&c&l寵物經驗包III"
+      vehiclesfix:
+        ItemNode: vehiclesfix
+        Type: PAPER
+        Names:
+          - "&c&l修補坐騎"
       vehiclesbuy1:
-        Type: "PLAYER_HEAD"
-        Name: "&f&l第1系列 &c&l坐騎轉蛋"
+        ItemNode: vehiclesbuy1
+        Type: PLAYER_HEAD
+        Names:
+          - "&f&l第1系列 &c&l坐騎轉蛋"
       vehiclesbuy2:
-        Type: "PLAYER_HEAD"
-        Name: "&f&l第2系列 &c&l坐騎轉蛋"
+        ItemNode: vehiclesbuy2
+        Type: PLAYER_HEAD
+        Names:
+          - "&f&l第2系列 &c&l坐騎轉蛋"
       JP1:
-        Type: "RED_DYE"
-        Name: "&c&l茉茉刮刮樂I"
+        ItemNode: JP1
+        Type: RED_DYE
+        Names:
+          - "&c&l茉茉刮刮樂I"
       JP2:
-        Type: "GLOWSTONE_DUST"
-        Name: "&6&l茉茉刮刮樂II"
+        ItemNode: JP2
+        Type: GLOWSTONE_DUST
+        Names:
+          - "&6&l茉茉刮刮樂II"
       JP3:
-        Type: "YELLOW_DYE"
-        Name: "&e&l茉茉刮刮樂III"
+        ItemNode: JP3
+        Type: YELLOW_DYE
+        Names:
+          - "&e&l茉茉刮刮樂III"
       JP4:
-        Type: "PRISMARINE_SHARD"
-        Name: "&a&l茉茉刮刮樂IV"
+        ItemNode: JP4
+        Type: PRISMARINE_SHARD
+        Names:
+          - "&a&l茉茉刮刮樂IV"
       SM_BD:
-        Type: "BOOK"
-        Name: "&e&l生日怪 &f&l召喚書"
+        ItemNode: SM_BD
+        Type: PAPER
+        Names:
+          - "&e&l生日怪召喚書 &f&l兌換券"
       SM_yoyo880603:
-        Type: "BOOK"
-        Name: "&e&l小草生日怪 &f&l召喚書"
+        ItemNode: SM_yoyo880603
+        Type: BOOK
+        Names:
+          - "&e&l小草生日怪 &f&l召喚書"
       SM_PTL_Una:
-        Type: "BOOK"
-        Name: "&3&l忒忒生日怪 &f&l召喚書"
+        ItemNode: SM_PTL_Una
+        Type: BOOK
+        Names:
+          - "&3&l忒忒生日怪 &f&l召喚書"
       SM_Zi_Shen_OuO:
-        Type: "BOOK"
-        Name: "&3&l紫雲生日怪 &f&l召喚書"
+        ItemNode: SM_Zi_Shen_OuO
+        Type: BOOK
+        Names:
+          - "&3&l紫雲生日怪 &f&l召喚書"
       SM_MaToo_chu:
-        Type: "BOOK"
-        Name: "&9&l獅子魚生日怪 &f&l召喚書"
+        ItemNode: SM_MaToo_chu
+        Type: BOOK
+        Names:
+          - "&9&l獅子魚生日怪 &f&l召喚書"
       SM_Magic1412:
-        Type: "BOOK"
-        Name: "&9&l呱呱生日怪 &f&l召喚書"
+        ItemNode: SM_Magic1412
+        Type: BOOK
+        Names:
+          - "&9&l呱呱生日怪 &f&l召喚書"
       SM_One_Punch:
-        Type: "BOOK"
-        Name: "&c&l一拳&e&l超人 &f&l召喚書"
+        ItemNode: SM_One_Punch
+        Type: BOOK
+        Names:
+          - "&c&l一拳&e&l超人 &f&l召喚書"
       SM_Inosuke:
-        Type: "BOOK"
-        Name: "&6&l伊之助 &f&l召喚書"
+        ItemNode: SM_Inosuke
+        Type: BOOK
+        Names:
+          - "&6&l伊之助 &f&l召喚書"
       SM_Nemesis:
-        Type: "BOOK"
-        Name: "&4&l魔王涅梅西斯 &f&l召喚書"
+        ItemNode: SM_Nemesis
+        Type: BOOK
+        Names:
+          - "&4&l魔王涅梅西斯 &f&l召喚書"
+      SM_HW:
+        ItemNode: SM_HW
+        Type: PAPER
+        Names:
+          - "&4&l惡魔召喚書 &f&l兌換券"
       SM_Zombie1:
-        Type: "BOOK"
-        Name: "&a&l黛咪 &f&l召喚書"
+        ItemNode: SM_Zombie1
+        Type: BOOK
+        Names:
+          - "&a&l帕咪 &f&l召喚書"
       SM_Zombie2:
-        Type: "BOOK"
-        Name: "&e&l黛咪 &f&l召喚書"
+        ItemNode: SM_Zombie2
+        Type: BOOK
+        Names:
+          - "&e&l黛咪 &f&l召喚書"
       SM_Zombie3:
-        Type: "BOOK"
-        Name: "&6&l傑恩 &f&l召喚書"
+        ItemNode: SM_Zombie3
+        Type: BOOK
+        Names:
+          - "&6&l傑恩 &f&l召喚書"
       SM_Zombie4:
-        Type: "BOOK"
-        Name: "&c&l小丑 &f&l召喚書"
+        ItemNode: SM_Zombie4
+        Type: BOOK
+        Names:
+          - "&c&l小丑 &f&l召喚書"
       SM_Zombie5:
-        Type: "BOOK"
-        Name: "&4&l人面鬼 &f&l召喚書"
+        ItemNode: SM_Zombie5
+        Type: BOOK
+        Names:
+          - "&4&l人面鬼 &f&l召喚書"
       c_random_candy:
-        Type: "PLAYER_HEAD"
-        Name: "&e&l糖&a&l果&b&l包"
+        ItemNode: c_random_candy
+        Type: PLAYER_HEAD
+        Names:
+          - "&e&l糖&a&l果&b&l包"
       c_increate_damage3:
-        Type: "PLAYER_HEAD"
-        Name: "&c&l力量糖果&f&lIII"
+        ItemNode: c_increate_damage3
+        Type: PLAYER_HEAD
+        Names:
+          - "&c&l力量糖果&f&lIII"
       c_speed3:
-        Type: "PLAYER_HEAD"
-        Name: "&9&l加速糖果&f&lIII"
+        ItemNode: c_speed3
+        Type: PLAYER_HEAD
+        Names:
+          - "&9&l加速糖果&f&lIII"
       c_jump3:
-        Type: "PLAYER_HEAD"
-        Name: "&3&l跳躍糖果&f&lIII"
+        ItemNode: c_jump3
+        Type: PLAYER_HEAD
+        Names:
+          - "&3&l跳躍糖果&f&lIII"
       c_health_boost3:
-        Type: "PLAYER_HEAD"
-        Name: "&6&l強壯糖果&f&lIII"
+        ItemNode: c_health_boost3
+        Type: PLAYER_HEAD
+        Names:
+          - "&6&l強壯糖果&f&lIII"
       c_regenration3:
-        Type: "PLAYER_HEAD"
-        Name: "&e&l康復糖果&f&lIII"
+        ItemNode: c_regenration3
+        Type: PLAYER_HEAD
+        Names:
+          - "&e&l康復糖果&f&lIII"
       c_fast_digging3:
-        Type: "PLAYER_HEAD"
-        Name: "&4&l破壞糖果&f&lIII"
+        ItemNode: c_fast_digging3
+        Type: PLAYER_HEAD
+        Names:
+          - "&4&l破壞糖果&f&lIII"
       c_luck3:
-        Type: "PLAYER_HEAD"
-        Name: "&d&l幸運糖果&f&lIII"
+        ItemNode: c_luck3
+        Type: PLAYER_HEAD
+        Names:
+          - "&d&l幸運糖果&f&lIII"
       exp1:
-        Type: "PLAYER_HEAD"
-        Name: "&a&l茉茉經驗瓶I"
+        ItemNode: exp1
+        Type: PLAYER_HEAD
+        Names:
+          - "&a&l茉茉經驗瓶I"
       exp2:
-        Type: "PLAYER_HEAD"
-        Name: "&e&l茉茉經驗瓶II"
+        ItemNode: exp2
+        Type: PLAYER_HEAD
+        Names:
+          - "&e&l茉茉經驗瓶II"
       exp3:
-        Type: "PLAYER_HEAD"
-        Name: "&6&l茉茉經驗瓶III"
+        ItemNode: exp3
+        Type: PLAYER_HEAD
+        Names:
+          - "&6&l茉茉經驗瓶III"
       lucky1_7d:
-        Type: "PAPER"
-        Name: "&a&l戴比路克的祝福I &f7日 &f&l兌換券"
+        ItemNode: lucky1_7d
+        Type: PAPER
+        Names:
+          - "&a&l戴比路克的祝福I &f7日 &f&l兌換券"
       lucky1_30d:
-        Type: "PAPER"
-        Name: "&a&l戴比路克的祝福I &f30日 &f&l兌換券"
+        ItemNode: lucky1_30d
+        Type: PAPER
+        Names:
+          - "&a&l戴比路克的祝福I &f30日 &f&l兌換券"
       lucky2_7d:
-        Type: "PAPER"
-        Name: "&e&l戴比路克的祝福II &f7日 &f&l兌換券"
+        ItemNode: lucky2_7d
+        Type: PAPER
+        Names:
+          - "&e&l戴比路克的祝福II &f7日 &f&l兌換券"
       lucky2_30d:
-        Type: "PAPER"
-        Name: "&e&l戴比路克的祝福II &f30日 &f&l兌換券"
+        ItemNode: lucky2_30d
+        Type: PAPER
+        Names:
+          - "&e&l戴比路克的祝福II &f30日 &f&l兌換券"
       lucky3_30d:
-        Type: "PAPER"
-        Name: "&e&l戴比路克的祝福 I + II &f30日 &f&l兌換券"
+        ItemNode: lucky3_30d
+        Type: PAPER
+        Names:
+          - "&e&l戴比路克的祝福 I + II &f30日 &f&l兌換券"
       slimecheck:
-        Type: "BREWING_STAND"
-        Name: "&a&l黏液檢測器&4&l〄"
+        ItemNode: slimecheck
+        Type: BREWING_STAND
+        Names:
+          - "&a&l黏液檢測器&4&l?"
       bbt_boost:
-        Type: "BOOK"
-        Name: "&d&l爆能強化箭矢&7&l☄ &f&l學習書"
+        ItemNode: bbt_boost
+        Type: BOOK
+        Names:
+          - "&d&l爆能強化箭矢&7&l? &f&l學習書"
       bbt_explosion:
-        Type: "BOOK"
-        Name: "&4&lExplosion！ &f&l學習書"
+        ItemNode: bbt_explosion
+        Type: BOOK
+        Names:
+          - "&4&lExplosion！ &f&l學習書"
       bbt_wool:
-        Type: "BOOK"
-        Name: "&c&l彩&6&l色&e&l羊&a&l毛 &f&l學習書"
+        ItemNode: bbt_wool
+        Type: BOOK
+        Names:
+          - "&c&l彩&6&l色&e&l羊&a&l毛 &f&l學習書"
       bbt_glass:
-        Type: "BOOK"
-        Name: "&6&l彩&e&l色&a&l玻&9&l璃 &f&l學習書"
+        ItemNode: bbt_glass
+        Type: BOOK
+        Names:
+          - "&6&l彩&e&l色&a&l玻&9&l璃 &f&l學習書"
       bbt_terracotta:
-        Type: "BOOK"
-        Name: "&e&l彩&a&l色&9&l釉&1&l陶 &f&l學習書"
+        ItemNode: bbt_terracotta
+        Type: BOOK
+        Names:
+          - "&e&l彩&a&l色&9&l釉&1&l陶 &f&l學習書"
       em_1:
-        Type: "BOOK"
-        Name: "&e&l心情&4ღ &f表情I &f&l學習書"
+        ItemNode: em_1
+        Type: BOOK
+        Names:
+          - "&e&l心情&4? &f表情I &f&l學習書"
       em_2:
-        Type: "BOOK"
-        Name: "&e&l心情&4ღ &f表情II &f&l學習書"
+        ItemNode: em_2
+        Type: BOOK
+        Names:
+          - "&e&l心情&4? &f表情II &f&l學習書"
       em_3:
-        Type: "BOOK"
-        Name: "&e&l心情&4ღ &f表情III &f&l學習書"
-      p_carnation:
-        Type: "BOOK"
-      Name: "&c&l特效&f✷ &c&l抱抱你 &f&l學習書"
+        ItemNode: em_3
+        Type: BOOK
+        Names:
+          - "&e&l心情&4? &f表情III &f&l學習書"
+      p_hug:
+        ItemNode: p_hug
+        Type: BOOK
+        Names:
+          - "&c&l特效&f? &c&l抱抱你 &f&l學習書"
+
 
 Message:
   prefix: "&f"

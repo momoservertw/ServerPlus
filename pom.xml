@@ -150,14 +150,6 @@
             <systemPath>${pom.basedir}/src/main/java/tw/momocraft/serverplus/extra/AuctionHouse-2.1.12.jar</systemPath>
             <version>LEGACY</version>
         </dependency>
-        <!--AuctionHouse API-->
-        <dependency>
-            <groupId>me.AuctionHouse</groupId>
-            <artifactId>AuctionHouse</artifactId>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/src/main/java/tw/momocraft/serverplus/extra/AuctionHouse-2.1.12.jar</systemPath>
-            <version>LEGACY</version>
-        </dependency>
     </dependencies>
 
 </project>

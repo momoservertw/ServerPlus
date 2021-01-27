@@ -25,18 +25,13 @@ public class TabComplete implements TabCompleter {
                 if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.reload")) {
                     commands.add("reload");
                 }
-                if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.buy")) {
-                    commands.add("buy");
-                }
-                if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.give")) {
-                    commands.add("give");
-                }
-                if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.itemjoinfix")) {
-                    commands.add("itemjoinfix");
+                if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.itemjoinfixconfig")) {
+                    commands.add("itemjoinfixconfig");
                 }
                 if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.update")) {
                     commands.add("update");
                 }
+
                 break;
         }
         StringUtil.copyPartialMatches(args[(args.length - 1)], commands, completions);

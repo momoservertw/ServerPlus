@@ -22,7 +22,7 @@ permissions:
     children:
       serverplus.use: true
       serverplus.command.*: true
-  ServerPlus.use:
+  serverplus.use:
     description: Allows use of basic commands.
     default: true
   serverplus.command.*:
@@ -30,14 +30,14 @@ permissions:
     default: op
     children:
       serverplus.command.reload: true
-      serverplus.command.itemjoinfix: true
       serverplus.command.update: true
+      serverplus.command.itemjoinfixconfig: true
   serverplus.command.reload:
-    description: Allows use of /ServerPlus command reload.
-    default: op
-  serverplus.command.itemjoinfix:
-    description: Allows use of command /ServerPlus itemjoinfix.
+    description: Allows use of /serverplus command reload.
     default: op
   serverplus.command.update:
-    description: Allows use of command /ServerPlus update.
+    description: Allows use of command /serverplus update.
+    default: op
+  serverplus.command.itemjoinfixconfig:
+    description: Allows use of command /serverplus itemjoinfixconfig.
     default: op

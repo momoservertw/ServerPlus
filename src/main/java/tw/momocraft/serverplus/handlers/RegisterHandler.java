@@ -37,5 +37,8 @@ public class RegisterHandler {
             CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
                     "Register-Event", "PvPManager", "PlayerTagEvent", "continue", new Throwable().getStackTrace()[0]);
         }
+        ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new ItemJoin(), ServerPlus.getInstance());
+        CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
+                "Register-Event", "ItemJoin", "InventoryClickEvent", "continue", new Throwable().getStackTrace()[0]);
     }
 }

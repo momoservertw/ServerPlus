@@ -7,9 +7,7 @@ import tw.momocraft.serverplus.handlers.ConfigHandler;
 public class Dependence {
     private boolean CMI = false;
     private boolean MyPet = false;
-    private boolean ItemJoin = false;
     private boolean MorphTool = false;
-    private boolean DiscordSRV = false;
     private boolean MysqlPlayerDataBridge = false;
     private boolean AuthMe = false;
     private boolean PvPManager = false;
@@ -21,14 +19,8 @@ public class Dependence {
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.MyPet")) {
             this.setMyPetStatus(Bukkit.getServer().getPluginManager().getPlugin("MyPet") != null);
         }
-        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.ItemJoin")) {
-            this.setItemJoinStatus(Bukkit.getServer().getPluginManager().getPlugin("ItemJoin") != null);
-        }
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.MorphTool")) {
             this.setMorphToolStatus(Bukkit.getServer().getPluginManager().getPlugin("MorphTool") != null);
-        }
-        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.DiscordSRV")) {
-            this.setDiscordSRVStatus(Bukkit.getServer().getPluginManager().getPlugin("DiscordSRV") != null);
         }
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.MysqlPlayerDataBridge")) {
             this.setMpbdStatus(Bukkit.getServer().getPluginManager().getPlugin("MysqlPlayerDataBridge") != null);
@@ -47,9 +39,7 @@ public class Dependence {
         String hookMsg = "&fHooked ["
                 + (CMIEnabled() ? "CMI, " : "")
                 + (MyPetEnabled() ? "MyPet, " : "")
-                + (ItemJoinEnabled() ? "ItemJoin, " : "")
                 + (MorphToolEnabled() ? "MorphTool, " : "")
-                + (DiscordSRVEnabled() ? "DiscordSRV, " : "")
                 + (MpdbEnabled() ? "MysqlPlayerDataBridge, " : "")
                 + (AuthMeEnabled() ? "AuthMe, " : "")
                 + (PvPManagerEnabled() ? "PvPManager, " : "")
@@ -75,16 +65,8 @@ public class Dependence {
         return this.MyPet;
     }
 
-    public boolean ItemJoinEnabled() {
-        return this.ItemJoin;
-    }
-
     public boolean MorphToolEnabled() {
         return this.MorphTool;
-    }
-
-    public boolean DiscordSRVEnabled() {
-        return this.DiscordSRV;
     }
 
     public boolean MpdbEnabled() {
@@ -108,16 +90,8 @@ public class Dependence {
         this.MyPet = bool;
     }
 
-    public void setItemJoinStatus(boolean bool) {
-        this.ItemJoin = bool;
-    }
-
     public void setMorphToolStatus(boolean bool) {
         this.MorphTool = bool;
-    }
-
-    public void setDiscordSRVStatus(boolean bool) {
-        this.DiscordSRV = bool;
     }
 
     public void setMpbdStatus(boolean bool) {

@@ -1,9 +1,10 @@
+tw\momocraft\serverplus\listeners\ItemJoin$1.class
 tw\momocraft\serverplus\listeners\MorphTool.class
 tw\momocraft\serverplus\utils\BankReturn.class
 tw\momocraft\serverplus\Commands.class
 tw\momocraft\serverplus\handlers\ConfigHandler.class
-tw\momocraft\serverplus\utils\ItemJoin.class
 tw\momocraft\serverplus\listeners\PvPManager.class
+tw\momocraft\serverplus\listeners\ItemJoin.class
 tw\momocraft\serverplus\utils\ItemJoinMap.class
 tw\momocraft\serverplus\utils\Dependence.class
 tw\momocraft\serverplus\utils\DonateMap.class

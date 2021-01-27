@@ -2,6 +2,7 @@ package tw.momocraft.serverplus.utils;
 
 import org.bukkit.configuration.ConfigurationSection;
 import tw.momocraft.coreplus.api.CorePlusAPI;
+import tw.momocraft.coreplus.handlers.UtilsHandler;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
 
 import java.util.*;
@@ -36,7 +37,7 @@ public class ConfigPath {
     //  ============================================== //
     private boolean myPet;
     private boolean mypetSkillAuto;
-    private Map<String, List<String>> skillProp;
+    private final Map<String, List<String>> skillProp = new HashMap<>();
 
     //  ============================================== //
     //         MySQLPlayerDataBridge Variables         //
@@ -49,9 +50,8 @@ public class ConfigPath {
     //         ItemJoin Variables                      //
     //  ============================================== //
     private boolean itemjoin;
-    private boolean ijFixOldItem;
-    private boolean ijOneMenu;
-    private Map<String, List<ItemJoinMap>> ijProp;
+    private boolean itemjoinFix;
+    private final Map<String, List<ItemJoinFixMap>> itemjoinFixProp = new HashMap<>();
 
     //  ============================================== //
     //         MorphTool Variables                     //
@@ -90,6 +90,15 @@ public class ConfigPath {
         setAuthMe();
         setDonate();
         setOthers();
+
+        sendSetupMessage();
+    }
+
+    private void sendSetupMessage() {
+        UtilsHandler.getLang().sendConsoleMsg(ConfigHandler.getPlugin(), "Setup ItemJoin-Fix: " + itemjoinFixProp.keySet());
+        UtilsHandler.getLang().sendConsoleMsg(ConfigHandler.getPlugin(), "Setup Donate: " + donateProp.keySet());
+        UtilsHandler.getLang().sendConsoleMsg(ConfigHandler.getPlugin(), "Setup Pet-Skill: " + skillProp.keySet());
+
     }
 
     //  ============================================== //
@@ -124,23 +133,24 @@ public class ConfigPath {
         myPet = ConfigHandler.getConfig("config.yml").getBoolean("MyPet.Enable");
         mypetSkillAuto = ConfigHandler.getConfig("config.yml").getBoolean("MyPet.Skilltree-Auto-Select.Enable");
         ConfigurationSection skillConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("MyPet.Skilltree-Auto-Select.Groups");
-        if (skillConfig != null) {
-            skillProp = new HashMap<>();
-            List<String> commands;
-            for (String group : skillConfig.getKeys(false)) {
-                if (group.equals("Enable")) {
-                    continue;
-                }
-                if (!ConfigHandler.getConfig("config.yml").getBoolean("MyPet.Skilltree-Auto-Select.Groups." + group + ".Enable", true)) {
-                    continue;
-                }
-                commands = ConfigHandler.getConfig("config.yml").getStringList("MyPet.Skilltree-Auto-Select.Groups." + group + ".Commands");
-                if (group.equals("Default")) {
-                    skillProp.put("Default", commands);
-                }
-                for (String type : ConfigHandler.getConfig("config.yml").getStringList("MyPet.Skilltree-Auto-Select.Groups." + group + ".Types")) {
-                    skillProp.put(type, commands);
-                }
+        if (skillConfig == null) {
+            return;
+        }
+
+        List<String> commands;
+        for (String group : skillConfig.getKeys(false)) {
+            if (group.equals("Enable")) {
+                continue;
+            }
+            if (!ConfigHandler.getConfig("config.yml").getBoolean("MyPet.Skilltree-Auto-Select.Groups." + group + ".Enable", true)) {
+                continue;
+            }
+            commands = ConfigHandler.getConfig("config.yml").getStringList("MyPet.Skilltree-Auto-Select.Groups." + group + ".Commands");
+            if (group.equals("Default")) {
+                skillProp.put("Default", commands);
+            }
+            for (String type : ConfigHandler.getConfig("config.yml").getStringList("MyPet.Skilltree-Auto-Select.Groups." + group + ".Types")) {
+                skillProp.put(type, commands);
             }
         }
     }
@@ -159,25 +169,28 @@ public class ConfigPath {
     //  ============================================== //
     private void setItemJoin() {
         itemjoin = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Enable");
-        ijFixOldItem = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Fix-Old-Item.Enable");
-        ijOneMenu = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.One-Menu.Enable");
-        ConfigurationSection ijConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("ItemJoin.Fix-Old-Item.Groups");
-        if (ijConfig != null) {
-            ijProp = new HashMap<>();
-            ItemJoinMap ijMap;
-            String itemType;
-            for (String group : ijConfig.getKeys(false)) {
-                ijMap = new ItemJoinMap();
-                ijMap.setItemNode(group);
-                ijMap.setName(CorePlusAPI.getUtilsManager().translateColorCode(ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Name")));
-                itemType = ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Type");
-                //ijMap.setLore(Utils.translateColorCode(ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Lore")));
-                try {
-                    ijProp.get(itemType).add(ijMap);
-                } catch (Exception ex) {
-                    ijProp.put(itemType, new ArrayList<>());
-                    ijProp.get(itemType).add(ijMap);
-                }
+        if (!itemjoin) {
+            return;
+        }
+        itemjoinFix = ConfigHandler.getConfig("config.yml").getBoolean("ItemJoin.Fix-Old-Item.Enable");
+        ConfigurationSection fixConfig = ConfigHandler.getConfig("config.yml").getConfigurationSection("ItemJoin.Fix-Old-Item.Groups");
+        if (fixConfig == null) {
+            return;
+        }
+        ItemJoinFixMap ijMap;
+        String itemType;
+        for (String group : fixConfig.getKeys(false)) {
+            ijMap = new ItemJoinFixMap();
+            ijMap.setItemNode(group);
+            itemType = ConfigHandler.getConfig("config.yml").getString("ItemJoin.Fix-Old-Item.Groups." + group + ".Type");
+            ijMap.setType(itemType);
+            ijMap.setNames(CorePlusAPI.getUtilsManager().translateColorCode(
+                    ConfigHandler.getConfig("config.yml").getStringList("ItemJoin.Fix-Old-Item.Groups." + group + ".Names")));
+            try {
+                itemjoinFixProp.get(itemType).add(ijMap);
+            } catch (Exception ex) {
+                itemjoinFixProp.put(itemType, new ArrayList<>());
+                itemjoinFixProp.get(itemType).add(ijMap);
             }
         }
     }
@@ -318,16 +331,13 @@ public class ConfigPath {
         return itemjoin;
     }
 
-    public boolean isIjFixOldItem() {
-        return ijFixOldItem;
+    public boolean isItemjoinFix() {
+        return itemjoinFix;
     }
 
-    public boolean isIjOneMenu() {
-        return ijOneMenu;
-    }
 
-    public Map<String, List<ItemJoinMap>> getIjProp() {
-        return ijProp;
+    public Map<String, List<ItemJoinFixMap>> getItemjoinFixProp() {
+        return itemjoinFixProp;
     }
 
     //  ============================================== //

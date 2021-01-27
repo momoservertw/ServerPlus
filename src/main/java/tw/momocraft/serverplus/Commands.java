@@ -6,8 +6,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.serverplus.handlers.ConfigHandler;
+import tw.momocraft.serverplus.listeners.ItemJoin;
 import tw.momocraft.serverplus.utils.BankReturn;
-import tw.momocraft.serverplus.utils.ItemJoin;
 
 
 public class Commands implements CommandExecutor {
@@ -53,10 +53,9 @@ public class Commands implements CommandExecutor {
                         CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.noPermission", sender);
                     }
                     return true;
-                } else if (args[0].equalsIgnoreCase("itemjoincreate")) {
-                    if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "entityplus.command.itemjoincreate")) {
-                        ConfigHandler.generateData(true);
-                        CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.configReload", sender);
+                } else if (args[0].equalsIgnoreCase("itemjoinfixconfig")) {
+                    if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "entityplus.command.itemjoinfixconfig")) {
+                        ItemJoin.itemJoinFixConfig();
                     } else {
                         CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.noPermission", sender);
                     }
@@ -85,40 +84,7 @@ public class Commands implements CommandExecutor {
                 }
                 break;
             case 3:
-                // serverplus itemjoinfix <player> [true/false]
-                if (args[0].equalsIgnoreCase("itemjoinfix")) {
-                    if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.itemjoinfix")) {
-                        if (!ConfigHandler.getConfigPath().isItemjoin()) {
-                            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.featureDisabled", sender);
-                            return true;
-                        }
-                        if (!ConfigHandler.getConfigPath().isIjFixOldItem()) {
-                            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.featureDisabled", sender);
-                            return true;
-                        }
-                        if (!ConfigHandler.getDepends().ItemJoinEnabled()) {
-                            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.featureDisabled", sender);
-                            return true;
-                        }
-                        Player player = CorePlusAPI.getPlayerManager().getPlayerString(args[1]);
-                        if (player == null) {
-                            String[] placeHolders = CorePlusAPI.getLangManager().newString();
-                            placeHolders[1] = args[1]; // %targetplayer%
-                            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.targetNotFound", sender, placeHolders);
-                            return true;
-                        }
-                        boolean sendMsg;
-                        try {
-                            sendMsg = Boolean.getBoolean(args[2]);
-                        } catch (Exception ex) {
-                            sendMsg = true;
-                        }
-                        ItemJoin.itemJoinFix(player, sendMsg);
-                    } else {
-                        CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.noPermission", sender);
-                    }
-                    return true;
-                } else if (args[0].equalsIgnoreCase("update")) {
+                if (args[0].equalsIgnoreCase("update")) {
                     if (CorePlusAPI.getPlayerManager().hasPerm(ConfigHandler.getPluginName(), sender, "serverplus.command.update")) {
                         if (!ConfigHandler.getConfigPath().isDonate()) {
                             CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), "Message.featureDisabled", sender);
