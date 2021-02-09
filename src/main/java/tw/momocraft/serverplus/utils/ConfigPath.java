@@ -40,13 +40,6 @@ public class ConfigPath {
     private final Map<String, List<String>> skillProp = new HashMap<>();
 
     //  ============================================== //
-    //         MySQLPlayerDataBridge Variables         //
-    //  ============================================== //
-    private boolean mpdb;
-    private boolean mpdbSyncComplete;
-    private List<String> mpdbSyncCompleteCmds;
-
-    //  ============================================== //
     //         ItemJoin Variables                      //
     //  ============================================== //
     private boolean itemjoin;
@@ -84,7 +77,6 @@ public class ConfigPath {
         setupMsg();
         setGeneral();
         setMyPet();
-        setMpdb();
         setItemJoin();
         setMorphTool();
         setAuthMe();
@@ -153,15 +145,6 @@ public class ConfigPath {
                 skillProp.put(type, commands);
             }
         }
-    }
-
-    //  ============================================== //
-    //         MySQLPlayerDataBridge Setter            //
-    //  ============================================== //
-    private void setMpdb() {
-        mpdb = ConfigHandler.getConfig("config.yml").getBoolean("MySQLPlayerDataBridge.Enable");
-        mpdbSyncComplete = ConfigHandler.getConfig("config.yml").getBoolean("MySQLPlayerDataBridge.SyncComplete.Enable");
-        mpdbSyncCompleteCmds = ConfigHandler.getConfig("config.yml").getStringList("MySQLPlayerDataBridge.SyncComplete.Commands");
     }
 
     //  ============================================== //
@@ -307,21 +290,6 @@ public class ConfigPath {
 
     public Map<String, List<String>> getSkillProp() {
         return skillProp;
-    }
-
-    //  ============================================== //
-    //         MySQLPlayerDataBridge Getter            //
-    //  ============================================== //
-    public boolean isMpdb() {
-        return mpdb;
-    }
-
-    public boolean isMpdbSyncComplete() {
-        return mpdbSyncComplete;
-    }
-
-    public List<String> getMpdbSyncCompleteCmds() {
-        return mpdbSyncCompleteCmds;
     }
 
     //  ============================================== //

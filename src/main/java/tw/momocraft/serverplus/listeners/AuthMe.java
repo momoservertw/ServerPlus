@@ -1,6 +1,5 @@
 package tw.momocraft.serverplus.listeners;
 
-import com.spawnchunk.auctionhouse.events.AuctionItemEvent;
 import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.api.v3.AuthMePlayer;
 import fr.xephi.authme.events.LoginEvent;

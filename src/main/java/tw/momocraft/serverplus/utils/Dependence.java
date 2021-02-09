@@ -8,7 +8,6 @@ public class Dependence {
     private boolean CMI = false;
     private boolean MyPet = false;
     private boolean MorphTool = false;
-    private boolean MysqlPlayerDataBridge = false;
     private boolean AuthMe = false;
     private boolean PvPManager = false;
 
@@ -22,14 +21,11 @@ public class Dependence {
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.MorphTool")) {
             this.setMorphToolStatus(Bukkit.getServer().getPluginManager().getPlugin("MorphTool") != null);
         }
-        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.MysqlPlayerDataBridge")) {
-            this.setMpbdStatus(Bukkit.getServer().getPluginManager().getPlugin("MysqlPlayerDataBridge") != null);
+        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.PvPManager")) {
+            this.setPvPManagerStatus(Bukkit.getServer().getPluginManager().getPlugin("PvPManager") != null);
         }
         if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.AuthMe")) {
             this.setAuthMeStatus(Bukkit.getServer().getPluginManager().getPlugin("AuthMe") != null);
-        }
-        if (ConfigHandler.getConfig("config.yml").getBoolean("General.Settings.Features.Hook.PvPManager")) {
-            this.setPvPManagerStatus(Bukkit.getServer().getPluginManager().getPlugin("PvPManager") != null);
         }
 
         sendUtilityDepends();
@@ -40,7 +36,6 @@ public class Dependence {
                 + (CMIEnabled() ? "CMI, " : "")
                 + (MyPetEnabled() ? "MyPet, " : "")
                 + (MorphToolEnabled() ? "MorphTool, " : "")
-                + (MpdbEnabled() ? "MysqlPlayerDataBridge, " : "")
                 + (AuthMeEnabled() ? "AuthMe, " : "")
                 + (PvPManagerEnabled() ? "PvPManager, " : "")
                 ;
@@ -69,10 +64,6 @@ public class Dependence {
         return this.MorphTool;
     }
 
-    public boolean MpdbEnabled() {
-        return this.MysqlPlayerDataBridge;
-    }
-
     public boolean PvPManagerEnabled() {
         return this.PvPManager;
     }
@@ -92,10 +83,6 @@ public class Dependence {
 
     public void setMorphToolStatus(boolean bool) {
         this.MorphTool = bool;
-    }
-
-    public void setMpbdStatus(boolean bool) {
-        this.MysqlPlayerDataBridge = bool;
     }
 
     private void setAuthMeStatus(boolean bool) {

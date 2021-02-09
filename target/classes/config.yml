@@ -2,7 +2,7 @@
 ##  Wiki: https://github.com/momoservertw/ServerPlus/wiki
 ## ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
 Config-Version: 1
-  Debugging: false
+Debugging: false
 
 General:
   Settings:
@@ -21,15 +21,7 @@ Restart:
   Enable: false
 
 Bank-Return:
-  Enable: true
-
-MySQLPlayerDataBridge:
   Enable: false
-  SyncComplete:
-    Enable: true
-    Commands:
-      - "player: lotteryplus itemjoinfix false"
-      - "player: zlogin"
 
 MorphTool:
   Enable: true
@@ -42,7 +34,7 @@ AuthMe:
     Enable: true
 
 MyPet:
-  Enable: true
+  Enable: false
   Skilltree-Auto-Select:
     Enable: true
     Groups:
@@ -86,7 +78,7 @@ MyPet:
           - "op: serverplus lottery petskill_fire"
 
 Donate:
-  Enable: true
+  Enable: false
   Groups:
     mb:
       Enable: true
