@@ -7,8 +7,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="EntityPlus" />
-        <module name="GuardianPlus" />
         <module name="ServerPlus" />
+        <module name="GuardianPlus" />
       </profile>
     </annotationProcessing>
   </component>

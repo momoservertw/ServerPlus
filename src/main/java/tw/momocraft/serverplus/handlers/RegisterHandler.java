@@ -14,7 +14,7 @@ public class RegisterHandler {
 
         if (ConfigHandler.getDepends().MorphToolEnabled()) {
             ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new MorphTool(), ServerPlus.getInstance());
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPluginPrefix(),
                     "Register-Event", "MorphTool", "PrepareSmithingEvent", "continue", new Throwable().getStackTrace()[0]);
         }
         if (ConfigHandler.getDepends().MyPetEnabled()) {
@@ -24,11 +24,11 @@ public class RegisterHandler {
         }
         if (ConfigHandler.getDepends().AuthMeEnabled()) {
             ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new AuthMe(), ServerPlus.getInstance());
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPluginPrefix(),
                     "Register-Event", "AuthMe", "LoginEvent", "continue", new Throwable().getStackTrace()[0]);
         }
         ServerPlus.getInstance().getServer().getPluginManager().registerEvents(new ItemJoin(), ServerPlus.getInstance());
-        CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
+        CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPluginPrefix(),
                 "Register-Event", "ItemJoin", "InventoryClickEvent", "continue", new Throwable().getStackTrace()[0]);
     }
 }

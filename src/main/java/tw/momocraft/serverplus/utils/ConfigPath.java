@@ -19,6 +19,8 @@ public class ConfigPath {
     private String msgHelp;
     private String msgReload;
     private String msgVersion;
+    private String msgCmdItemJoinFix;
+
     private String msgItemJoinFix;
     private String msgMorphToolRename;
     private String msgMorphToolNetherite;
@@ -87,9 +89,9 @@ public class ConfigPath {
     }
 
     private void sendSetupMessage() {
-        UtilsHandler.getLang().sendConsoleMsg(ConfigHandler.getPlugin(), "Setup ItemJoin-Fix: " + itemjoinFixProp.keySet());
-        UtilsHandler.getLang().sendConsoleMsg(ConfigHandler.getPlugin(), "Setup Donate: " + donateProp.keySet());
-        UtilsHandler.getLang().sendConsoleMsg(ConfigHandler.getPlugin(), "Setup Pet-Skill: " + skillProp.keySet());
+        UtilsHandler.getLang().sendConsoleMsg(ConfigHandler.getPluginPrefix(), "Setup ItemJoin-Fix: " + itemjoinFixProp.keySet());
+        UtilsHandler.getLang().sendConsoleMsg(ConfigHandler.getPluginPrefix(), "Setup Donate: " + donateProp.keySet());
+        UtilsHandler.getLang().sendConsoleMsg(ConfigHandler.getPluginPrefix(), "Setup Pet-Skill: " + skillProp.keySet());
 
     }
 
@@ -101,6 +103,8 @@ public class ConfigPath {
         msgHelp = ConfigHandler.getConfig("config.yml").getString("Message.Commands.help");
         msgReload = ConfigHandler.getConfig("config.yml").getString("Message.Commands.reload");
         msgVersion = ConfigHandler.getConfig("config.yml").getString("Message.Commands.version");
+        msgItemJoinFix = ConfigHandler.getConfig("config.yml").getString("Message.Commands.itemJoinFix");
+
         msgItemJoinFix = ConfigHandler.getConfig("config.yml").getString("Message.itemJoinFix");
         msgMorphToolRename = ConfigHandler.getConfig("config.yml").getString("Message.morphToolRename");
         msgMorphToolNetherite = ConfigHandler.getConfig("config.yml").getString("Message.morphToolNetherite");

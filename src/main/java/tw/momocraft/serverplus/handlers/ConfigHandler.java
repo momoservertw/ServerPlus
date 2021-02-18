@@ -1,11 +1,13 @@
 package tw.momocraft.serverplus.handlers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import tw.momocraft.coreplus.CorePlus;
 import tw.momocraft.coreplus.api.CorePlusAPI;
 import tw.momocraft.serverplus.ServerPlus;
-import tw.momocraft.serverplus.utils.*;
+import tw.momocraft.serverplus.utils.ConfigPath;
+import tw.momocraft.serverplus.utils.Dependence;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -23,6 +25,11 @@ public class ConfigHandler {
         genConfigFile("temporary.yml");
         setDepends(new Dependence());
         setConfigPath(new ConfigPath());
+        if (!reload) {
+            CorePlusAPI.getUpdateManager().check(getPluginPrefix(), Bukkit.getConsoleSender(),
+                    ServerPlus.getInstance().getDescription().getName(),
+                    ServerPlus.getInstance().getDescription().getVersion(), true);
+        }
     }
 
 
@@ -124,7 +131,7 @@ public class ConfigHandler {
         return getConfig("config.yml").getString("Message.prefix");
     }
 
-    public static String getPlugin() {
+    public static String getPluginPrefix() {
         return "[" + ServerPlus.getInstance().getDescription().getName() + "] ";
     }
 

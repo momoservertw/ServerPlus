@@ -60,8 +60,8 @@ public class MorphTool implements Listener {
                     return;
                 }
                 addCD(player);
-                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgMorphToolNetherite(), player);
-                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
+                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgMorphToolNetherite(), player);
+                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPluginPrefix(),
                         "MorphTool", player.getName(), "update", "cancel", new Throwable().getStackTrace()[0]);
             }
         } catch (Exception ignored) {
@@ -105,8 +105,8 @@ public class MorphTool implements Listener {
                     return;
                 }
                 addCD(player);
-                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgMorphToolRename(), player);
-                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
+                CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgMorphToolRename(), player);
+                CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPluginPrefix(),
                         "MorphTool", player.getName(), "rename", "cancel", new Throwable().getStackTrace()[0]);
             }
         } catch (Exception ex) {
@@ -115,8 +115,8 @@ public class MorphTool implements Listener {
                 return;
             }
             addCD(player);
-            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgMorphToolRename(), player);
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
+            CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(), ConfigHandler.getConfigPath().getMsgMorphToolRename(), player);
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPluginPrefix(),
                     "MorphTool", player.getName(), "rename", "cancel", new Throwable().getStackTrace()[0]);
         }
     }

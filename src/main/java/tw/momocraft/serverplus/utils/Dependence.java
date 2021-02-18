@@ -37,10 +37,9 @@ public class Dependence {
                 + (MyPetEnabled() ? "MyPet, " : "")
                 + (MorphToolEnabled() ? "MorphTool, " : "")
                 + (AuthMeEnabled() ? "AuthMe, " : "")
-                + (PvPManagerEnabled() ? "PvPManager, " : "")
-                ;
+                + (PvPManagerEnabled() ? "PvPManager, " : "");
         try {
-            CorePlusAPI.getLangManager().sendConsoleMsg(ConfigHandler.getPlugin(), hookMsg.substring(0, hookMsg.lastIndexOf(", ")) + "]");
+            CorePlusAPI.getLangManager().sendConsoleMsg(ConfigHandler.getPluginPrefix(), hookMsg.substring(0, hookMsg.lastIndexOf(", ")) + "]");
         } catch (Exception ignored) {
         }
         /*

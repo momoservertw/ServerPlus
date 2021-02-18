@@ -14,14 +14,16 @@ public class BankReturn {
         int exp = ConfigHandler.getConfig("temporary.yml").getInt(uuid + ".exp");
 
         if (money != 0) {
-            CorePlusAPI.getCommandManager().executeCmd(ConfigHandler.getPrefix(), player, "console: cmi money give " + playerName + " " + money, false);
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
+            CorePlusAPI.getCommandManager().executeCmd(ConfigHandler.getPrefix(), player,
+                    "console: cmi money give " + playerName + " " + money, false);
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPluginPrefix(),
                     "Bank-Return", playerName, "money", "success", "console: cmi money give " + playerName + " " + money,
                     new Throwable().getStackTrace()[0]);
         }
         if (exp != 0) {
-            CorePlusAPI.getCommandManager().executeCmd(ConfigHandler.getPrefix(), player, "console: cmi exp add " + playerName + " " + exp, false);
-            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPlugin(),
+            CorePlusAPI.getCommandManager().executeCmd(ConfigHandler.getPrefix(), player,
+                    "console: cmi exp add " + playerName + " " + exp, false);
+            CorePlusAPI.getLangManager().sendFeatureMsg(ConfigHandler.isDebugging(), ConfigHandler.getPluginPrefix(),
                     "Bank-Return", playerName, "money", "success", "console: cmi exp add " + playerName + " " + exp,
                     new Throwable().getStackTrace()[0]);
             CorePlusAPI.getCommandManager().dispatchLogCustomCmd(ConfigHandler.getPrefix(), "BankReturn, " + uuid + ":");

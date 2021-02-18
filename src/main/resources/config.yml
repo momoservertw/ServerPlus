@@ -78,70 +78,58 @@ MyPet:
           - "op: serverplus lottery petskill_fire"
 
 Donate:
-  Enable: false
-  Groups:
-    mb:
-      Enable: true
-      Group: "general"
-      Next-Group: "mb"
-      Commands:
-        - "console: lp user %player% promote donate"
-        - "all-sound: ENTITY_WITHER_SPAWN, 1, 1"
-        - "delay: 20"
-        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
-        - "delay: 20"
-        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
-        - "delay: 30"
-        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
-        - "delay: 30"
-        - "all-sound: UI_TOAST_CHALLENGE_COMPLETE, 1, 1"
-        - "broadcast: &6玩家 &e%player_display_name% &6成為了 &a&lMB&6， 謝謝你&4&o♥"
-        - "delay: 60;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
-        - "delay: 5;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
-        - "message: &d&l茉茉&c&o♥ &f歡迎加入大家庭！ 你現在是永久的居民囉 :)"
-        - "delay: 60;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
-        - "message: "
-        - "message: &7《&e&l解鎖&7》"
-        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
-        - "message: &f帳號永久保留 (即使有問題， 茉茉也會盡力救回)"
-        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
-        - "message: &f傳送點:&7    3個 +1⇪"
-        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
-        - "message: &f茉茉彩蛋:&7 150個 +50⇪"
-        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
-        - "message: &f領地格數:&7 14,400格 +4,400⇪"
-        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
-        - "message: &f特效:&7      喜悅、璀璨青春(綠色翅膀)"
-        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
-        - "message: &f戴帽子:&7    /hat"
-        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
-        - "message: &f終界箱:&7    /ender"
-        - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
-        - "message: &f每週禮物:&7 飛行券 x2、糖果包 x1"
-        - "message: "
-        - "delay: 60;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
-        - "delay: 5;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
-        - "message: &c&l禮物女孩&e&o♥ &f來找我領禮物！"
-      Failed-Commands:
-        - "message: &c你必須是一般玩家， 才可以升級MB！"
+  Enable: true
+  Points:
+    Groups:
+      playerPoints:
+        Enable: true
+        Commands:
+          - "ij get points %player% %amount%{number,/,10}"
+  Gift:
+    Groups:
+      mb:
+        Enable: true
+        Points: 300
+        Auto-Claim: "online"
+        Commands:
+          - "console: lp user %player% parent settrack donate mb"
+          - "custom: Ambient"
+          - "delay: 100"
+          - "broadcast: &6玩家 &e%player_display_name% &6成為了 &a&lMB&6， 謝謝你&4&o♥"
+          - "delay: 60"
+          - "custom: Notice"
+          - "message: &d&l禰豆子&c&o♥ &f歡迎加入大家庭！ 你現在是永久的居民囉 :)"
+          - "message: "
+          - "message: &7《&e&l解鎖&7》"
+          - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+          - "message: &f帳號永久保留 (即使有問題， 茉茉也會盡力救回)"
+          - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+          - "message: &f傳送點:&7    3個 +1⇪"
+          - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+          - "message: &f領地格數:&7 14,400格 +4,400⇪"
+          - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+          - "message: &f特效:&7      喜悅、璀璨青春(綠色翅膀)"
+          - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+          - "message: &f戴帽子:&7    /hat"
+          - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+          - "message: &f終界箱:&7    /ender"
+          - "delay: 15;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
+          - "message: &f每週禮物:&7 飛行券 x2、糖果包 x1"
+          - "message: "
+          - "delay: 60;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+          - "delay: 5;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+          - "message: &c&l禮物女孩&e&o♥ &f來找我領禮物！"
     vip:
       Enable: true
       Group: "mb"
       Next-Group: "vip"
       Commands:
-        - "console: lp user %player% promote donate"
-        - "all-sound: ENTITY_WITHER_SPAWN, 1, 1"
-        - "delay: 20"
-        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
-        - "delay: 20"
-        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
-        - "delay: 30"
-        - "all-sound: ENTITY_ENDER_DRAGON_AMBIENT, 1, 1"
-        - "delay: 30"
-        - "all-sound: UI_TOAST_CHALLENGE_COMPLETE, 1, 1"
+        - "console: lp user %player% parent settrack donate mb"
+        - "custom: Ambient"
+        - "delay: 100"
         - "broadcast: &6玩家 &e%player_display_name% &6成為了 &b&lVIP&6， 謝謝你&4&o♥"
-        - "delay: 60;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
-        - "delay: 5;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
+        - "delay: 60"
+        - "custom: Notice"
         - "message: &d&l茉茉&c&o♥ &f謝謝你們的付出！ 期待伺服器能變得更好 :)"
         - "delay: 60;sound: BLOCK_NOTE_BLOCK_IRON_XYLOPHONE, 1, 1"
         - "message: "
@@ -178,8 +166,6 @@ Donate:
         - "delay: 60;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
         - "delay: 5;sound: ENTITY_PLAYER_LEVELUP, 1, 1"
         - "message: &c&l禮物女孩&e&o♥ &f來找我領禮物！"
-      Failed-Commands:
-        - "message: &c你必須是MB， 才可以升級VIP！"
     mvp:
       Enable: true
       Group: "vip"
@@ -287,412 +273,17 @@ ItemJoin:
   Enable: true
   Fix-Old-Item:
     Enable: true
+    Settings:
+      Current-Item:
+        Enable: true
+        Ignore: []
     Groups:
-      points:
-        ItemNode: points
-        Type: PINK_DYE
-        Names:
-          - "&d&l茉茉代幣&8? &7x1"
-      points10:
-        ItemNode: points10
-        Type: PINK_DYE
-        Names:
-          - "&d&l茉茉代幣&8? &7x10"
-      points100:
-        ItemNode: points100
-        Type: PINK_DYE
-        Names:
-          - "&d&l茉茉代幣&8? &7x100"
-      easter_ticket:
-        ItemNode: easter_ticket
-        Type: EGG
-        Names:
-          - "&c&l彩&6&l蛋&e&l兌&a&l換&b&l券"
-      shop_random:
-        ItemNode: shop_random
-        Type: PLAYER_HEAD
-        Names:
-          - "&b&l商&a&l城&e&l隨&6&l機&c&l物&9&l品 &f&l兌換券"
-      menu:
-        ItemNode: menu
-        Type: COMPASS
-        Names:
-          - "&d&l茉茉選單2.0"
-      menu2:
-        ItemNode: menu2
-        Type: PLAYER_HEAD
-        Names:
-          - "&d&l茉茉選單3.0"
-      menu4:
-        ItemNode: menu4
-        Type: PLAYER_HEAD
-        Names:
-          - "&d&l茉茉選單&f? &c&l4.0"
-      menu5:
-        ItemNode: menu5
-        Type: PLAYER_HEAD
-        Names:
-          - "&d&l茉茉選單&f? &7剉冰"
-      easter_egg:
-        ItemNode: easter_egg
-        Type: PLAYER_HEAD
-        Names:
-          - "&e&l黃金彩蛋"
-      test:
-        ItemNode: test
-        Type: stone
-        Names:
-          - "test233"
-      GP1:
-        ItemNode: GP1
-        Type: BRICK
-        Names:
-          - "&d&l茉茉禮包&a&lI"
-      GP2:
-        ItemNode: GP2
-        Type: NETHER_BRICK
-        Names:
-          - "&d&l茉茉禮包&b&lII"
-      GP3:
-        ItemNode: GP3
-        Type: IRON_INGOT
-        Names:
-          - "&d&l茉茉禮包&e&lIII"
-      carnation:
-        ItemNode: carnation
-        Type: BRAIN_CORAL_FAN
-        Names:
-          - "&d&l康乃馨&c&o?"
-      enderchest:
-        ItemNode: enderchest
-        Type: PAPER
-        Names:
-          - "&2&l遙控終界箱券(30天) &f&l兌換券"
-      head_random:
-        ItemNode: head_random
-        Type: PAPER
-        Names:
-          - "&c&l隨機頭顱 &f&l兌換券"
-      fly:
-        ItemNode: fly
-        Type: PAPER
-        Names:
-          - "&b&l飛行券"
-      angel:
-        ItemNode: angel
-        Type: PAPER
-        Names:
-          - "&b&l天使券"
-      blade1:
-        ItemNode: blade1
-        Type: END_ROD
-        Names:
-          - "§b§l淨化猙之刃"
-      blade2:
-        ItemNode: blade2
-        Type: END_ROD
-        Names:
-          - "§f§l猙之刃"
-      petbuy0:
-        ItemNode: petbuy0
-        Type: PLAYER_HEAD
-        Names:
-          - "&f&l初新手 &6&l寵物轉蛋"
-      petbuy1:
-        ItemNode: petbuy1
-        Type: PLAYER_HEAD
-        Names:
-          - "&f&l第1系列 &6&l寵物轉蛋"
-      petbuy2:
-        ItemNode: petbuy2
-        Type: PLAYER_HEAD
-        Names:
-          - "&f&l第2系列 &6&l寵物轉蛋"
-      petskill:
-        ItemNode: petskill
-        Type: PLAYER_HEAD
-        Names:
-          - "&a&l寵物技能 &f&l學習書"
-      petskill_fire:
-        ItemNode: petskill_fire
-        Type: PLAYER_HEAD
-        Names:
-          - "&4&l烈焰 &a&l寵物技能 &f&l學習書"
-      petskill_arrowexp:
-        ItemNode: petskill_arrowexp
-        Type: PLAYER_HEAD
-        Names:
-          - "&b&l妖精 &a&l寵物技能 &f&l學習書"
-      petskill_decay:
-        ItemNode: petskill_decay
-        Type: PLAYER_HEAD
-        Names:
-          - "&6&l腐化 &a&l寵物技能 &f&l學習書"
-      petskill_mount:
-        ItemNode: petskill_mount
-        Type: PLAYER_HEAD
-        Names:
-          - "&e&l溫馴 &a&l寵物技能 &f&l學習書"
-      petskill_lithe:
-        ItemNode: petskill_lithe
-        Type: PLAYER_HEAD
-        Names:
-          - "&f&l輕盈 &a&l寵物技能 &f&l學習書"
-      petexp1:
-        ItemNode: petexp1
-        Type: MUSIC_DISC_WARD
-        Names:
-          - "&a&l寵物經驗包I"
-      petexp2:
-        ItemNode: petexp2
-        Type: MUSIC_DISC_MALL
-        Names:
-          - "&e&l寵物經驗包II"
-      petexp3:
-        ItemNode: petexp3
-        Type: MUSIC_DISC_FAR
-        Names:
-          - "&c&l寵物經驗包III"
-      vehiclesfix:
-        ItemNode: vehiclesfix
-        Type: PAPER
-        Names:
-          - "&c&l修補坐騎"
-      vehiclesbuy1:
-        ItemNode: vehiclesbuy1
-        Type: PLAYER_HEAD
-        Names:
-          - "&f&l第1系列 &c&l坐騎轉蛋"
-      vehiclesbuy2:
-        ItemNode: vehiclesbuy2
-        Type: PLAYER_HEAD
-        Names:
-          - "&f&l第2系列 &c&l坐騎轉蛋"
-      JP1:
-        ItemNode: JP1
-        Type: RED_DYE
-        Names:
-          - "&c&l茉茉刮刮樂I"
-      JP2:
-        ItemNode: JP2
-        Type: GLOWSTONE_DUST
-        Names:
-          - "&6&l茉茉刮刮樂II"
-      JP3:
-        ItemNode: JP3
-        Type: YELLOW_DYE
-        Names:
-          - "&e&l茉茉刮刮樂III"
-      JP4:
-        ItemNode: JP4
-        Type: PRISMARINE_SHARD
-        Names:
-          - "&a&l茉茉刮刮樂IV"
-      SM_BD:
-        ItemNode: SM_BD
-        Type: PAPER
-        Names:
-          - "&e&l生日怪召喚書 &f&l兌換券"
-      SM_yoyo880603:
-        ItemNode: SM_yoyo880603
-        Type: BOOK
-        Names:
-          - "&e&l小草生日怪 &f&l召喚書"
-      SM_PTL_Una:
-        ItemNode: SM_PTL_Una
-        Type: BOOK
-        Names:
-          - "&3&l忒忒生日怪 &f&l召喚書"
-      SM_Zi_Shen_OuO:
-        ItemNode: SM_Zi_Shen_OuO
-        Type: BOOK
-        Names:
-          - "&3&l紫雲生日怪 &f&l召喚書"
-      SM_MaToo_chu:
-        ItemNode: SM_MaToo_chu
-        Type: BOOK
-        Names:
-          - "&9&l獅子魚生日怪 &f&l召喚書"
-      SM_Magic1412:
-        ItemNode: SM_Magic1412
-        Type: BOOK
-        Names:
-          - "&9&l呱呱生日怪 &f&l召喚書"
-      SM_One_Punch:
-        ItemNode: SM_One_Punch
-        Type: BOOK
-        Names:
-          - "&c&l一拳&e&l超人 &f&l召喚書"
-      SM_Inosuke:
-        ItemNode: SM_Inosuke
-        Type: BOOK
-        Names:
-          - "&6&l伊之助 &f&l召喚書"
-      SM_Nemesis:
-        ItemNode: SM_Nemesis
-        Type: BOOK
-        Names:
-          - "&4&l魔王涅梅西斯 &f&l召喚書"
-      SM_HW:
-        ItemNode: SM_HW
-        Type: PAPER
-        Names:
-          - "&4&l惡魔召喚書 &f&l兌換券"
-      SM_Zombie1:
-        ItemNode: SM_Zombie1
-        Type: BOOK
-        Names:
-          - "&a&l帕咪 &f&l召喚書"
-      SM_Zombie2:
-        ItemNode: SM_Zombie2
-        Type: BOOK
-        Names:
-          - "&e&l黛咪 &f&l召喚書"
-      SM_Zombie3:
-        ItemNode: SM_Zombie3
-        Type: BOOK
-        Names:
-          - "&6&l傑恩 &f&l召喚書"
-      SM_Zombie4:
-        ItemNode: SM_Zombie4
-        Type: BOOK
-        Names:
-          - "&c&l小丑 &f&l召喚書"
-      SM_Zombie5:
-        ItemNode: SM_Zombie5
-        Type: BOOK
-        Names:
-          - "&4&l人面鬼 &f&l召喚書"
-      c_random_candy:
-        ItemNode: c_random_candy
-        Type: PLAYER_HEAD
-        Names:
-          - "&e&l糖&a&l果&b&l包"
-      c_increate_damage3:
-        ItemNode: c_increate_damage3
-        Type: PLAYER_HEAD
-        Names:
-          - "&c&l力量糖果&f&lIII"
-      c_speed3:
-        ItemNode: c_speed3
-        Type: PLAYER_HEAD
-        Names:
-          - "&9&l加速糖果&f&lIII"
-      c_jump3:
-        ItemNode: c_jump3
-        Type: PLAYER_HEAD
-        Names:
-          - "&3&l跳躍糖果&f&lIII"
-      c_health_boost3:
-        ItemNode: c_health_boost3
-        Type: PLAYER_HEAD
-        Names:
-          - "&6&l強壯糖果&f&lIII"
-      c_regenration3:
-        ItemNode: c_regenration3
-        Type: PLAYER_HEAD
-        Names:
-          - "&e&l康復糖果&f&lIII"
-      c_fast_digging3:
-        ItemNode: c_fast_digging3
-        Type: PLAYER_HEAD
-        Names:
-          - "&4&l破壞糖果&f&lIII"
-      c_luck3:
-        ItemNode: c_luck3
-        Type: PLAYER_HEAD
-        Names:
-          - "&d&l幸運糖果&f&lIII"
-      exp1:
-        ItemNode: exp1
-        Type: PLAYER_HEAD
-        Names:
-          - "&a&l茉茉經驗瓶I"
-      exp2:
-        ItemNode: exp2
-        Type: PLAYER_HEAD
-        Names:
-          - "&e&l茉茉經驗瓶II"
-      exp3:
-        ItemNode: exp3
-        Type: PLAYER_HEAD
-        Names:
-          - "&6&l茉茉經驗瓶III"
-      lucky1_7d:
-        ItemNode: lucky1_7d
-        Type: PAPER
-        Names:
-          - "&a&l戴比路克的祝福I &f7日 &f&l兌換券"
-      lucky1_30d:
-        ItemNode: lucky1_30d
-        Type: PAPER
-        Names:
-          - "&a&l戴比路克的祝福I &f30日 &f&l兌換券"
-      lucky2_7d:
-        ItemNode: lucky2_7d
-        Type: PAPER
-        Names:
-          - "&e&l戴比路克的祝福II &f7日 &f&l兌換券"
-      lucky2_30d:
-        ItemNode: lucky2_30d
-        Type: PAPER
-        Names:
-          - "&e&l戴比路克的祝福II &f30日 &f&l兌換券"
-      lucky3_30d:
-        ItemNode: lucky3_30d
-        Type: PAPER
-        Names:
-          - "&e&l戴比路克的祝福 I + II &f30日 &f&l兌換券"
-      slimecheck:
-        ItemNode: slimecheck
-        Type: BREWING_STAND
-        Names:
-          - "&a&l黏液檢測器&4&l?"
-      bbt_boost:
-        ItemNode: bbt_boost
-        Type: BOOK
-        Names:
-          - "&d&l爆能強化箭矢&7&l? &f&l學習書"
-      bbt_explosion:
-        ItemNode: bbt_explosion
-        Type: BOOK
-        Names:
-          - "&4&lExplosion！ &f&l學習書"
-      bbt_wool:
-        ItemNode: bbt_wool
-        Type: BOOK
-        Names:
-          - "&c&l彩&6&l色&e&l羊&a&l毛 &f&l學習書"
-      bbt_glass:
-        ItemNode: bbt_glass
-        Type: BOOK
-        Names:
-          - "&6&l彩&e&l色&a&l玻&9&l璃 &f&l學習書"
-      bbt_terracotta:
-        ItemNode: bbt_terracotta
-        Type: BOOK
-        Names:
-          - "&e&l彩&a&l色&9&l釉&1&l陶 &f&l學習書"
-      em_1:
-        ItemNode: em_1
-        Type: BOOK
-        Names:
-          - "&e&l心情&4? &f表情I &f&l學習書"
-      em_2:
-        ItemNode: em_2
-        Type: BOOK
-        Names:
-          - "&e&l心情&4? &f表情II &f&l學習書"
-      em_3:
-        ItemNode: em_3
-        Type: BOOK
-        Names:
-          - "&e&l心情&4? &f表情III &f&l學習書"
-      p_hug:
-        ItemNode: p_hug
-        Type: BOOK
-        Names:
-          - "&c&l特效&f? &c&l抱抱你 &f&l學習書"
+      example:
+        ItemNode: example
+        Type: STONE
+        Names:
+          - "&c&lFirst name"
+          - "&c&lSecond name"
 
 
 Message:
@@ -702,6 +293,7 @@ Message:
     help: "&a/serverplus help &8- &7This help menu."
     reload: "&a/serverplus reload &8- &7Reloads config file."
     version: "&f/serverplus version &8- &7Checks the plugin version and updates."
+    itemJoinFix: "&f/serverplus itemJoinFix [player] &8- &7Fixes the item of ItemJoin."
   itemJoinFix: "&f成功掃描身上所有物品 - 修復 %amount% 個物品"
   morphToolRename: "&c這個物品不能更改名字"
   morphToolNetherite: "&c這個物品不能升級"
