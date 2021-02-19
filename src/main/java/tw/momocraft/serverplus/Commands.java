@@ -22,7 +22,7 @@ public class Commands implements CommandExecutor {
                         ConfigHandler.getConfigPath().getMsgTitle(), sender);
                 CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender,
                         "&f " + ServerPlus.getInstance().getDescription().getName()
-                        + " &ev" + ServerPlus.getInstance().getDescription().getVersion() + "  &8by Momocraft");
+                                + " &ev" + ServerPlus.getInstance().getDescription().getVersion() + "  &8by Momocraft");
                 CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
                         ConfigHandler.getConfigPath().getMsgHelp(), sender);
                 CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender, "");
@@ -40,7 +40,7 @@ public class Commands implements CommandExecutor {
                             ConfigHandler.getConfigPath().getMsgTitle(), sender);
                     CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender,
                             "&f " + ServerPlus.getInstance().getDescription().getName()
-                            + " &ev" + ServerPlus.getInstance().getDescription().getVersion() + "  &8by Momocraft");
+                                    + " &ev" + ServerPlus.getInstance().getDescription().getVersion() + "  &8by Momocraft");
                     CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
                             ConfigHandler.getConfigPath().getMsgHelp(), sender);
                     if (CorePlusAPI.getPlayerManager().hasPerm(sender, "serverplus.command.reload")) {
@@ -79,8 +79,8 @@ public class Commands implements CommandExecutor {
                 if (CorePlusAPI.getPlayerManager().hasPerm(sender, "serverplus.command.version")) {
                     CorePlusAPI.getLangManager().sendMsg(ConfigHandler.getPrefix(), sender,
                             "&f " + ServerPlus.getInstance().getDescription().getName()
-                            + " &ev" + ServerPlus.getInstance().getDescription().getVersion() + "  &8by Momocraft");
-                    CorePlusAPI.getUpdateManager().check(ConfigHandler.getPrefix(), sender,
+                                    + " &ev" + ServerPlus.getInstance().getDescription().getVersion() + "  &8by Momocraft");
+                    CorePlusAPI.getUpdateManager().check(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(), sender,
                             ServerPlus.getInstance().getName(), ServerPlus.getInstance().getDescription().getVersion(), true);
                 } else {
                     CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
@@ -107,15 +107,7 @@ public class Commands implements CommandExecutor {
                                 "Message.featureDisabled", sender);
                         return true;
                     }
-                    Player player = CorePlusAPI.getPlayerManager().getPlayerString(args[1]);
-                    if (player == null) {
-                        String[] placeHolders = CorePlusAPI.getLangManager().newString();
-                        placeHolders[1] = args[1]; // %targetplayer%
-                        CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
-                                "Message.targetNotFound", sender, placeHolders);
-                        return true;
-                    }
-                    BankReturn.give(player);
+                    BankReturn.start();
                 } else {
                     CorePlusAPI.getLangManager().sendLangMsg(ConfigHandler.getPluginName(), ConfigHandler.getPrefix(),
                             "Message.noPermission", sender);

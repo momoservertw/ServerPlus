@@ -4,19 +4,6 @@
 Config-Version: 1
 Debugging: false
 
-General:
-  Settings:
-    Features:
-      # Changed these options need to restart the server.
-      Hook:
-        Residence: true
-        CMI: true
-        MyPet: true
-        MorphTool: true
-        ItemJoin: true
-        DiscordSRV: true
-        AuthMe: true
-
 Restart:
   Enable: false
 
@@ -293,7 +280,8 @@ Message:
     help: "&a/serverplus help &8- &7This help menu."
     reload: "&a/serverplus reload &8- &7Reloads config file."
     version: "&f/serverplus version &8- &7Checks the plugin version and updates."
-    itemJoinFix: "&f/serverplus itemJoinFix [player] &8- &7Fixes the item of ItemJoin."
+    itemJoinFix: "&f/serverplus itemJoinfix [player] &8- &7Fixes the item of ItemJoin."
+    bankReturn: "&f/serverplus bankreturn &8- &7Returns all money in the bank for players."
   itemJoinFix: "&f成功掃描身上所有物品 - 修復 %amount% 個物品"
   morphToolRename: "&c這個物品不能更改名字"
   morphToolNetherite: "&c這個物品不能升級"

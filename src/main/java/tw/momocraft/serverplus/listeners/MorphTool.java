@@ -27,7 +27,7 @@ public class MorphTool implements Listener {
      */
     @EventHandler(priority = EventPriority.HIGH)
     private void onPrepareSmithingEvent(PrepareSmithingEvent e) {
-        if (!ConfigHandler.getDepends().MorphToolEnabled()) {
+        if (!CorePlusAPI.getDependManager().MorphToolEnabled()) {
             return;
         }
         if (!ConfigHandler.getConfigPath().isMorphtool()) {
@@ -75,7 +75,7 @@ public class MorphTool implements Listener {
      */
     @EventHandler(priority = EventPriority.HIGH)
     private void onPrepareAnvilEvent(PrepareAnvilEvent e) {
-        if (!ConfigHandler.getDepends().MorphToolEnabled()) {
+        if (!CorePlusAPI.getDependManager().MorphToolEnabled()) {
             return;
         }
         if (!ConfigHandler.getConfigPath().isMorphtool()) {

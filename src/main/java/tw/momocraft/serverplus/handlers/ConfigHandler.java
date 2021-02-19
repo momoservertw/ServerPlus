@@ -18,7 +18,7 @@ public class ConfigHandler {
     private static YamlConfiguration configYAML;
     private static YamlConfiguration tempYAML;
     private static Dependence depends;
-    private static ConfigPath configPaths;
+    private static ConfigPath configPath;
 
     public static void generateData(boolean reload) {
         genConfigFile("config.yml");
@@ -26,7 +26,7 @@ public class ConfigHandler {
         setDepends(new Dependence());
         setConfigPath(new ConfigPath());
         if (!reload) {
-            CorePlusAPI.getUpdateManager().check(getPluginPrefix(), Bukkit.getConsoleSender(),
+            CorePlusAPI.getUpdateManager().check(getPluginName(), getPluginPrefix(), Bukkit.getConsoleSender(),
                     ServerPlus.getInstance().getDescription().getName(),
                     ServerPlus.getInstance().getDescription().getVersion(), true);
         }
@@ -112,11 +112,11 @@ public class ConfigHandler {
     }
 
     private static void setConfigPath(ConfigPath configPath) {
-        configPaths = configPath;
+        ConfigHandler.configPath = configPath;
     }
 
     public static ConfigPath getConfigPath() {
-        return configPaths;
+        return configPath;
     }
 
     public static Dependence getDepends() {
